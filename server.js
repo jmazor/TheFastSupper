@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 //const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const session = require('express-session');
+require('dotenv').config();
 
 const path = require('path');           
 const PORT = process.env.PORT || 5000;  
@@ -27,7 +28,7 @@ app.use(session({
 
 
 const { Schema } = mongoose;
-const uri = 'mongodb://127.0.0.1:27017/FastSupper';
+const uri =  process.env.MONGODB_URI
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
