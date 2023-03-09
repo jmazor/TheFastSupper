@@ -26,15 +26,6 @@ app.use(session({
     saveUninitialized: true
 }));
 
-if (process.env.NODE_ENV === 'production') 
-{
-  // Set static folder
-  app.use(express.static('frontend/build'));
-  app.get('*', (req, res) => 
- {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
-}
 
 
 const { Schema } = mongoose;
@@ -99,7 +90,7 @@ ratingsSchema.index({ userID: 1 });
 ratingsSchema.index({ restaurantID: 1 });
 const Rating = mongoose.model('Rating', ratingsSchema);
 
-router.get('/verify-email', async (req, res) => {
+app.get('/verify-email', async (req, res) => {
     const { token } = req.query;
     if (!token) {
         return res.status(400).send('Verification token is missing');
@@ -114,7 +105,7 @@ router.get('/verify-email', async (req, res) => {
 
         // Update the user's email verification status
         const result = await User.updateOne(
-            { _id: mongoose.Types.ObjectId(user._id) },
+            { _id: new mongoose.Types.ObjectId(user._id) },
             { $set: { isEmailVerified: true, verificationToken: null } }
         );
         if (result.nModified === 0) {
@@ -231,7 +222,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-router.get('/logout', async (req, res) => {
+app.get('/logout', async (req, res) => {
     try {
         // Destroy the user's session
         req.session.destroy(err => {
@@ -257,7 +248,7 @@ const authMiddleware = (req, res, next) => {
     }
 };
 
-router.get('/api/user', authMiddleware, async (req, res) => {
+app.get('/api/user', authMiddleware, async (req, res) => {
     try {
         const user = await User.findById(req.session.userId);
         res.json(user);
@@ -266,6 +257,16 @@ router.get('/api/user', authMiddleware, async (req, res) => {
         res.status(500).send('Internal server error');
     }
 });
+
+if (process.env.NODE_ENV === 'production') 
+{
+  // Set static folder
+  app.use(express.static('frontend/build'));
+  app.get('*', (req, res) => 
+ {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 app.use('/', router);
 app.listen(PORT, () => {
