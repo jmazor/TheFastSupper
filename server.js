@@ -1,8 +1,11 @@
 // Import necessary modules
-const { express, app, bodyParser, path, mongoose } = require('./modules.js');
+const { express, bodyParser, path, mongoose } = require('./modules');
 
 // Set default port for server
 const PORT = process.env.PORT || 5000;
+
+// Setup Express server
+const app = express();
 
 // Set the port for the server
 app.set('port', PORT);

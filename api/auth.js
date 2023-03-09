@@ -1,5 +1,5 @@
-// Load environment variables from .env file
-const { crypto, User, nodemailer, jwt, JWT_SECRET } = require('../modules.js');
+const { crypto, User, nodemailer, jwt, JWT_SECRET } = require('../modules');
+const router = require('express').Router();
 
 router.post('/api/signup', async (req, res) => {
     const { email, password, firstName, lastName } = req.body;

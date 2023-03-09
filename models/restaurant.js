@@ -1,4 +1,5 @@
-const { mongoose, Schema } = require('./modules.js');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const restaurantSchema = new mongoose.Schema({
     name: { type: String, required: true },
