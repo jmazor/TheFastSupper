@@ -1,16 +1,5 @@
 // Load environment variables from .env file
-require('dotenv').config();
-
-const express = require('express');
-const router = express.Router();
-const crypto = require('crypto');
-const User = require('../models/user');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-
-// Set up JWT secret for token generation and verification
-const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'mysecret';
+const { crypto, User, nodemailer, jwt, JWT_SECRET } = require('../modules.js');
 
 router.post('/api/signup', async (req, res) => {
     const { email, password, firstName, lastName } = req.body;

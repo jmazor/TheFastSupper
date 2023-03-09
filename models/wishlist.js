@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { mongoose, Schema } = require('./modules.js');
 
 const wishListSchema = new mongoose.Schema({
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
