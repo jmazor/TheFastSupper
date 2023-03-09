@@ -7,7 +7,12 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const session = require('express-session');
 
+const path = require('path');           
+const PORT = process.env.PORT || 5000;  
+
 const app = express();
+
+app.set('port', (process.env.PORT || 5000));
 
 const bodyParser = require('body-parser');
 
@@ -252,6 +257,7 @@ router.get('/api/user', authMiddleware, async (req, res) => {
 });
 
 app.use('/', router);
-app.listen(3000, () => {
-    console.log('Server listening on port 3000');
+app.listen(PORT, () => 
+{
+  console.log('Server listening on port ' + PORT);
 });
