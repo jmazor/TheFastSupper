@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+//const bcrypt = require('bcrypt');
+//const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const session = require('express-session');
 
