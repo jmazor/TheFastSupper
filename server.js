@@ -138,7 +138,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
         // Create a Nodemailer transport object
         const transporter = nodemailer.createTransport({
             // Replace with your SMTP settings
-            host: process.env.SMTP_SERVER,
+            host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,
             auth: {
                 user: process.env.SMTP_USERNAME,
