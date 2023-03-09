@@ -1,41 +1,39 @@
-// npm install express mongoose bcrypt crypto nodemailer express-session
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-//const bcrypt = require('bcrypt');
-//const crypto = require('crypto');
-const nodemailer = require('nodemailer');
-const session = require('express-session');
+// Load environment variables from .env file
 require('dotenv').config();
 
+// Import necessary modules
+const express = require('express');
+const app = express();
+const router = express.Router();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const path = require('path');
+const crypto = require('crypto');
+
+// Set default port for server
 const PORT = process.env.PORT || 5000;
 
-const app = express();
-
-app.set('port', (process.env.PORT || 5000));
-
-const bodyParser = require('body-parser');
-
-// parse application/json
-app.use(bodyParser.json());
-// TODO
-app.use(session({
-    secret: 'somethingshouldgohere',
-    resave: false,
-    saveUninitialized: true
-}));
-
-
-
+// Define Mongoose schema for data models
 const { Schema } = mongoose;
-const uri = process.env.MONGODB_URI
+
+// Set up JWT secret for token generation and verification
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'mysecret';
+
+// Set the port for the server
+app.set('port', PORT);
+
+// Add middleware to parse JSON data in incoming requests
+app.use(bodyParser.json());
+
+// Connect to MongoDB database
+const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 // Handle MongoDB connection errors
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 
 // TODO create a file for users schema
 // Define the schema for the Users collection
@@ -89,6 +87,8 @@ const ratingsSchema = new mongoose.Schema({
 ratingsSchema.index({ userID: 1 });
 ratingsSchema.index({ restaurantID: 1 });
 const Rating = mongoose.model('Rating', ratingsSchema);
+
+// TODO move API to a separate file
 
 app.get('/verify-email', async (req, res) => {
     const { token } = req.query;
@@ -154,18 +154,23 @@ const sendVerificationEmail = async (email, verificationToken) => {
 };
 
 // Signup endpoint
-// TODO deal with errors
-app.post('/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
-
     try {
+        // Check if a user with the same email address already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(409).send('Email already registered');
+        }
+
         // Create a new user in the database
+        const token = crypto.randomBytes(16).toString('hex');
         const user = new User({
             email,
             password,
             firstName,
             lastName,
-            verificationToken: Math.random().toString(36).substr(2, 8)
+            verificationToken: token
         });
         await user.save();
 
@@ -181,7 +186,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // TODO redis for storing sessions
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -204,17 +209,16 @@ app.post('/login', async (req, res) => {
             return res.status(400).send('Invalid email or password');
         }
 
-        // Create a session
-        req.session.user = {
-            _id: user._id,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            picture: user.picture
-        };
+        // Create a JWT token
+        const token = jwt.sign(
+            { userId: user._id, email: user.email },
+            JWT_SECRET,
+            { expiresIn: '1h' } // Token expires in 1 hour
+        );
 
-        // Return a success response
-        res.status(200).send('Login successful');
+        // Send the token to the client
+        res.json({ token });
+
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal server error');
@@ -222,7 +226,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-app.get('/logout', async (req, res) => {
+app.get('/api/logout', async (req, res) => {
     try {
         // Destroy the user's session
         req.session.destroy(err => {
@@ -250,7 +254,7 @@ const authMiddleware = (req, res, next) => {
 
 app.get('/api/user', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findById(req.session.userId);
+        const user = await User.findById(req.userId);
         res.json(user);
     } catch (err) {
         console.error(err);
@@ -258,14 +262,13 @@ app.get('/api/user', authMiddleware, async (req, res) => {
     }
 });
 
-if (process.env.NODE_ENV === 'production') 
-{
-  // Set static folder
-  app.use(express.static('frontend/build'));
-  app.get('*', (req, res) => 
- {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
+
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('frontend/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    });
 }
 
 app.use('/', router);
