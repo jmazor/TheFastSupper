@@ -8,8 +8,8 @@ const nodemailer = require('nodemailer');
 const session = require('express-session');
 require('dotenv').config();
 
-const path = require('path');           
-const PORT = process.env.PORT || 5000;  
+const path = require('path');
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
@@ -24,11 +24,21 @@ app.use(session({
     secret: 'somethingshouldgohere',
     resave: false,
     saveUninitialized: true
-  }));
+}));
+
+if (process.env.NODE_ENV === 'production') 
+{
+  // Set static folder
+  app.use(express.static('frontend/build'));
+  app.get('*', (req, res) => 
+ {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 
 const { Schema } = mongoose;
-const uri =  process.env.MONGODB_URI
+const uri = process.env.MONGODB_URI
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
@@ -241,9 +251,9 @@ router.get('/logout', async (req, res) => {
 
 const authMiddleware = (req, res, next) => {
     if (req.session.user && req.session.user._id) {
-      next();
+        next();
     } else {
-      res.status(401).send('Unauthorized');
+        res.status(401).send('Unauthorized');
     }
 };
 
@@ -258,7 +268,6 @@ router.get('/api/user', authMiddleware, async (req, res) => {
 });
 
 app.use('/', router);
-app.listen(PORT, () => 
-{
-  console.log('Server listening on port ' + PORT);
+app.listen(PORT, () => {
+    console.log('Server listening on port ' + PORT);
 });
