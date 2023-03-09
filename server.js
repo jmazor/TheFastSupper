@@ -133,22 +133,22 @@ router.get('/verify-email', async (req, res) => {
 const sendVerificationEmail = async (email, verificationToken) => {
     try {
         // Generate a verification URL using the user's verification token
-        const verificationUrl = `http://example.com/verify-email?token=${verificationToken}`;
+        const verificationUrl = `https://fastsupper.herokuapp.com/verify-email?token=${verificationToken}`;
 
         // Create a Nodemailer transport object
         const transporter = nodemailer.createTransport({
             // Replace with your SMTP settings
-            host: 'SMTPSERVER',
-            port: 465,
+            host: process.env.SMTP_SERVER,
+            port: process.env.SMTP_PORT,
             auth: {
-                user: 'EMAIL',
-                pass: 'PASSWORD'
+                user: process.env.SMTP_USERNAME,
+                pass: process.env.SMTP_PASSWORD
             }
         });
 
         // Define the email message
         const mailOptions = {
-            from: 'EMAIL',
+            from: process.env.SMTP_USERNAME,
             to: email,
             subject: 'Verify your email address',
             html: `Please click the following link to verify your email address: <a href="${verificationUrl}">${verificationUrl}</a>`
