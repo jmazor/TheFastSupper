@@ -6,7 +6,6 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
-
 // Set up JWT secret for token generation and verification
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'mysecret';
@@ -20,11 +19,8 @@ const Restaurant = require('./models/restaurant');
 const WishList = require('./models/wishlist');
 const Rating = require('./models/rating');
 
-
-module.exports = require('modules.js');
 module.exports = {
   express,
-  app,
   bodyParser,
   mongoose,
   Schema,
