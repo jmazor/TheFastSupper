@@ -1,18 +1,8 @@
-// Load environment variables from .env file
-require('dotenv').config();
-
 // Import necessary modules
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const path = require('path');
+const { express, app, bodyParser, path, mongoose } = require('./modules.js');
 
 // Set default port for server
 const PORT = process.env.PORT || 5000;
-
-// Define Mongoose schema for data models
-const { Schema } = mongoose;
 
 // Set the port for the server
 app.set('port', PORT);
@@ -27,11 +17,6 @@ const db = mongoose.connection;
 
 // Handle MongoDB connection errors
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-const User = require('./models/user');
-const Restaurant = require('./models/restaurant');
-const WishList = require('./models/wishlist');
-const Rating = require('./models/rating');
 
 // Define routes for the API
 const authRouter = require('./api/auth');
