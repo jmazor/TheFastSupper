@@ -15,16 +15,19 @@ for restaurant in restaurants:
     business_id = restaurant['id']
     offset = 0
     reviews = []
-    while offset < 100:
-        params = {'limit': 50, 'offset': offset}
+    while offset < 998:
+        params = {'limit': 3, 'offset': offset}
         response = requests.get(url.format(id=business_id), headers=headers, params=params)
         data = response.json()
         if 'reviews' in data:
+            # Add the business ID to each review
+            for review in data['reviews']:
+                review['business_id'] = business_id
             reviews.extend(data['reviews'])
         else:
             print(f'Error retrieving reviews for {business_id}:', data.get('error', {}).get('description'))
             break
-        offset += 50
+        offset += 3
 
     if reviews:
         reviews_by_restaurant[business_id] = reviews
@@ -32,5 +35,5 @@ for restaurant in restaurants:
 
 # Print the number of reviews retrieved and save to a file
 print(f'Retrieved reviews for {len(reviews_by_restaurant)} restaurants')
-with open('reviews_by_restaurant.json', 'w') as file:
+with open('reviews.json', 'w') as file:
     json.dump(reviews_by_restaurant, file, indent=4)
