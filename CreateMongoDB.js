@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Connect to the MongoDB server
-const uri = 'mongodb://127.0.0.1:27017/corn';
+const uri = 'mongodb://127.0.0.1:27017/FastSupper';
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('strictQuery', true);
 const db = mongoose.connection;
