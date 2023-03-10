@@ -1,3 +1,4 @@
+// Sets up an Express app
 const { express, bodyParser } = require('./modules');
 const authRouter = require('./api/auth');
 
