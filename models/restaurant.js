@@ -2,16 +2,45 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const restaurantSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    location: { type: String, required: true },
-    foodType: [{ type: String, required: true }],
-    price: { type: Number, default: null },
-    rating: { type: Number, default: null },
-    hours: { type: String, default: null },
-    pictures: [{ type: String, default: null }],
-    phone: { type: String, default: null },
-});
-restaurantSchema.index({ location: 1 });
-restaurantSchema.index({ foodType: 1 });
-
+    id: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    alias: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    image_url: String,
+    url: String,
+    review_count: Number,
+    categories: [{
+      alias: String,
+      title: String
+    }],
+    rating: Number,
+    coordinates: {
+      latitude: Number,
+      longitude: Number
+    },
+    transactions: [String],
+    price: String,
+    location: {
+      address1: String,
+      address2: String,
+      address3: String,
+      city: String,
+      zip_code: String,
+      country: String,
+      state: String,
+      display_address: [String]
+    },
+    phone: String,
+    display_phone: String,
+  });
+  
 module.exports = mongoose.model('Restaurant', restaurantSchema);
