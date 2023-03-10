@@ -1,38 +1,25 @@
-// Import necessary modules
-const { express, bodyParser, path, mongoose } = require('./modules');
+// Sets up a server
+const { path, mongoose } = require('./modules');
+const app = require('./app');
 
-// Set default port for server
 const PORT = process.env.PORT || 5000;
 
-// Setup Express server
-const app = express();
-
-// Set the port for the server
-app.set('port', PORT);
-
-// Add middleware to parse JSON data in incoming requests
-app.use(bodyParser.json());
-
-// Connect to MongoDB database
 const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-
-// Handle MongoDB connection errors
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// Define routes for the API
-const authRouter = require('./api/auth');
-
 if (process.env.NODE_ENV === 'production') {
-    // Set static folder
     app.use(express.static('frontend/build'));
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
 
-app.use(authRouter);
-app.listen(PORT, () => {
+app.set('port', PORT);
+
+const server = app.listen(PORT, () => {
     console.log('Server listening on port ' + PORT);
 });
+
+module.exports = server;
