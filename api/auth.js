@@ -1,4 +1,4 @@
-const { crypto, User, nodemailer, jwt, JWT_SECRET } = require('../modules');
+const { crypto, User, nodemailer, jwt, JWT_SECRET, mongoose } = require('../modules');
 const router = require('express').Router();
 
 router.post('/api/signup', async (req, res) => {
