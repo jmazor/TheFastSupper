@@ -1,5 +1,5 @@
-const { crypto, User, nodemailer, jwt, JWT_SECRET, mongoose } = require('../modules');
-const router = require('express').Router();
+const { bcrypt, crypto, User, nodemailer, jwt, JWT_SECRET, mongoose, express } = require('../modules');
+const router = express.Router();
 
 router.post('/api/signup', async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
@@ -10,11 +10,15 @@ router.post('/api/signup', async (req, res) => {
             return res.status(409).send('Email already registered');
         }
 
+        // Hash and salt the password
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         // Create a new user in the database
         const token = crypto.randomBytes(16).toString('hex');
         const user = new User({
             email,
-            password,
+            password: hashedPassword,
             firstName,
             lastName,
             verificationToken: token
@@ -32,7 +36,7 @@ router.post('/api/signup', async (req, res) => {
     }
 });
 
-// TODO redis for storing sessions
+// TODO Work on JWT refresh
 router.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -49,9 +53,7 @@ router.post('/api/login', async (req, res) => {
         }
 
         // Compare the password hash
-        // TODO use bcrypt
-        // const isMatch = await bcrypt.compare(password, user.password);
-        const isMatch = (password === user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).send('Invalid email or password');
         }

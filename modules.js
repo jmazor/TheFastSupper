@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
 // Set up JWT secret for token generation and verification
 const jwt = require('jsonwebtoken');
@@ -33,4 +34,5 @@ module.exports = {
   Restaurant,
   WishList,
   Rating,
+  bcrypt
 };
