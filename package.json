@@ -10,10 +10,14 @@
   },
   "scripts": {
     "start": "node server.js",
+    "test": "jest",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "devDependencies": {
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*.test.js"]
   }
 }
