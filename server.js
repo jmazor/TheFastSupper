@@ -1,5 +1,5 @@
 // Sets up a server
-const { path, mongoose } = require('./modules');
+const { path, mongoose, express } = require('./modules');
 const app = require('./app');
 
 const PORT = process.env.PORT || 5000;
