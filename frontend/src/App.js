@@ -54,7 +54,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>The Fast Supper</h2>
         </div>
-        <p className="App-body">
+        <p className="App-intro">
           <Button color="primary" onClick={toggle}>
             Sign Up
           </Button>
