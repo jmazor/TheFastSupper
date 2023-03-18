@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 
 import HomePage from './pages/Homepage';
-class App extends Component {
-  render() {
+function App() {
+
     return (
      <HomePage />
     );
-  }
+  
 }
 
 export default App;
