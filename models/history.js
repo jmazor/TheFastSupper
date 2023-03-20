@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const wishListSchema = new mongoose.Schema({
+const historySchema = new mongoose.Schema({
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     restaurantID: { type: Schema.Types.ObjectId, ref: 'Restaurant', required: true },
-    isRated: { type: Boolean, required: true },
+    liked: { type: Boolean, required: true },
     date: { type: Date, default: Date.now, required: true },
-    visited: { type: Boolean, required: true },
+    isVisited: { type: Boolean, default: false, required: true },
 });
 
-wishListSchema.index({ userID: 1 });
-wishListSchema.index({ restaurantID: 1 });
+historySchema.index({ userID: 1 });
+historySchema.index({ restaurantID: 1 });
 
-module.exports = mongoose.model('WishList', wishListSchema);
+module.exports = mongoose.model('history', historySchema);

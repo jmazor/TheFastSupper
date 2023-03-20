@@ -60,13 +60,13 @@ router.post('/api/login', async (req, res) => {
 
         // Create a JWT token
         const token = jwt.sign(
-            { userId: user._id, email: user.email, firstName: user.firstName},
+            { userId: user._id, email: user.email},
             JWT_SECRET,
             { expiresIn: '1h' } // Token expires in 1 hour
         );
 
         // Send the token to the client
-        res.json({ token });
+        res.json({ token, firstName :user.firstName });
 
     } catch (err) {
         console.error(err);

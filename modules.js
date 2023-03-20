@@ -17,8 +17,8 @@ const { Schema } = mongoose;
 
 const User = require('./models/user');
 const Restaurant = require('./models/restaurant');
-const WishList = require('./models/wishlist');
-const Rating = require('./models/rating');
+const History = require('./models/history');
+const Review = require('./models/review');
 
 module.exports = {
   express,
@@ -32,7 +32,7 @@ module.exports = {
   JWT_SECRET,
   User,
   Restaurant,
-  WishList,
-  Rating,
+  History,
+  Review,
   bcrypt
 };

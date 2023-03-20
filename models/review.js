@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const ratingSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     userID: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     restaurantID: { type: Schema.Types.ObjectId, ref: 'Restaurant', required: true },
     rating: { type: Number, required: true },
@@ -9,7 +9,7 @@ const ratingSchema = new mongoose.Schema({
     favorite: { type: Boolean, required: true },
 });
 
-ratingSchema.index({ userID: 1 });
-ratingSchema.index({ restaurantID: 1 });
+reviewSchema.index({ userID: 1 });
+reviewSchema.index({ restaurantID: 1 });
 
-module.exports = mongoose.model('Rating', ratingSchema);
+module.exports = mongoose.model('review', reviewSchema);
