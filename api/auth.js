@@ -60,7 +60,7 @@ router.post('/api/login', async (req, res) => {
 
         // Create a JWT token
         const token = jwt.sign(
-            { userId: user._id, email: user.email },
+            { userId: user._id, email: user.email, firstName: user.firstName},
             JWT_SECRET,
             { expiresIn: '1h' } // Token expires in 1 hour
         );
