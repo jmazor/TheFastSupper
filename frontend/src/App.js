@@ -27,6 +27,7 @@ const App = () =>
 
   const handleSubmit = async (e) =>
   {
+    let result = document.getElementById("loginResult")
     e.preventDefault();
     const data = {
       firstName: e.target.firstName.value,
@@ -38,11 +39,13 @@ const App = () =>
     // Make the API request to your backend to create a new user (update the URL accordingly)
     try
     {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/signup', data);
+      const response = await axios.post('https://localhost:3000/api/signup', data);
       console.log(response.data);
+      result.innerHTML = response.data
     } catch (error)
     {
       console.error('Error:', error);
+      result.innerHTML = error
     }
 
     // Close the modal after submitting the form
@@ -51,6 +54,7 @@ const App = () =>
 
   const handleLogin = async (e) =>
   {
+    let result = document.getElementById("loginResult")
     e.preventDefault();
     const data = {
       email: e.target.loginEmail.value,
@@ -60,10 +64,12 @@ const App = () =>
     // Make the API request to your backend to log in the user (update the URL accordingly)
     try
     {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/login', data);
+      const response = await axios.post('https://localhost:3000/api/login', data);
       console.log(response.data);
+      result.innerHTML = response.data
     } catch (error)
     {
+      result.innerHTML = error
       console.error('Error:', error);
     }
 
@@ -75,6 +81,9 @@ const App = () =>
     <div className="App">
       <div className="App-header">
         <h2>The Fast Supper</h2>
+      </div>
+      <div id='loginResultDiv'>
+        <h1 id='loginResult'></h1>
       </div>
 
       <div className="App-body">
@@ -139,7 +148,7 @@ const App = () =>
 
               <FormGroup>
                 <Label for="email">Email</Label>
-                <Input type="email" name="email" id="email" required />
+                <Input type="email" name="email" id="email" required placeholder='Example@test.com'/>
               </FormGroup>
 
               <FormGroup>
