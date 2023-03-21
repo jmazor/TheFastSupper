@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import '../custom.css';
+import config from '../config';
 import
   {
     Button,
@@ -38,7 +39,7 @@ const LoginPage = () =>
     // Make the API request to your backend to create a new user (update the URL accordingly)
     try
     {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/signup', data);
+      const response = await axios.post(`${config.url}/api/signup`, data);
       console.log(response.data);
       result.innerHTML = response.data
     } catch (error)
@@ -63,7 +64,7 @@ const LoginPage = () =>
     // Make the API request to your backend to log in the user (update the URL accordingly)
     try
     {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/login', data);
+      const response = await axios.post(`${config.url}/api/login`, data);
       console.log(response.data);
       result.innerHTML = response.data
     } catch (error)
