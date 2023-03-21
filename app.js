@@ -1,6 +1,7 @@
 // Sets up an Express app
 const { express, bodyParser } = require('./modules');
 const authRouter = require('./api/auth');
+const histRouter = require('./api/history');
 const userRouter = require('./api/user');
 
 const app = express();
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
   
 
 app.use(authRouter);
+app.use(histRouter);
 app.use(userRouter);
 
 module.exports = app;
