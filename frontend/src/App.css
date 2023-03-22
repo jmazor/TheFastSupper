@@ -8,10 +8,14 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #000000;
   height: 150px;
   padding: 20px;
   color: white;
+  font-family: 'Imbue', sans-serif;
+}
+#Title {
+  font-size: 100px; 
 }
 
 .App-body {

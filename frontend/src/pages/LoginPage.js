@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import '../custom.css';
+import '../LoginPage.css';
 import config from '../config';
 import
   {
@@ -80,7 +81,7 @@ const LoginPage = () =>
   return (
     <div className="App">
       <div className="App-header">
-        <h2>The Fast Supper</h2>
+        <h2 id="Title">The Fast Supper</h2>
       </div>
       <div id='loginResultDiv'>
         <h1 id='loginResult'></h1>
@@ -103,7 +104,6 @@ const LoginPage = () =>
 
           <ModalHeader toggle={toggleLogin}>Log In</ModalHeader>
           <ModalBody>
-            
             <FormGroup>
               <Label for="loginEmail">Email</Label>
               <Input type="email" name="loginEmail" id="loginEmail" required />
@@ -170,6 +170,7 @@ const LoginPage = () =>
             </ModalFooter>
           </Form>
         </Modal>
+
       </div>
     </div>
   );
