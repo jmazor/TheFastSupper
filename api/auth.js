@@ -1,5 +1,6 @@
-const { bcrypt, crypto, User, nodemailer, jwt, JWT_SECRET, mongoose, express } = require('../modules');
+const { bcrypt, crypto, User, nodemailer, mongoose, express } = require('../modules');
 const router = express.Router();
+const manageJWT = require('../manageJWT');
 
 router.post('/api/signup', async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
@@ -59,14 +60,10 @@ router.post('/api/login', async (req, res) => {
         }
 
         // Create a JWT token
-        const token = jwt.sign(
-            { userId: user._id, email: user.email},
-            JWT_SECRET,
-            { expiresIn: '1h' } // Token expires in 1 hour
-        );
+        const token = manageJWT.createToken(user._id, user.email);
 
         // Send the token to the client
-        res.json({ token, firstName :user.firstName });
+        res.json({ token : token, firstName :user.firstName });
 
     } catch (err) {
         console.error(err);
