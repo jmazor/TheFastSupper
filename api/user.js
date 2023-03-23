@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { Restaurant, returnUser } = require('../modules');
+const { Restaurant, returnUser, refresh } = require('../modules');
 
 // Route to get 10 random restaurants
 router.post('/api/restaurants', async (req, res) => {
   try { 
-    console.log(req.body.token);
     if(returnUser(req.body.token) == null)
       return res.status(401).send('Token unverified or expired');
 
@@ -19,8 +18,9 @@ router.post('/api/restaurants', async (req, res) => {
       { $match: query },
       { $sample: { size: 10 } }
     ]).exec();
+    token = refresh(req.body.token);
 
-    res.json(randomRestaurants);
+    res.json({randomRestaurants, token});
 
   } catch (err) {
     console.error(err);
