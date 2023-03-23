@@ -17,7 +17,6 @@
 #Title {
   font-size: 100px; 
 }
-
 .App-body {
   font-size: large;
 }
@@ -25,4 +24,9 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+:root {
+  --bs-body-bg: #F8C1A9 !important;
+  
 }

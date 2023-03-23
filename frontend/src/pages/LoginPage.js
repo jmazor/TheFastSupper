@@ -3,6 +3,7 @@ import '../App.css';
 import '../custom.css';
 import '../LoginPage.css';
 import config from '../config';
+import { useNavigate } from "react-router-dom";
 import
   {
     Button,
@@ -20,11 +21,12 @@ import axios from 'axios';
 
 const LoginPage = () =>
 {
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const toggle = () => setModal(!modal);
   const toggleLogin = () => setLoginModal(!loginModal);
-
+  // const navigate = useNavigate();
 
   const handleSubmit = async (e) =>
   {
@@ -62,15 +64,17 @@ const LoginPage = () =>
       password: e.target.loginPassword.value,
     };
 
+    
     // Make the API request to your backend to log in the user (update the URL accordingly)
     try
     {
       const response = await axios.post(`${config.url}/api/login`, data);
       console.log(response.data);
-      result.innerHTML = response.data
+      result.innerHTML = "Welcome " + response.data["firstName"];
+      navigate('/home');
     } catch (error)
     {
-      result.innerHTML = error
+      result.innerHTML = error.response.data
       console.error('Error:', error);
     }
 
