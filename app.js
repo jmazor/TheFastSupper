@@ -3,6 +3,7 @@ const { express, bodyParser } = require('./modules');
 const authRouter = require('./api/auth');
 const histRouter = require('./api/history');
 const userRouter = require('./api/user');
+const reviewRouter = require('./api/review');
 
 const app = express();
 
@@ -20,5 +21,6 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(authRouter);
 app.use(histRouter);
 app.use(userRouter);
+app.use(reviewRouter);
 
 module.exports = app;

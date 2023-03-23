@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Restaurant, returnUser, refresh } = require('../modules');
+const { Restaurant, returnUser, refresh, Review, User } = require('../modules');
 
 // Route to get 10 random restaurants
 router.post('/api/restaurants', async (req, res) => {
@@ -27,5 +27,7 @@ router.post('/api/restaurants', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
+
+
 
 module.exports = router;

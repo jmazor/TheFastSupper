@@ -5,6 +5,7 @@ const user = require('../models/user');
 
 // Helper function to create a dummy user
 const createDummyUser = async (email = 'history@example.com') => {
+  User.deleteOne({ email });
   const user = new User({
     email: email,
     password: 'testpassword',
@@ -42,7 +43,7 @@ describe('History API', () => {
   beforeAll(async () => {
     server = app.listen(0);
     await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-    User.deleteOne({ email: 'history@example.com'});
+    await User.deleteMany({ email: 'history@example.com'});
   });
 
   afterAll(async () => {
