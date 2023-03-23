@@ -68,8 +68,9 @@ const LoginPage = () =>
     {
       const response = await axios.post(`${config.url}/api/login`, data);
       console.log(response.data);
-      result.innerHTML = "Welcome " + response.data.firstName
-      localStorage.setItem("token", response.data.token)
+      result.innerHTML = "Welcome " + response.data.firstName;
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("name", response.data.firstName);
       navigate('/home');
     } catch (error)
     {
