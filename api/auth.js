@@ -40,11 +40,11 @@ router.post('/api/signup', async (req, res) => {
 router.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-
+        
         // Look up the user in the database
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).send('Invalid email or password');
+            return res.status(100).send('Invalid email or password');
         }
 
         // Check if the email has been verified
