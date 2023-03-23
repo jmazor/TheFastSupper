@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
 import '../custom.css';
-import '../LoginPage.css';
 import config from '../config';
 import { useNavigate } from "react-router-dom";
 import
