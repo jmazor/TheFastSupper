@@ -42,7 +42,6 @@ const LoginPage = () =>
     {
       const response = await axios.post(`${config.url}/api/signup`, data);
       console.log(response.data);
-      result.innerHTML = response.data
     } catch (error)
     {
       console.error('Error:', error);
@@ -67,7 +66,8 @@ const LoginPage = () =>
     {
       const response = await axios.post(`${config.url}/api/login`, data);
       console.log(response.data);
-      result.innerHTML = response.data
+      result.innerHTML = "Welcome " + response.data.firstName
+      localStorage.setItem("token", response.data.token)
     } catch (error)
     {
       result.innerHTML = error
