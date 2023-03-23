@@ -19,12 +19,13 @@ router.post('/api/history-new', async (req, res) => {
         if (existingHistory) {
             
             existingHistory.liked = liked;
-            //If liked, the history should show up on the wishlist
-            if (liked)
-                existingHistory.isVisited = false;
+            existingHistory.isVisited = false;
             existingHistory.save();
 
-            return res.status(200).send('History updated');
+            let newToken = refresh( token );
+
+            // History updated
+            return res.status(200).send({ token : newToken });
         }
 
         // Create a new history object in the database
@@ -46,6 +47,7 @@ router.post('/api/history-new', async (req, res) => {
 });
 
 //TO-DO: Send better messages upon success
+//Also, 'visited' is mispelled and it's hurting me
 router.post('/api/history-visted', async (req, res) => {
     const { token, restaurantID } = req.body;
     try {
