@@ -120,7 +120,7 @@ describe('History API', () => {
         const dummyUser = await createDummyUser();
         const dummyToken = generateDummyToken(dummyUser);
         const dummyRestaurantID1 = '507f1f77bcf86cd799439011';
-        const dummyRestaurantID2 = '507f1f77bcf86cd799439012';
+        const dummyRestaurantID2 = '6415827f446cd39216f43e99';
         const dummyHistory1 = await createDummyHistory(dummyUser._id, dummyRestaurantID1, true);
         const dummyHistory2 = await createDummyHistory(dummyUser._id, dummyRestaurantID2, true);
     

@@ -1,22 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const { Restaurant, JWT_SECRET } = require('../modules');
-
-// TODO: Add authentication middleware
+const { Restaurant, returnUser } = require('../modules');
 
 // Route to get 10 random restaurants
 router.post('/api/restaurants', async (req, res) => {
-  try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      return res.status(401).send('Authorization header missing');
-    }
+  try { 
+    console.log(req.body.token);
+    if(returnUser(req.body.token) == null)
+      return res.status(401).send('Token unverified or expired');
 
-    // Get the JWT token from the authorization header
-    const token = authHeader.split(' ')[1];
-    // Verify the JWT token
-    const decodedToken = jwt.verify(token, JWT_SECRET);
     let query = {};
 
     if (req.body.category) {
