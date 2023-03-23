@@ -7,9 +7,8 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
-// Set up JWT secret for token generation and verification
-const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'mysecret';
+const { createToken, isExpired, returnUser, refresh } = require('./manageJWT');
+
 
 // Create Mongoose Schema
 const mongoose = require('mongoose');
@@ -28,11 +27,13 @@ module.exports = {
   path,
   nodemailer,
   crypto,
-  jwt,
-  JWT_SECRET,
   User,
   Restaurant,
   History,
   Review,
-  bcrypt
+  bcrypt,
+  createToken,
+  isExpired,
+  returnUser,
+  refresh
 };

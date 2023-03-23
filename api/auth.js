@@ -1,6 +1,5 @@
-const { bcrypt, crypto, User, nodemailer, mongoose, express } = require('../modules');
+const { bcrypt, crypto, User, nodemailer, mongoose, express, createToken } = require('../modules');
 const router = express.Router();
-const manageJWT = require('../manageJWT');
 
 router.post('/api/signup', async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
@@ -60,7 +59,7 @@ router.post('/api/login', async (req, res) => {
         }
 
         // Create a JWT token
-        const token = manageJWT.createToken(user._id, user.email);
+        const token = createToken(user._id, user.email);
 
         // Send the token to the client
         res.json({ token : token, firstName :user.firstName });

@@ -1,6 +1,6 @@
-const {History, express } = require('../modules');
+const {History, express, refresh, returnUser } = require('../modules');
 const router = express.Router();
-const manageJWT = require('../manageJWT');
+
 
 //TO-DO: Send better messages upon success
 router.post('/api/history-new', async (req, res) => {
@@ -8,7 +8,7 @@ router.post('/api/history-new', async (req, res) => {
     try {
 
         //JWT verification
-        let userID = manageJWT.returnUser(token);
+        let userID = returnUser(token);
         if (userID == null)
         {
             return res.status(401).send('Token unverified or expired');
@@ -35,7 +35,7 @@ router.post('/api/history-new', async (req, res) => {
         });
         await newHistory.save();
 
-        let newToken = manageJWT.refresh( token );
+        let newToken = refresh( token );
 
         // History created successfully
         res.status(200).send({ token : newToken });
@@ -51,7 +51,7 @@ router.post('/api/history-visted', async (req, res) => {
     try {
         
         //JWT verification
-        let userID = manageJWT.returnUser(token);
+        let userID = returnUser(token);
         if (userID == null)
         {
             return res.status(401).send('Token unverified or expired');
@@ -63,7 +63,7 @@ router.post('/api/history-visted', async (req, res) => {
             visitedHistory.isVisited = true;
             visitedHistory.save();
 
-            let newToken = manageJWT.refresh(token);
+            let newToken = refresh(token);
 
             //History visted updated
             return res.status(200).send({ token: newToken });
@@ -84,7 +84,7 @@ router.post('/api/history-delete', async (req, res) => {
     try {
         
         //JWT verification
-        let userID = manageJWT.returnUser(token);
+        let userID = returnUser(token);
         if (userID == null)
         {
             return res.status(401).send('Token unverified or expired');
@@ -94,7 +94,7 @@ router.post('/api/history-delete', async (req, res) => {
         const deletedHistory = await History.findOneAndDelete({ userID : userID, restaurantID : restaurantID });
             if (deletedHistory){
 
-                let newToken = manageJWT.refresh(token);
+                let newToken = refresh(token);
 
                 //History deleted
                 return res.status(200).send({ token: newToken });
@@ -118,7 +118,7 @@ router.post('/api/wishlist', async (req, res) => {
     try {
         
         //JWT verification
-        let userID = manageJWT.returnUser(token);
+        let userID = returnUser(token);
         if (userID == null)
         {
             return res.status(401).send('Token unverified or expired');
@@ -126,7 +126,7 @@ router.post('/api/wishlist', async (req, res) => {
 
         const wishlist = await History.find({ userID : userID, liked : true, isVisited : false});
 
-        let newToken = manageJWT.refresh(token);
+        let newToken = refresh(token);
 
         //return wishlist
         res.json({ token : newToken, wishlist });

@@ -1,5 +1,5 @@
-const { jwt, JWT_SECRET } = require('./modules');
-
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET || 'mysecret';
 //TO-DO:
 //This page probably should be somewhere else but i don't know where
 //Also, should be referenced in modules.js for ease of access
@@ -81,3 +81,4 @@ exports.refresh = function( token )
 
     return _createToken( userID, email ).token;
 }
+  
