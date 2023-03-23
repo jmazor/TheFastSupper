@@ -48,7 +48,7 @@ router.post('/api/history-new', async (req, res) => {
 
 //TO-DO: Send better messages upon success
 //Also, 'visited' is mispelled and it's hurting me
-router.post('/api/history-visted', async (req, res) => {
+router.post('/api/history-visited', async (req, res) => {
     const { token, restaurantID } = req.body;
     try {
         

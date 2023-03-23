@@ -74,15 +74,15 @@ describe('History API', () => {
     await history.deleteOne();
   });
 
-  // Test cases for /api/history-visted
-  test('POST /api/history-visted - mark history as visited', async () => {
+  // Test cases for /api/history-visited
+  test('POST /api/history-visited - mark history as visited', async () => {
     const dummyUser = await createDummyUser();
     const dummyToken = generateDummyToken(dummyUser);
     const dummyRestaurantID = '6415827f446cd39216f43e99';
     const dummyHistory = await createDummyHistory(dummyUser._id, dummyRestaurantID, true);
 
     const response = await request(app)
-      .post('/api/history-visted')
+      .post('/api/history-visited')
       .send({
         token: dummyToken,
         restaurantID: dummyRestaurantID,

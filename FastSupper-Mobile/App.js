@@ -10,8 +10,6 @@ import LoginScreen from "./components/loginscreen";
 import SignupScreen from "./components/signupscreen";
 
 
-
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -27,6 +25,16 @@ export default function App() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+
 // export default function App() {
 //   return (
 //     <View style={styles.container}>
@@ -35,12 +43,3 @@ export default function App() {
 //     </View>
 //   );
 // }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
