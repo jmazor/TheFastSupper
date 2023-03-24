@@ -82,9 +82,8 @@ export default function SignupScreen()
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>  
-      <TouchableOpacity style={styles.loginBtn}>
-        <Button title="Sign Up" onPress={handleSignUp} style={styles.loginText}   ></Button>   
-        
+      <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp}>
+        <Text style={styles.loginText}>SIGN UP</Text> 
       </TouchableOpacity> 
     </View> 
   );
