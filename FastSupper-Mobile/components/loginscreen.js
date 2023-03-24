@@ -21,21 +21,19 @@ export default function LoginScreen({ navigation })
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
 
-     const response = await axios.post('https://fastsupper.herokuapp.com/api/login', {
+      axios.post('https://fastsupper.herokuapp.com/api/login', {
       email: email,
       password: password,
     })
     .then(function (response) {
       console.log(response);
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("name", response.firstName);
+      navigation.navigate("Home");      
     })
     .catch(function (error) {
       console.log(error);
     });
-    useNavigation.navigate("home");
     
   }
 
@@ -46,7 +44,7 @@ export default function LoginScreen({ navigation })
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
+          placeholder="Email:"
           placeholderTextColor="#000000"
           onChangeText={(email) => setEmail(email)}
         /> 
@@ -55,7 +53,7 @@ export default function LoginScreen({ navigation })
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password:"
           placeholderTextColor="#000000"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}

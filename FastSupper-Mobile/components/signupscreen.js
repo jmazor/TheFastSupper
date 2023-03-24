@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import assets from './assets';
 //import './assets/fastSupperLogo.png';
 
 
@@ -27,7 +26,7 @@ export default function SignupScreen()
     const navigation = useNavigation();
   
     const handleSignUp = () => {
-      axios.post('https://fastsupper.herokuapp.com/api/signup', {
+        axios.post('https://fastsupper.herokuapp.com/api/signup', {
         email: email,
         password: password,
         firstName: first,
@@ -83,9 +82,9 @@ export default function SignupScreen()
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>  
-      <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp}>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp} >
         <Text style={styles.loginText}>SIGN UP</Text> 
-      </TouchableOpacity> 
+      </TouchableOpacity > 
     </View> 
   );
 }
