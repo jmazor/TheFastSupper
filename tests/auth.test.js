@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
-const { User, mongoose } = require('../modules');
+const { bcrypt, User, mongoose, createToken } = require('../modules');
 
 
 describe('POST /api/auth', () => {
@@ -116,5 +116,37 @@ describe('POST /api/auth', () => {
     // Delete the unverified user from the database
     await User.deleteOne({ _id: unverifiedUser._id });
   });
+
+  it('should change the password of a user with a valid token', async () => {
+    // Create a new user with a verification token for the test
+    await User.deleteMany({ email: 'test@example.com' });
+    const newUser = new User({
+      email: 'test@example.com',
+      password: 'password',
+      verificationToken: '123456'
+    });
+    await newUser.save();
+
+    // Generate a JWT token for the user
+    const jwtToken = createToken(newUser._id, newUser.email);
+    // Change the password for the user with the verification token
+    const response = await request(app)
+      .post('/api/changepassword')
+      .send({ 
+        password: 'newpassword', 
+        token: jwtToken
+    });
+    expect(response.status).toBe(302);
+    expect(response.header.location).toBe('/login');
+
+    // Verify that the user's password has been updated in the database
+    const updatedUser = await User.findOne({ email: 'test@example.com' });
+    const passwordMatches = await bcrypt.compare('newpassword', updatedUser.password);
+    expect(passwordMatches).toBe(true);
+
+    // Delete the user after the test
+    await User.deleteOne({ _id: newUser._id });
+  });
+  
 
 });
