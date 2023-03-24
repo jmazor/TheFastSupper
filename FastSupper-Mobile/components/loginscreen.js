@@ -13,9 +13,6 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
-// import './assets/fastSupperLogo.png';
-
-
 export default function LoginScreen({ navigation }) 
 {
   const [email, setEmail] = useState("");
@@ -39,7 +36,7 @@ export default function LoginScreen({ navigation })
 
   return (
     <View style={styles.container}>
-      {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")} />  */}
+      <Image style={styles.image} source={require('../assets/fastSupperLogo.png')}/>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -78,6 +75,8 @@ const styles = StyleSheet.create({
   },
   image: {
     marginBottom: 40,
+    height: 170,
+    width: 170,
   },
   inputView: {
     backgroundColor: "#F0EEED",

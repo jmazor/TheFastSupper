@@ -12,13 +12,9 @@ import {
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-//import './assets/fastSupperLogo.png';
-
-
 
 export default function SignupScreen() 
 {
-  
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [first, setFirst] = useState('');
@@ -44,7 +40,7 @@ export default function SignupScreen()
   return (
     <View style={styles.container}>
       
-      {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")}/> */}
+      <Image style={styles.image} source={require('../assets/fastSupperLogo.png')}/>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -98,6 +94,9 @@ const styles = StyleSheet.create({
   },
   image: {
     marginBottom: 40,
+    height: 170,
+    width: 170,
+
   },
   inputView: {
     backgroundColor: "#F0EEED",
