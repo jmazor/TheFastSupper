@@ -10,6 +10,9 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+
 // import './assets/fastSupperLogo.png';
 
 
@@ -17,6 +20,25 @@ export default function LoginScreen({ navigation })
 {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+
+     const response = await axios.post('https://fastsupper.herokuapp.com/api/login', {
+      email: email,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response);
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("name", response.firstName);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    useNavigation.navigate("home");
+    
+  }
+
   return (
     <View style={styles.container}>
       {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")} />  */}
@@ -42,7 +64,7 @@ export default function LoginScreen({ navigation })
       <TouchableOpacity>
         <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
     </View> 
