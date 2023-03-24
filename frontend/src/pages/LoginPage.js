@@ -38,7 +38,7 @@ const LoginPage = () =>
       password: e.target.password.value,
     };
 
-    // Make the API request to your backend to create a new user (update the URL accordingly)
+    // Make the API request to backend to create a new user (update the URL accordingly)
     try
     {
       const response = await axios.post(`${config.url}/api/signup`, data);
@@ -63,7 +63,7 @@ const LoginPage = () =>
     };
 
     
-    // Make the API request to your backend to log in the user (update the URL accordingly)
+    // Make the API request to backend to log in the user (update the URL accordingly)
     try
     {
       const response = await axios.post(`${config.url}/api/login`, data);
@@ -105,33 +105,31 @@ const LoginPage = () =>
         {/*Modal for login, contains form elements login, password */}
         <Modal isOpen={loginModal} toggle={toggleLogin}>
           <Form onSubmit={handleLogin}>
-
-          <ModalHeader toggle={toggleLogin}>Log In</ModalHeader>
-          <ModalBody>
-            <FormGroup>
-              <Label for="loginEmail">Email</Label>
-              <Input type="email" name="loginEmail" id="loginEmail" required />
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="loginPassword">Password</Label>
-              <Input type="password" name="loginPassword" id="loginPassword" required />
-            </FormGroup>
-          </ModalBody>
-          
-          <ModalFooter>
-              
+            <ModalHeader toggle={toggleLogin}>Log In</ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <Label for="loginEmail">Email</Label>
+                <Input type="email" name="loginEmail" id="loginEmail" required />
+              </FormGroup>
+              <FormGroup>
+                <Label for="loginPassword">Password</Label>
+                <Input type="password" name="loginPassword" id="loginPassword" required />
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
               <Button color="primary" type="submit">
                 Log In
               </Button>
-              
               <Button color="secondary" onClick={toggleLogin}>
                 Cancel
-              </Button>          
-              
-              </ModalFooter>
+              </Button>
+              <Button color="link" onClick={() => console.log("forgot password clicked")}>
+                Forgot Password?
+              </Button>
+            </ModalFooter>
           </Form>
         </Modal>
+
 
         {/*Modal for sign up */}
         <Modal isOpen={modal} toggle={toggle}>
