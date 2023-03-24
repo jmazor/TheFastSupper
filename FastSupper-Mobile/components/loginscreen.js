@@ -10,6 +10,8 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+// import './assets/fastSupperLogo.png';
+
 
 export default function LoginScreen({ navigation }) 
 {
@@ -17,6 +19,7 @@ export default function LoginScreen({ navigation })
   const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
+      {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")} />  */}
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput

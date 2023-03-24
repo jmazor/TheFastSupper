@@ -10,18 +10,64 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+// import './assets/fastSupperLogo.png';
+
+
 
 export default function SignupScreen() 
 {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [first, setFirst] = useState('');
+    const [last, setLast] = useState('');
+    const navigation = useNavigation();
+  
+    const handleSignUp = () => {
+      axios.post('https://fastsupper.herokuapp.com/api/signup', {
+        email: email,
+        password: password,
+        firstName: first,
+        lastName: last
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+     navigation.goBack();
+    }
+  
   return (
     <View style={styles.container}>
+      
+      {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")} />  */}
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
+          placeholder="First Name:"
+          placeholderTextColor="#000000"
+          onChangeText={(first) => setFirst(first)}
+        /> 
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Last Name:"
+          placeholderTextColor="#000000"
+          onChangeText={(last) => setLast(last)}
+        /> 
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email:"
           placeholderTextColor="#000000"
           onChangeText={(email) => setEmail(email)}
         /> 
@@ -30,14 +76,15 @@ export default function SignupScreen()
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password:"
           placeholderTextColor="#000000"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>  
       <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>REGISTER</Text> 
+        <Button title="Sign Up" onPress={handleSignUp} style={styles.loginText}   ></Button>   
+        
       </TouchableOpacity> 
     </View> 
   );
