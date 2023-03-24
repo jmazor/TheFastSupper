@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-// import './assets/fastSupperLogo.png';
+//import './assets/fastSupperLogo.png';
 
 
 
@@ -44,7 +44,7 @@ export default function SignupScreen()
   return (
     <View style={styles.container}>
       
-      {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")} />  */}
+      {/* <Image style={styles.image} source={require("./assets/fastSupperLogo.png")}/> */}
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
