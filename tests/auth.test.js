@@ -118,35 +118,38 @@ describe('POST /api/auth', () => {
   });
 
   it('should change the password of a user with a valid token', async () => {
-    // Create a new user with a verification token for the test
+    // Create a new user for the test
     await User.deleteMany({ email: 'test@example.com' });
     const newUser = new User({
       email: 'test@example.com',
-      password: 'password',
-      verificationToken: '123456'
+      password: await bcrypt.hash('password', 10),
     });
     await newUser.save();
-
+  
     // Generate a JWT token for the user
     const jwtToken = createToken(newUser._id, newUser.email);
-    // Change the password for the user with the verification token
+  
+    // Change the password for the user with the JWT token
     const response = await request(app)
-      .post('/api/changepassword')
+      .post('/api/change-password')
       .send({ 
-        password: 'newpassword', 
-        token: jwtToken
-    });
+        token: jwtToken,
+        oldPassword: 'password',
+        newPassword: 'newpassword'
+      });
+  
     expect(response.status).toBe(302);
     expect(response.header.location).toBe('/login');
-
-    // Verify that the user's password has been updated in the database
+  
+    // Verify that the user's passworsd has been updated in the database
     const updatedUser = await User.findOne({ email: 'test@example.com' });
     const passwordMatches = await bcrypt.compare('newpassword', updatedUser.password);
     expect(passwordMatches).toBe(true);
-
+  
     // Delete the user after the test
     await User.deleteOne({ _id: newUser._id });
   });
+  
   
 
 });

@@ -117,18 +117,23 @@ router.get('/verify-email', async (req, res) => {
     }
 });
 
-router.post('/api/changepassword', async (req, res) => {
-    const { token, password } = req.body;
+router.post('/api/change-password', async (req, res) => {
+    const { token, newPassword, oldPassword } = req.body;
     try {
         const userID = returnUser(token);
         if (userID == null)
         {
             return res.status(401).send('Token unverified or expired');
         }    
+        
         const user = await User.findOne({ _id: userID });
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).send('Password is incorrect');
+        }
 
         const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
         const result = await user.updateOne(
             { $set: { password: hashedPassword  }}
         );
