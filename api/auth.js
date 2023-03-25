@@ -154,6 +154,24 @@ router.post('/api/change-password', async (req, res) => {
 router.post('/api/forgotpassword', async (req, res) => {
     const { email } = req.body;
     try {
+        const user = await User.findOne({ email });
+        if (!user)
+        {
+            return res.status(400).send('User not found');
+        }
+        const tempPassword = "tempPass";
+        user.password = tempPassword;
+        user.changePassword = true;
+        await user.save();
+        const resetLink = `https://fastsupper.herokuapp.com/login`;
+        const message = `Here is your temporary password:${tempPassword} \nclick the link below to log in and change your password. ${resetLink}`;
+        const transporter = nodemailer.createTransport(config.mail);
+        await transporter.sendMail({
+            to: email,
+            subject: 'Password Reset',
+            text: message,
+        });
+        res.json({ message: 'Password reset email sent' });
     }
     catch (err) {
         console.error(err);
