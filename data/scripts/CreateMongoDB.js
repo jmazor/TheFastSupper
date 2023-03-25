@@ -20,7 +20,6 @@ db.once('open', function() {
     firstName: { type: String, default: null },
     lastName: { type: String, default: null },
     picture: { type: String, default: null },
-    changePassword: { type: Boolean, default: false },
   });
   usersSchema.index({ email: 1 }, { unique: true });
   const User = mongoose.model('User', usersSchema);
