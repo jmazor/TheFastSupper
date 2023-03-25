@@ -21,11 +21,12 @@ import axios from 'axios';
 const LoginPage = () =>
 {
   const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
+  const [SignUpModal, setSignUpModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
-  const toggle = () => setModal(!modal);
+  const toggleSignUp = () => setSignUpModal(!SignUpModal);
   const toggleLogin = () => setLoginModal(!loginModal);
-  // const navigate = useNavigate();
+  const [ForgotModal, setForgotModal] = useState(false);
+  const toggleForgot = () => setForgotModal(!ForgotModal);
 
   const handleSubmit = async (e) =>
   {
@@ -82,6 +83,24 @@ const LoginPage = () =>
     toggleLogin();
   };
 
+  const handleForgot = async (e) =>
+  {
+    e.preventDefault();
+    const data = {
+      email: e.target.forgotEmail.value,
+    };
+    try
+    {
+      const response = await axios.post(`${config.url}/api/forgotpassword`, data);
+      console.log(response.data);
+      toggleForgot();
+      navigate('/');
+    } catch (error)
+    {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div className="App">
       <div className="App-header">
@@ -93,7 +112,7 @@ const LoginPage = () =>
 
       <div className="App-body">
         {/*Sign up Button*/}
-        <Button className="custom-button" color="primary" onClick={toggle}>
+        <Button className="custom-button" color="primary" onClick={toggleSignUp}>
           Sign Up
         </Button>
         {/* Login in Button*/}
@@ -102,7 +121,7 @@ const LoginPage = () =>
         </Button>
 
 
-        {/*Modal for login, contains form elements login, password */}
+        {/*Modal for login, contains form elements login, password, modal for forgot password */}
         <Modal isOpen={loginModal} toggle={toggleLogin}>
           <Form onSubmit={handleLogin}>
             <ModalHeader toggle={toggleLogin}>Log In</ModalHeader>
@@ -123,8 +142,30 @@ const LoginPage = () =>
               <Button color="secondary" onClick={toggleLogin}>
                 Cancel
               </Button>
-              <Button color="link" onClick={() => console.log("forgot password clicked")}>
+              <Button color="link" onClick={toggleForgot}>
                 Forgot Password?
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
+        
+        
+        {/*Modal for forgot password */}
+        <Modal isOpen={ForgotModal} toggle={toggleForgot}>
+          <Form onSubmit={handleForgot}>
+            <ModalHeader toggle={toggleForgot}>Forgot Password</ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <Label for="forgotEmail">Enter Email:</Label>
+                <Input type="email" name="forgotEmail" id="forgotEmail" required />
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" type="submit">
+                Reset Password
+              </Button>
+              <Button color="secondary" onClick={toggleForgot}>
+                Cancel
               </Button>
             </ModalFooter>
           </Form>
@@ -132,9 +173,9 @@ const LoginPage = () =>
 
 
         {/*Modal for sign up */}
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal isOpen={SignUpModal} toggle={toggleSignUp}>
           <Form onSubmit={handleSubmit}>
-            <ModalHeader toggle={toggle}>Sign Up</ModalHeader>
+            <ModalHeader toggle={toggleSignUp}>Sign Up</ModalHeader>
             <ModalBody>
               
               {/*Contains form elements first name, last name, email, password */}
@@ -166,7 +207,7 @@ const LoginPage = () =>
                 Sign Up
               </Button>
 
-              <Button color="secondary" onClick={toggle}>
+              <Button color="secondary" onClick={toggleSignUp}>
                 Cancel
               </Button>
             </ModalFooter>
