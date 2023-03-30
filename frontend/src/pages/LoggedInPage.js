@@ -26,6 +26,9 @@ const LoggedInPage = () =>
   const toggle = () => setModal(!modal);
   const toggleLogin = () => setLoginModal(!loginModal);
   const navigate = useNavigate();
+  const firstName = localStorage.getItem("name");
+  let greet = "Welcome Back, " + firstName;
+
   const Logout = () => {
     navigate("/login");
   }
@@ -36,7 +39,7 @@ const LoggedInPage = () =>
         <h2 id="Title">The Fast Supper</h2>
         </div>
         <div id='Greeting div'>
-          <h1 id='Greeting'></h1>
+          <h1 id='Greeting'>{greet}</h1>
         </div>
         <div className="App-body">
           {/* Logout Button*/}

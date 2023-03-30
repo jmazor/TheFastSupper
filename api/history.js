@@ -1,4 +1,4 @@
-const {History, express, refresh, returnUser } = require('../modules');
+const {History, express, refresh, returnUser, Restaurant } = require('../modules');
 const router = express.Router();
 
 
@@ -128,10 +128,25 @@ router.post('/api/wishlist', async (req, res) => {
 
         const wishlist = await History.find({ userID : userID, liked : true, isVisited : false});
 
+        let restArray = [];
+        for (const i in wishlist)
+        {
+            const actualRestaurant = await Restaurant.findOne({ _id : wishlist[i].restaurantID});
+            if (actualRestaurant)
+            {
+                restArray.push(actualRestaurant);
+            }
+            else
+            {
+                //Delete history maybe...?
+                console.log("Error, cannot find the resturant");
+            }
+        }  
+
         let newToken = refresh(token);
 
         //return wishlist
-        res.json({ token : newToken, wishlist });
+        res.json({ token : newToken, wishlist : restArray });
 
     } catch (err) {
         console.error(err);

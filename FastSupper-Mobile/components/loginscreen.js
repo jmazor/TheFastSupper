@@ -10,18 +10,38 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
-export default function LoginScreen() 
+export default function LoginScreen({ navigation }) 
 {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+
+      axios.post('https://fastsupper.herokuapp.com/api/login', {
+      email: email,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response);
+      navigation.navigate("Home");      
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+  }
+
   return (
     <View style={styles.container}>
+      <Image style={styles.image} source={require('../assets/fastSupperLogo.png')}/>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
+          placeholder="Email:"
           placeholderTextColor="#000000"
           onChangeText={(email) => setEmail(email)}
         /> 
@@ -30,16 +50,16 @@ export default function LoginScreen()
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password:"
           placeholderTextColor="#000000"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         /> 
       </View> 
       <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
+        <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
     </View> 
@@ -55,9 +75,11 @@ const styles = StyleSheet.create({
   },
   image: {
     marginBottom: 40,
+    height: 170,
+    width: 170,
   },
   inputView: {
-    backgroundColor: "#B2B2B2",
+    backgroundColor: "#F0EEED",
     borderRadius: 30,
     width: "70%",
     height: 45,
@@ -69,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
-ç  },
+  },
   forgot_button: {
     height: 30,
     marginBottom: 30,
@@ -81,6 +103,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#6F38C5",
+    backgroundColor: "#408E91",
   },
 });

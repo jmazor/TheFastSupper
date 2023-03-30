@@ -1,4 +1,4 @@
-const { bcrypt, crypto, User, nodemailer, mongoose, express, createToken } = require('../modules');
+const { bcrypt, crypto, User, nodemailer, mongoose, express, createToken, returnUser } = require('../modules');
 const router = express.Router();
 
 router.post('/api/signup', async (req, res) => {
@@ -102,8 +102,7 @@ router.get('/verify-email', async (req, res) => {
         }
 
         // Update the user's email verification status
-        const result = await User.updateOne(
-            { _id: new mongoose.Types.ObjectId(user._id) },
+        const result = await user.updateOne(
             { $set: { isEmailVerified: true, verificationToken: null } }
         );
         if (result.nModified === 0) {
@@ -117,6 +116,69 @@ router.get('/verify-email', async (req, res) => {
         res.status(500).send('Internal server error');
     }
 });
+
+router.post('/api/change-password', async (req, res) => {
+    const { token, newPassword, oldPassword } = req.body;
+    try {
+        const userID = returnUser(token);
+        if (userID == null)
+        {
+            return res.status(401).send('Token unverified or expired');
+        }    
+        
+        const user = await User.findOne({ _id: userID });
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).send('Password is incorrect');
+        }
+
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+        const result = await user.updateOne(
+            { $set: { password: hashedPassword  }}
+        );
+        if (result.nModified === 0) {
+            return res.status(500).send('Failed to update user');
+        }
+
+        // Redirect to the login page
+        res.redirect('/login');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+    }
+});
+
+// TODO: Decide how we want this done
+// we can send a temp password in the email or we can have a reset password page
+router.post('/api/forgotpassword', async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user)
+        {
+            return res.status(400).send('User not found');
+        }
+        const tempPassword = "tempPass";
+        user.password = tempPassword;
+        user.changePassword = true;
+        await user.save();
+        const resetLink = `https://fastsupper.herokuapp.com/login`;
+        const message = `Here is your temporary password:${tempPassword} \nclick the link below to log in and change your password. ${resetLink}`;
+        const transporter = nodemailer.createTransport(config.mail);
+        await transporter.sendMail({
+            to: email,
+            subject: 'Password Reset',
+            text: message,
+        });
+        res.json({ message: 'Password reset email sent' });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+    }
+});
+
 
 // Function to send verification email to user
 const sendVerificationEmail = async (email, verificationToken) => {
