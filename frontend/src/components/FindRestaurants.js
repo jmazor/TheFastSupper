@@ -55,8 +55,6 @@ const FindRestaurants = (args) =>{
             })
           }
           setRestaurantData(restaurantsList)
-          console.log('testy: ' + restaurantsList[0].name)
-          console.log(restaurantData[3].name + " testing")
         } catch (error)
         {
           console.error('Error:', error);
