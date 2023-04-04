@@ -137,12 +137,12 @@ router.post('/api/change-password', async (req, res) => {
         const result = await user.updateOne(
             { $set: { password: hashedPassword  }}
         );
+        user.changePassword = false;
+        await user.save();
         if (result.nModified === 0) {
             return res.status(500).send('Failed to update user');
         }
-
-        // Redirect to the login page
-        res.redirect('/login');
+        res.status(200).send('Password changed successfully');
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal server error');

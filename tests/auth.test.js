@@ -138,8 +138,7 @@ describe('POST /api/auth', () => {
         newPassword: 'newpassword'
       });
   
-    expect(response.status).toBe(302);
-    expect(response.header.location).toBe('/login');
+    expect(response.status).toBe(200);
   
     // Verify that the user's passworsd has been updated in the database
     const updatedUser = await User.findOne({ email: 'test@example.com' });
