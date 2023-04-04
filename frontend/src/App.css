@@ -35,7 +35,13 @@
   --bs-body-bg: #B1DDF1 !important;
   
 }
+.restaurantInfo{
+  text-align: center;
+  display: inline-block;
+}
 .restaurantImg{
   width : 200px;
   height : 200px;
+  display: inline-block;
+  vertical-align: middle;
 }

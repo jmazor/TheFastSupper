@@ -33,11 +33,13 @@ const CollapseComponent = (props) =>{
             <Collapse isOpen={isOpen} >
                 <Card>
                     <CardBody>
+                        <div class='restaurantInfo'>
                         cost: {restaurants.price} <br/>
                         Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
                         Rating: {restaurants.rating} Stars<br />
                         phone : {restaurants.phone} <br />
                         link :  <a href={restaurants.restURL}>Visit Us</a> <br />
+                        </div>
                         <img src={restaurants.imageURL} class="restaurantImg"/>
                     </CardBody>
                 </Card>
