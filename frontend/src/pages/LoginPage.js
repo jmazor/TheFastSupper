@@ -27,6 +27,10 @@ const LoginPage = () =>
   const toggleLogin = () => setLoginModal(!loginModal);
   const [ForgotModal, setForgotModal] = useState(false);
   const toggleForgot = () => setForgotModal(!ForgotModal);
+  const [changePasswordModal, setChangePasswordModal] = useState(false);
+  const toggleChangePassword = () => setChangePasswordModal(!changePasswordModal);
+
+  const[changePasswordResult, setChangePasswordResult] = useState('')
 
   const handleSubmit = async (e) =>
   {
@@ -68,15 +72,15 @@ const LoginPage = () =>
     try
     {
       const response = await axios.post(`${config.url}/api/login`, data);
-      if(response.data.changePassword == true){
-        toggleLogin()
-        toggleForgot()
-        return
-      }
       console.log(response.data);
       result.innerHTML = "Welcome " + response.data.firstName;
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("name", response.data.firstName);
+      if(response.data.changePassword == true){
+        toggleLogin()
+        toggleChangePassword()
+        return
+      }
       navigate('/home');
     } catch (error)
     {
@@ -105,6 +109,33 @@ const LoginPage = () =>
       console.error('Error:', error);
     }
   };
+  const handleChangePassword = async (e) =>
+  {
+    e.preventDefault()
+    setChangePasswordResult("")
+    const data = {
+        token : localStorage.getItem("token"),
+        oldPassword : e.target.oldPassword.value,
+        newPassword : e.target.newPassword.value,
+        retypePassword : e.target.retypePassword.value
+    }
+    if(data.retypePassword !== data.newPassword){
+        console.log("Passwords do not match")
+        setChangePasswordResult("Passwords do not match")
+        return
+    }
+    try
+    {
+      const response = await axios.post(`${config.url}/api/change-password`, data);
+      console.log(response.data);
+      toggleChangePassword()
+      toggleLogin()
+
+    } catch (error)
+    {
+      setChangePasswordResult(error.response.data)
+    }
+  }
 
   return (
     <div className="App">
@@ -213,6 +244,41 @@ const LoginPage = () =>
               </Button>
 
               <Button color="secondary" onClick={toggleSignUp}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
+        
+        {/*Modal for change password*/}
+        <Modal isOpen={changePasswordModal} toggle={toggleChangePassword}>
+          <Form onSubmit={handleChangePassword}>
+            <ModalHeader toggle={toggleChangePassword}>Change Password</ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <Label for="oldPassword">Old Password</Label>
+                <Input type="password" name="oldPassword" id="oldPassword" required />
+              </FormGroup>
+
+              <FormGroup>
+                <Label for="newPassword">New Password</Label>
+                <Input type="password" name="lastName" id="newPassword" required />
+              </FormGroup>
+
+              <FormGroup>
+                <Label for="retypePassword">Re-enter Password</Label>
+                <Input type="password" name="retypePassword" id="retypePassword" required />
+              </FormGroup>
+            </ModalBody>
+
+            <h3>{changePasswordResult}</h3>
+
+            <ModalFooter>
+              <Button color="primary" type="submit">
+                Change Password
+              </Button>
+
+              <Button color="secondary" onClick={toggleChangePassword}>
                 Cancel
               </Button>
             </ModalFooter>
