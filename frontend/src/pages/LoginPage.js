@@ -68,6 +68,11 @@ const LoginPage = () =>
     try
     {
       const response = await axios.post(`${config.url}/api/login`, data);
+      if(response.data.changePassword == true){
+        toggleLogin()
+        toggleForgot()
+        return
+      }
       console.log(response.data);
       result.innerHTML = "Welcome " + response.data.firstName;
       localStorage.setItem("token", response.data.token);
