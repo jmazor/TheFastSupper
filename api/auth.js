@@ -62,7 +62,7 @@ router.post('/api/login', async (req, res) => {
         const token = createToken(user._id, user.email);
 
         // Send the token to the client
-        res.json({ token : token, firstName :user.firstName, changePassword : user.changePassword});
+        res.json({ token : token, firstName :user.firstName, changePassword:user.changePassword});
 
     } catch (err) {
         console.error(err);
@@ -160,11 +160,11 @@ router.post('/api/forgotpassword', async (req, res) => {
             return res.status(400).send('User not found');
         }
         const tempPassword = crypto.randomBytes(8).toString('hex');
-        user.password = tempPassword;
+        user.password = await bcrypt.hash(tempPassword, 10);
         user.changePassword = true;
         await user.save();
         const resetLink = `https://fastsupper.herokuapp.com/login`;
-        const message = `Here is your temporary password:${tempPassword} \nclick the link below to log in and change your password. ${resetLink}`;
+        const message = `Here is your temporary password: ${tempPassword} \nclick the link below to log in and change your password. ${resetLink}`;
         const transporter = nodemailer.createTransport({
             // Replace with your SMTP settings
             host: process.env.SMTP_HOST,
