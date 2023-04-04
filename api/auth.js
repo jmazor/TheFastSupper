@@ -62,7 +62,7 @@ router.post('/api/login', async (req, res) => {
         const token = createToken(user._id, user.email);
 
         // Send the token to the client
-        res.json({ token : token, firstName :user.firstName });
+        res.json({ token : token, firstName :user.firstName, changePassword : user.changePassword});
 
     } catch (err) {
         console.error(err);
@@ -159,7 +159,7 @@ router.post('/api/forgotpassword', async (req, res) => {
         {
             return res.status(400).send('User not found');
         }
-        const tempPassword = "tempPass";
+        const tempPassword = crypto.randomBytes(8).toString('hex');
         user.password = tempPassword;
         user.changePassword = true;
         await user.save();
