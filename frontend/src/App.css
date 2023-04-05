@@ -8,14 +8,27 @@
 }
 
 .App-header {
-  background-color: #000000;
+  background-color: #22223B;
   height: 150px;
   padding: 20px;
   color: white;
   font-family: 'Imbue', sans-serif;
 }
+
+/* .App-header h2 {
+  position
+} */
+
 #Title {
   font-size: 100px; 
+  position: relative;
+  right: 33%;
+  bottom:5%;
+}
+@media only screen and (max-width: 600px) {
+  #Title {
+    font-size: 80px;
+  }
 }
 .App-body {
   font-size: large;
@@ -27,6 +40,16 @@
 }
 
 :root {
-  --bs-body-bg: #F8C1A9 !important;
+  --bs-body-bg: #B1DDF1 !important;
   
+}
+.restaurantInfo{
+  text-align: center;
+  display: inline-block;
+}
+.restaurantImg{
+  width : 200px;
+  height : 200px;
+  display: inline-block;
+  vertical-align: middle;
 }

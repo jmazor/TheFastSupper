@@ -9,7 +9,6 @@ const bcrypt = require('bcrypt');
 
 const { createToken, isExpired, returnUser, refresh } = require('./manageJWT');
 
-
 // Create Mongoose Schema
 const mongoose = require('mongoose');
 const { Schema } = mongoose;

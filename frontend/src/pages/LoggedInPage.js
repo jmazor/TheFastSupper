@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import '../custom.css';
+import FindRestaurants from '../components/FindRestaurants';
 import config from '../config';
 import { useNavigate } from "react-router-dom";
 import
@@ -46,6 +47,7 @@ const LoggedInPage = () =>
             Log out
           </Button>
         </div>
+        <FindRestaurants />
     </div>
 );
 };

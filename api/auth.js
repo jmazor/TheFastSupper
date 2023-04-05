@@ -62,7 +62,7 @@ router.post('/api/login', async (req, res) => {
         const token = createToken(user._id, user.email);
 
         // Send the token to the client
-        res.json({ token : token, firstName :user.firstName });
+        res.json({ token : token, firstName :user.firstName, changePassword:user.changePassword});
 
     } catch (err) {
         console.error(err);
@@ -137,12 +137,12 @@ router.post('/api/change-password', async (req, res) => {
         const result = await user.updateOne(
             { $set: { password: hashedPassword  }}
         );
+        user.changePassword = false;
+        await user.save();
         if (result.nModified === 0) {
             return res.status(500).send('Failed to update user');
         }
-
-        // Redirect to the login page
-        res.redirect('/login');
+        res.status(200).send('Password changed successfully');
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal server error');
@@ -159,13 +159,21 @@ router.post('/api/forgotpassword', async (req, res) => {
         {
             return res.status(400).send('User not found');
         }
-        const tempPassword = "tempPass";
-        user.password = tempPassword;
+        const tempPassword = crypto.randomBytes(8).toString('hex');
+        user.password = await bcrypt.hash(tempPassword, 10);
         user.changePassword = true;
         await user.save();
         const resetLink = `https://fastsupper.herokuapp.com/login`;
-        const message = `Here is your temporary password:${tempPassword} \nclick the link below to log in and change your password. ${resetLink}`;
-        const transporter = nodemailer.createTransport(config.mail);
+        const message = `Here is your temporary password: ${tempPassword} \nclick the link below to log in and change your password. ${resetLink}`;
+        const transporter = nodemailer.createTransport({
+            // Replace with your SMTP settings
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
+            auth: {
+                user: process.env.SMTP_USERNAME,
+                pass: process.env.SMTP_PASSWORD
+            }
+        });
         await transporter.sendMail({
             to: email,
             subject: 'Password Reset',

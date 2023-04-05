@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     firstName: { type: String, default: null },
     lastName: { type: String, default: null },
     picture: { type: String, default: null },
+    changePassword: { type: Boolean, default: false },
 });
 userSchema.index({ email: 1 }, { unique: true });
 

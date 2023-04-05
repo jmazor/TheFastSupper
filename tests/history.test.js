@@ -120,7 +120,7 @@ describe('History API', () => {
       test('POST /api/wishlist - get wishlist', async () => {
         const dummyUser = await createDummyUser();
         const dummyToken = generateDummyToken(dummyUser);
-        const dummyRestaurantID1 = '507f1f77bcf86cd799439011';
+        const dummyRestaurantID1 = '6415827f446cd39216f43ea5';
         const dummyRestaurantID2 = '6415827f446cd39216f43e99';
         const dummyHistory1 = await createDummyHistory(dummyUser._id, dummyRestaurantID1, true);
         const dummyHistory2 = await createDummyHistory(dummyUser._id, dummyRestaurantID2, true);
@@ -133,8 +133,8 @@ describe('History API', () => {
     
         expect(response.status).toBe(200);
         expect(response.body.wishlist.length).toBe(2);
-        expect(response.body.wishlist.some(item => item.restaurantID.toString() === dummyRestaurantID1)).toBe(true);
-        expect(response.body.wishlist.some(item => item.restaurantID.toString() === dummyRestaurantID2)).toBe(true);
+        expect(response.body.wishlist.some(item => item._id.toString() === dummyRestaurantID1)).toBe(true);
+        expect(response.body.wishlist.some(item => item._id.toString() === dummyRestaurantID2)).toBe(true);
     
         await dummyUser.deleteOne();
         await dummyHistory1.deleteOne();
