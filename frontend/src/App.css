@@ -20,15 +20,10 @@
 } */
 
 #Title {
-  font-size: 100px; 
+  font-size: 6.5vw; 
   position: relative;
-  right: 33%;
+  right: 32vw;
   bottom:5%;
-}
-@media only screen and (max-width: 600px) {
-  #Title {
-    font-size: 80px;
-  }
 }
 .App-body {
   font-size: large;
