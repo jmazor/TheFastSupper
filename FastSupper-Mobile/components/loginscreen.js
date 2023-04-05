@@ -56,9 +56,15 @@ export default function LoginScreen({ navigation })
           onChangeText={(password) => setPassword(password)}
         /> 
       </View> 
+      
       <TouchableOpacity>
         <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
       </TouchableOpacity> 
+
+      <TouchableOpacity>
+        <Text style={styles.footerText}><Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Forgot Password?</Text></Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
