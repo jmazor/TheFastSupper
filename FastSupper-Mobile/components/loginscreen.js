@@ -67,12 +67,21 @@ export default function LoginScreen({ navigation })
           <Text  style={styles.toggleButton}> {isPasswordVisible ? 'Hide' : 'Show'}</Text>
         </TouchableOpacity>
       </View> 
+      
       <TouchableOpacity>
         <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
       </TouchableOpacity> 
+<<<<<<< HEAD
       <TouchableOpacity>
         <Text onPress={() => navigation.navigate("Forgot")}>Forgot Password?</Text>
       </TouchableOpacity> 
+=======
+
+      <TouchableOpacity>
+        <Text style={styles.footerText}><Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Forgot Password?</Text></Text>
+      </TouchableOpacity>
+
+>>>>>>> 9ea7c56f88e960054b1e7e0a89fb27fc9fa36e83
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
