@@ -4,6 +4,49 @@
 }
 
 .login-button {
-    margin-left: 8px;
+    margin-left: 20px;
+    position: absolute;
+    right: 20%;
+    top: 4%;
     /* Adjust the space between the buttons as needed */
+}
+
+.signup-button {
+    margin-left: 2px;
+    position: absolute;
+    right: 5%;
+    top: 4%;
+    /* Adjust the space between the buttons as needed */
+}
+
+.App-body .btn {
+    height:100px;
+    width:200px;
+    /* border-style:hidden; */
+    font-size: 50px;
+    background-color: transparent;
+    border-color: white;
+}
+
+.App-body .btn:hover {
+    background-color: white;
+    border-color: white;
+    color:black;
+}
+
+
+.logo-full {
+    position: absolute;
+    top: 22%;
+    left: 30%;
+    width: 60%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.logo-small {
+    width: 400px;
+    height: auto;
 }

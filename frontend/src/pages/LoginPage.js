@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import '../custom.css';
+import Logo from '../components/Logo';
 import config from '../config';
 import { useNavigate } from "react-router-dom";
 import
@@ -115,9 +116,11 @@ const LoginPage = () =>
         <h1 id='loginResult'></h1>
       </div>
 
+      <Logo fullscreen={true} />
+
       <div className="App-body">
         {/*Sign up Button*/}
-        <Button className="custom-button" color="primary" onClick={toggleSignUp}>
+        <Button className="custom-button signup-button" color="primary" onClick={toggleSignUp}>
           Sign Up
         </Button>
         {/* Login in Button*/}
