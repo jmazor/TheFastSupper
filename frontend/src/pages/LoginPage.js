@@ -32,6 +32,9 @@ const LoginPage = () =>
   const toggleChangePassword = () => setChangePasswordModal(!changePasswordModal);
 
   const[changePasswordResult, setChangePasswordResult] = useState('')
+  const[loginResult, setLoginResult] = useState('')
+  const[singupResult, setSignupResult] = useState('')
+  const[forgotPasswordResult, setForgotPasswordResult] = useState('')
 
   const handleSubmit = async (e) =>
   {
@@ -51,8 +54,9 @@ const LoginPage = () =>
       console.log(response.data);
     } catch (error)
     {
-      console.error('Error:', error);
-      result.innerHTML = error
+      console.error('Error:' + error.response.data);
+      setSignupResult(error.response.data)
+      return
     }
 
     // Close the modal after submitting the form
@@ -73,8 +77,6 @@ const LoginPage = () =>
     try
     {
       const response = await axios.post(`${config.url}/api/login`, data);
-      console.log(response.data);
-      result.innerHTML = "Welcome " + response.data.firstName;
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("name", response.data.firstName);
       if(response.data.changePassword == true){
@@ -85,8 +87,9 @@ const LoginPage = () =>
       navigate('/home');
     } catch (error)
     {
-      result.innerHTML = error.response.data
-      console.error('Error:', error);
+      setLoginResult(error.response.data)
+      console.error('Error:'+ error.response.data);
+      return
     }
 
     // Close the modal after submitting the form
@@ -108,6 +111,7 @@ const LoginPage = () =>
     } catch (error)
     {
       console.error('Error:', error);
+      setForgotPasswordResult(error.response.data)
     }
   };
   const handleChangePassword = async (e) =>
@@ -174,6 +178,9 @@ const LoginPage = () =>
                 <Input type="password" name="loginPassword" id="loginPassword" required />
               </FormGroup>
             </ModalBody>
+
+            <h3>{loginResult}</h3>
+
             <ModalFooter>
               <Button color="primary" type="submit">
                 Log In
@@ -199,6 +206,9 @@ const LoginPage = () =>
                 <Input type="email" name="forgotEmail" id="forgotEmail" required />
               </FormGroup>
             </ModalBody>
+
+            <h3>{forgotPasswordResult}</h3>
+            
             <ModalFooter>
               <Button color="primary" type="submit">
                 Reset Password
@@ -240,6 +250,7 @@ const LoginPage = () =>
 
             </ModalBody>
 
+            <h3>{singupResult}</h3>
 
             <ModalFooter>
               <Button color="primary" type="submit">
