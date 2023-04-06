@@ -17,6 +17,8 @@ export default function LoginScreen({ navigation })
 {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[isPasswordVisible, setIsPasswordVisible] = useState(false);
+
 
   const handleLogin = () => {
 
@@ -31,8 +33,14 @@ export default function LoginScreen({ navigation })
     .catch(function (error) {
       console.log(error);
     });
-    
-  }
+
+  };
+
+  const togglePasswordVisibility = () =>{
+    setIsPasswordVisible(!isPasswordVisible);
+    };
+
+  
 
   return (
     <View style={styles.container}>
@@ -52,13 +60,28 @@ export default function LoginScreen({ navigation })
           style={styles.TextInput}
           placeholder="Password:"
           placeholderTextColor="#000000"
-          secureTextEntry={true}
+          secureTextEntry={!isPasswordVisible}
           onChangeText={(password) => setPassword(password)}
         /> 
+        <TouchableOpacity onPress={togglePasswordVisibility}>
+          <Text  style={styles.toggleButton}> {isPasswordVisible ? 'Hide' : 'Show'}</Text>
+        </TouchableOpacity>
       </View> 
+      
       <TouchableOpacity>
         <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
       </TouchableOpacity> 
+<<<<<<< HEAD
+      <TouchableOpacity>
+        <Text onPress={() => navigation.navigate("Forgot")}>Forgot Password?</Text>
+      </TouchableOpacity> 
+=======
+
+      <TouchableOpacity>
+        <Text style={styles.footerText}><Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Forgot Password?</Text></Text>
+      </TouchableOpacity>
+
+>>>>>>> 9ea7c56f88e960054b1e7e0a89fb27fc9fa36e83
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
@@ -80,9 +103,9 @@ const styles = StyleSheet.create({
   },
   inputView: {
     backgroundColor: "#F0EEED",
-    borderRadius: 30,
+    borderRadius: 45,
     width: "70%",
-    height: 45,
+    height: 60,
     marginBottom: 20,
     alignItems: "center",
   },
@@ -105,4 +128,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "#408E91",
   },
+  toggleButton:{
+    color: '#007AFF',
+    marginLeft: 10,
+  }
 });
