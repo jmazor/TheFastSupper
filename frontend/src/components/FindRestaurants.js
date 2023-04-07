@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import '../custom.css';
 import config from '../config';
@@ -26,6 +26,14 @@ const FindRestaurants = (args) =>{
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState('')
 
+    useEffect(() => {
+      const fetchData = async () => {
+          await findFood(); // await the function call
+          // set restaurantData to the fetched data
+          setRestaurantData(restaurantsList);
+      }
+      fetchData();
+    }, []);
     const findFood = async () => {
 
         let food = document.getElementById("foodType").value
