@@ -25,7 +25,9 @@ import axios from 'axios';
 const FindRestaurants = (args) =>{
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState('')
+
     const findFood = async () => {
+
         let food = document.getElementById("foodType").value
         console.log("Lets find some food that is like " + food)
         const data = {
@@ -37,10 +39,9 @@ const FindRestaurants = (args) =>{
         {
           const response = await axios.post(`${config.url}/api/restaurants`, data);
           for(let i in response.data.randomRestaurants){
-            console.log(response.data.randomRestaurants[i].name)
             restaurantsList.push(
             {
-            key : i,
+            key : response.data.randomRestaurants[i]._id,
             name : response.data.randomRestaurants[i].name,
             rating : response.data.randomRestaurants[i].rating,
             city : response.data.randomRestaurants[i].location.city,
@@ -61,20 +62,55 @@ const FindRestaurants = (args) =>{
         }
       }
 
+    const getWishlist = async() =>{
+
+        const data = {
+            token : localStorage.getItem("token")
+          }
+
+        try{
+            const response = await axios.post(`${config.url}/api/wishlist`, data)
+
+            for(let i in response.data.wishlist){
+                console.log(response.data.wishlist[i].name)
+                restaurantsList.push(
+                {
+                key : response.data.wishlist[i].id,
+                name : response.data.wishlist[i].name,
+                rating : response.data.wishlist[i].rating,
+                city : response.data.wishlist[i].location.city,
+                state : response.data.wishlist[i].location.state,
+                zipCode : response.data.wishlist[i].location.zip_code,
+                country : response.data.wishlist[i].location.country,
+                address : response.data.wishlist[i].location.address1,
+                price : response.data.wishlist[i].price,
+                imageURL : response.data.wishlist[i].image_url,
+                restURL : response.data.wishlist[i].url,
+                phone : response.data.wishlist[i].phone
+                })
+              }
+              setRestaurantData(restaurantsList)
+            } catch (error)
+            {
+              console.error('Error:', error);
+            }
+        }
+    
+
     return (
+        <>
         <div id='FindRestaurants'>
             <label>Enter restaurant type here</label>
             <input type='text' id='foodType'></input>
-            <Button className="custom-button login-button" color="primary" onClick={findFood}>
+            <button id="findFoodBtn" onClick={findFood}>
                 Find Food
-            </Button>
+            </button>
+            <button id="wishlist" onClick={getWishlist}>Get Wishlist</button>
+            </div>
             <div id='foodDiv'>
-            {/* {restaurantData.map(restaurantData => {
-                return (<RestaurantCollaspe {...{...restaurantData}} />)
-            })}
-            </div> */}
             <RestaurantCollaspe restaurants={restaurantData} />
-        </div></div>
+        </div>
+        </>
     )
 }
 export default FindRestaurants;

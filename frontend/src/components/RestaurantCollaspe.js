@@ -24,9 +24,7 @@ function RestaurantCollaspe(props) {
         const [isOpen, setIsOpen] = useState(false);
         const toggle = () => setIsOpen(!isOpen);
         const { restaurants } = props
-        let styles = {
-            display: 'inline-block'
-        }
+       
         if (restaurants.length > 0) {
             return (
                 restaurants.map((restaurant, index) => {
