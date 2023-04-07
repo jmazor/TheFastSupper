@@ -35,7 +35,7 @@ const FindRestaurants = (args) =>{
       fetchData();
     }, []);
     const findFood = async () => {
-
+        
         let food = document.getElementById("foodType").value
         console.log("Lets find some food that is like " + food)
         const data = {
