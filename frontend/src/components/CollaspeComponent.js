@@ -22,7 +22,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 const CollapseComponent = (props) =>{
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
     const[wishlist, setWishlist] = useState('')
     const { restaurants } = props
@@ -45,29 +45,28 @@ const CollapseComponent = (props) =>{
     }
 
     return (
-        <div>
-            {restaurants.name}
-            <Button color="primary" onClick={toggle} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
-                Show More
-            </Button>
-            <Collapse isOpen={isOpen} >
-                <Card>
-                    <CardBody>
-                        <div class='restaurantInfo'>
-                        cost: {restaurants.price} <br/>
-                        Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
-                        Rating: {restaurants.rating} Stars<br />
-                        phone : {restaurants.phone} <br />
-                        link :  <a href={restaurants.restURL}>Visit Us</a> <br />
-                        <button className='wishlistBtn' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</button>
-                        <p>{wishlist}</p>
-                        </div>
-                        <img src={restaurants.imageURL} class="restaurantImg"/>
-                    </CardBody>
-                </Card>
-            </Collapse>
+        <div className='restaurant'>
+            <img src={restaurants.imageURL} className="restaurantImg"/>
+            <h1 id='name'>{restaurants.name}</h1>
+            {/* <Button className='showMoreButton' color="primary" onClick={toggle} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
+                {isOpen ? 'Hide' : 'Show More'} {change button text based on state}
+            </Button> */}
+            {/* <Collapse isOpen={isOpen} > */}
+            <Card id='resCard'>
+                <CardBody>
+                    <div class='restaurantInfo'>
+                    cost: {restaurants.price} <br/>
+                    Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
+                    Rating: {restaurants.rating} Stars<br />
+                    phone : {restaurants.phone} <br />
+                    <button className='wishlistBtn' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</button>
+                    <p>{wishlist}</p>
+                    </div>
+                </CardBody>
+            </Card>
+            {/* </Collapse> */}
         </div >
     )
 
 }
-export default CollapseComponent
+export default CollapseComponent;

@@ -19,33 +19,26 @@ import
     Card
   } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function RestaurantCollaspe(props) {
-    const DisplayRestaurants = (props) => {
-        const [isOpen, setIsOpen] = useState(false);
-        const toggle = () => setIsOpen(!isOpen);
-        const { restaurants } = props
-       
-        if (restaurants.length > 0) {
-            return (
-                restaurants.map((restaurant, index) => {
-                    return (
-                        <CollapseComponent restaurants = {restaurant} />
-                    )
-                })
-            )
-        }
-        else {
-            return (
-                <div>
-                    <h1>Lets find your favorite restaurants</h1>
-                </div>
-            )
-        }
-    }
+    const { restaurants } = props;
+    const [selectedRestaurantIndex, setSelectedRestaurantIndex] = useState(0);
+
     return (
         <div>
-            {DisplayRestaurants(props)}
+            {restaurants.length > 0 && (
+                <div>
+                    <h1>Lets find your favorite restaurants</h1>
+                    <CollapseComponent restaurants={restaurants[selectedRestaurantIndex]} />
+                    {restaurants.length > 1 && (
+                        <Button onClick={() => setSelectedRestaurantIndex((selectedRestaurantIndex + 1) % restaurants.length)}>
+                            Next Restaurant
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     )
 }
+
 export default RestaurantCollaspe;
