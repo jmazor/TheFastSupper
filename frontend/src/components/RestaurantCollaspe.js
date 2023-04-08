@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../App.css';
 import '../custom.css';
 import CollapseComponent from './CollaspeComponent';
-import FindRestaurants from './FindRestaurants';
 import { useNavigate } from "react-router-dom";
 import
   {
@@ -22,16 +21,14 @@ import
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function RestaurantCollaspe(props) {
-    const { restaurants } = props;
     const [selectedRestaurantIndex, setSelectedRestaurantIndex] = useState(0);
+    const { restaurants, onIndexChange } = props;
+    
+    const handleIndexChange = (index) => {
+        setSelectedRestaurantIndex(index);
+        onIndexChange(index); // Call the callback function with the new index value
+      };
 
-    const fetchMoreRestaurants = async () => {
-        const newRestaurants = await findFood();
-        if (newRestaurants.length > 0) {
-            setSelectedRestaurantIndex(0);
-            setRestaurants(newRestaurants);
-        }
-    };
     return (
         <div>
             {restaurants.length > 0 && (
@@ -40,13 +37,13 @@ function RestaurantCollaspe(props) {
                     <CollapseComponent restaurants={restaurants[selectedRestaurantIndex]} />
                     {restaurants.length > 1 && (
                         <Button onClick={() => {
-                            if (selectedRestaurantIndex != restaurants.length) 
+                            if (selectedRestaurantIndex < restaurants.length - 1) 
                             {
-                                setSelectedRestaurantIndex(selectedRestaurantIndex + 1);
+                                handleIndexChange(selectedRestaurantIndex + 1);
                             }
                             else
                             {
-                                fetchMoreRestaurants();
+                                handleIndexChange(0);
                             }
                         }
                         }>

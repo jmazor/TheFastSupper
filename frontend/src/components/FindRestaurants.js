@@ -24,7 +24,7 @@ import axios from 'axios';
 
 const FindRestaurants = (args) =>{
     let restaurantsList = []
-    const [restaurantData, setRestaurantData] = useState('')
+    const [restaurantData, setRestaurantData] = useState([])
 
     useEffect(() => {
       const fetchData = async () => {
@@ -34,6 +34,20 @@ const FindRestaurants = (args) =>{
       }
       fetchData();
     }, []);
+
+    const [selectedRestaurantIndex, setSelectedRestaurantIndex] = useState(0);
+  
+    const updateSelectedRestaurantIndex = (index) => {
+      setSelectedRestaurantIndex(index);
+    };
+    const checkIndex = () => {
+      if (selectedRestaurantIndex == restaurantData.length - 1) 
+      {
+        findFood();
+        updateSelectedRestaurantIndex(0);
+      }
+      return restaurantData
+    }
     const findFood = async () => {
         
         let food = document.getElementById("foodType").value
@@ -116,7 +130,7 @@ const FindRestaurants = (args) =>{
             <button id="wishlist" onClick={getWishlist}>Get Wishlist</button>
             </div>
             <div id='foodDiv'>
-            <RestaurantCollaspe restaurants={restaurantData} />
+            <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
         </div>
         </>
     )

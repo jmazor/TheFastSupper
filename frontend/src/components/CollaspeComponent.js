@@ -54,7 +54,7 @@ const CollapseComponent = (props) =>{
             {/* <Collapse isOpen={isOpen} > */}
             <Card id='resCard'>
                 <CardBody>
-                    <div class='restaurantInfo'>
+                    <div className='restaurantInfo'>
                     cost: {restaurants.price} <br/>
                     Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
                     Rating: {restaurants.rating} Stars<br />
