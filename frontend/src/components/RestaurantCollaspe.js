@@ -43,7 +43,7 @@ function RestaurantCollaspe(props) {
                             }
                             else
                             {
-                                handleIndexChange(0);
+                                handleIndexChange(restaurants.length - 1);
                             }
                         }
                         }>

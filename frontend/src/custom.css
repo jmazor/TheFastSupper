@@ -1,5 +1,8 @@
 .custom-button {
     width: 100px;
+    position: absolute;
+    top: 3%;
+    right: 5%;
     /* Adjust the width as needed */
 }
 
@@ -36,7 +39,7 @@
 }
 
 
-.logo-full {
+#logo-full {
     position: absolute;
     top: 22%;
     left: 30%;
@@ -47,9 +50,14 @@
     align-items: center;
     z-index: 1;
 }
-.logo-small {
-    width: 400px;
-    height: auto;
+#logo-small {
+    position: absolute;
+    width: 18%;
+    height: 20%;
+    left: 0vw;
+    top: .04%;
+    background-color:white;
+    /* height: auto; */
 }
 
 .restaurantInfo
@@ -70,4 +78,8 @@
 {
     width: 30%;
     margin: 0 auto;
+}
+#Greeting
+{
+    font-size: 100px;
 }

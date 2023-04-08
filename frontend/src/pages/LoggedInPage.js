@@ -4,6 +4,7 @@ import '../custom.css';
 import FindRestaurants from '../components/FindRestaurants';
 import config from '../config';
 import { useNavigate } from "react-router-dom";
+import Logo from '../components/Logo';
 import
   {
     Button,
@@ -36,14 +37,13 @@ const LoggedInPage = () =>
   return (
     <div className="App">
         <div className="App-header">
-        <h2 id="Title">The Fast Supper</h2>
-        </div>
-        <div id='Greeting div'>
-          <h1 id='Greeting'>{greet}</h1>
+        {/* <h2 id="Title">The Fast Supper</h2> */}
+        <Logo fullscreen={false}/>
+        <h1 id='Greeting'>{greet}</h1>
         </div>
         <div className="App-body">
           {/* Logout Button*/}
-          <Button className="custom-button login-button" color="primary" onClick={Logout}>
+          <Button className="custom-button" color="primary" onClick={Logout}>
             Log out
           </Button>
         </div>

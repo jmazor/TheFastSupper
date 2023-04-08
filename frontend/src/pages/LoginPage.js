@@ -150,7 +150,7 @@ const LoginPage = () =>
       <div id='loginResultDiv'>
         <h1 id='loginResult'></h1>
       </div>
-
+      
       <Logo fullscreen={true} />
 
       <div className="App-body">
