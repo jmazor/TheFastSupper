@@ -3,6 +3,7 @@ import '../App.css';
 import '../custom.css';
 import config from '../config';
 import RestaurantCollaspe from './RestaurantCollaspe';
+import Wishlist from './Wishlist';
 import { useNavigate } from "react-router-dom";
 import
   {
@@ -127,10 +128,11 @@ const FindRestaurants = (args) =>{
             <button id="findFoodBtn" onClick={findFood}>
                 Find Food
             </button>
-            <button id="wishlist" onClick={getWishlist}>Get Wishlist</button>
+            {/* <button id="wishlist" onClick={getWishlist}>Get Wishlist</button> */}
             </div>
             <div id='foodDiv'>
             <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
+            <Wishlist/>
         </div>
         </>
     )

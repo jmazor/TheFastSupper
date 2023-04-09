@@ -30,11 +30,11 @@ function RestaurantCollaspe(props) {
       };
 
     return (
-        <div>
+        <div className='restaurant'>
             {restaurants.length > 0 && (
                 <div>
-                    <h1>Lets find your favorite restaurants</h1>
-                    <CollapseComponent restaurants={restaurants[selectedRestaurantIndex]} />
+                    {/* <h1>Lets find your favorite restaurants</h1> */}
+                    <CollapseComponent className='swipe' restaurants={restaurants[selectedRestaurantIndex]} />
                     {restaurants.length > 1 && (
                         <Button onClick={() => {
                             if (selectedRestaurantIndex < restaurants.length - 1) 

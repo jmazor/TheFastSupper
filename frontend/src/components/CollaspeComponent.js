@@ -45,7 +45,7 @@ const CollapseComponent = (props) =>{
     }
 
     return (
-        <div className='restaurant'>
+        <div>
             <img src={restaurants.imageURL} className="restaurantImg"/>
             <h1 id='name'>{restaurants.name}</h1>
             {/* <Button className='showMoreButton' color="primary" onClick={toggle} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
