@@ -1,5 +1,5 @@
 // loginscreen.js
-import React, { Component, useState } from "react";
+import React, { Component, useCallback, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -12,27 +12,30 @@ import {
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import HomeScreen from "./homescreen";
 
 export default function LoginScreen({ navigation }) 
 {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const[isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-
+  
   const handleLogin = () => {
-
       axios.post('https://fastsupper.herokuapp.com/api/login', {
       email: email,
       password: password,
     })
     .then(function (response) {
-      console.log(response);
-      navigation.navigate("Home");      
+      let email = response.data.email;
+      let token = response.data.token;
+      //console.log(email + token);
+      navigation.navigate("Home",{email:email,token:token,});      
     })
     .catch(function (error) {
       console.log(error);
     });
+
+    
 
   };
 
@@ -54,7 +57,6 @@ export default function LoginScreen({ navigation })
           onChangeText={(email) => setEmail(email)}
         /> 
       </View>
-
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -71,17 +73,9 @@ export default function LoginScreen({ navigation })
       <TouchableOpacity>
         <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
       </TouchableOpacity> 
-<<<<<<< HEAD
       <TouchableOpacity>
         <Text onPress={() => navigation.navigate("Forgot")}>Forgot Password?</Text>
       </TouchableOpacity> 
-=======
-
-      <TouchableOpacity>
-        <Text style={styles.footerText}><Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Forgot Password?</Text></Text>
-      </TouchableOpacity>
-
->>>>>>> 9ea7c56f88e960054b1e7e0a89fb27fc9fa36e83
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
