@@ -42,7 +42,13 @@ const Wishlist = (props) =>
         }
         fetchData();
       }, []);
-
+      useEffect(() => {
+        const fetchData = async () => {
+            //update wishlist when item is deleted
+            await getWishlist(); 
+        }
+        fetchData();
+      }, [restaurantData]);
     const getWishlist = async() =>
     {
         const data = {
@@ -58,7 +64,7 @@ const Wishlist = (props) =>
                 console.log(response.data.wishlist[i].name)
                 restaurantsList.push(
                 {
-                key : response.data.wishlist[i].id,
+                key : response.data.wishlist[i]._id,
                 name : response.data.wishlist[i].name,
                 rating : response.data.wishlist[i].rating,
                 city : response.data.wishlist[i].location.city,
@@ -79,6 +85,21 @@ const Wishlist = (props) =>
             console.error('Error:', error);
         }
     }
+    const removeFromWishlist = async(key) =>{
+        const data = {
+            token : localStorage.getItem("token"),
+            restaurantID : key
+        }
+        let check = confirm('Delete restaurant from wishlist?');
+        if(check){
+        try{
+            const response = await axios.post(`${config.url}/api/history-delete`, data)
+            console.log("Restaurant successfully deleted from wishlist")
+        }catch(error){
+            console.log(error)
+        }
+    }
+    }
 
     return (
         <div className='wishlist'>
@@ -97,6 +118,7 @@ const Wishlist = (props) =>
                                 Address: {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
                                 Rating: {restaurant.rating} Stars<br />
                                 phone : {restaurant.phone} <br /> 
+                                <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
                             </div>
                         </CardBody>
                     </Card>
