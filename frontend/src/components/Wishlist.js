@@ -53,13 +53,13 @@ const Wishlist = ({props, ...args}) =>
         }
         fetchData();
       }, []);
-      useEffect(() => {
-        const fetchData = async () => {
-            //update wishlist when item is deleted
-            await getWishlist(); 
-        }
-        fetchData();
-      }, [restaurantData]);
+      // useEffect(() => {
+      //   const fetchData = async () => {
+      //       //update wishlist when item is deleted
+      //       await getWishlist(); 
+      //   }
+      //   fetchData();
+      // }, [restaurantData]);
     const getWishlist = async() =>
     {
         const data = {
@@ -106,6 +106,10 @@ const Wishlist = ({props, ...args}) =>
         try{
             const response = await axios.post(`${config.url}/api/history-delete`, data)
             console.log("Restaurant successfully deleted from wishlist")
+            await getWishlist(); // await the function call
+            // set restaurantData to the fetched data
+            setRestaurantData(restaurantsList);
+            setIsOpenList(new Array(restaurantsList.length).fill(false));
         }catch(error){
             console.log(error)
         }
