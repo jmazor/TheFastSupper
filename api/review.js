@@ -2,7 +2,7 @@ const review = require('../models/review');
 const { Restaurant, express, returnUser, refresh, Review } = require('../modules');
 const router = express.Router();
 
-
+// Stores a review in db
 router.post('/api/review', async (req, res) => {
     try {
         const userID = returnUser(req.body.token);
@@ -26,6 +26,7 @@ router.post('/api/review', async (req, res) => {
 
 });
 
+// Gets reviews for a particular restaurant
 router.get('/api/review/:restaurantID', async (req, res) => {
     try {
         const reviews = await Review.find({ restaurantID: req.params.restaurantID });

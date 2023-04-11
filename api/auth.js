@@ -62,7 +62,7 @@ router.post('/api/login', async (req, res) => {
         const token = createToken(user._id, user.email);
 
         // Send the token to the client
-        res.json({ token : token, firstName :user.firstName, changePassword:user.changePassword});
+        res.json({ token : token, firstName :user.firstName, changePassword:user.changePassword, email: user.email});
 
     } catch (err) {
         console.error(err);

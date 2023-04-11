@@ -67,7 +67,7 @@
   
 .restaurantImg {
     position: relative;
-    width: 300px;
+    width: 350px;
     height: 200px;
 }
 .showMoreButton {
@@ -78,13 +78,13 @@
 .restaurant
 {
     position: absolute;
-    top: 30%;
+    top: 25%;
     right:35%;
 }
 #resCard
 {
-    width: 300px;
-    height: 200px;
+    width: 350px;
+    height: 300px;
     margin: 0 auto;
 }
 #resCard .CardBody
