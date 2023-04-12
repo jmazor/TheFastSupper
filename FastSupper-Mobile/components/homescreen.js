@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
+
 import axios from 'axios';
 
 
@@ -19,8 +20,13 @@ import axios from 'axios';
 
 export default function HomeScreen({route,navigation}){
     const{email, token} = route.params;
-  
 
+    return(    
+    <View>
+      <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
+    </View>
+          
+    );
 
     
 };

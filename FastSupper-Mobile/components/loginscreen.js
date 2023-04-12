@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import HomeScreen from "./homescreen";
+
 
 export default function LoginScreen({ navigation }) 
 {
