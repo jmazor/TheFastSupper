@@ -70,6 +70,10 @@
     width: 350px;
     height: 200px;
 }
+.wishlistRestaurantImg{
+    width: 250px;
+    height: 150px
+}
 .showMoreButton {
     position: relative;
     top: 15vw;
@@ -83,7 +87,7 @@
 }
 #resCard
 {
-    width: 350px;
+    width: 400px;
     height: 300px;
     margin: 0 auto;
 }
@@ -102,11 +106,14 @@
     position:absolute;
     height: 25vw;
     width: 25vw;
+    overflow-y: auto;
+    height: 75%;
+    width: 25%
 
 }
 #wishCard
 {
-    width: 80px%;
+    width: 80%;
     margin: 0 auto
 }
 

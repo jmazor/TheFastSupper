@@ -16,6 +16,7 @@ import
     Input,
     Collapse,
     CardBody,
+    Alert,
     Card
   } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +27,8 @@ const CollapseComponent = (props) =>{
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
     const[wishlist, setWishlist] = useState('')
+    const[visible, setVisible] = useState(false)
+    const onDismiss = () => {setVisible(!visible);}
     const { restaurants } = props
 
     const addToWishlist = async(key) =>{
@@ -39,6 +42,7 @@ const CollapseComponent = (props) =>{
             const response = await axios.post(`${config.url}/api/history-new`, data)
             console.log("item successfully added to wishlist")
             setWishlist("Item added to wishlist")
+            setVisible(true)
         }catch(error)
         {
             console.log(error)
@@ -62,8 +66,8 @@ const CollapseComponent = (props) =>{
                     Rating: {restaurants.rating} Stars<br />
                     phone : {restaurants.phone} <br />
                     <button className='wishlistBtn' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</button>
-                    <p>{wishlist}</p>
                     <GetReviews restaurant={restaurants}/>
+                    <Alert color='info' isOpen={visible} toggle={onDismiss}>Item added to wishlist</Alert>
                     </div>
                 </CardBody>
             </Card>

@@ -149,7 +149,7 @@ const Wishlist = ({props, ...args}) =>
                     <Card id='wishCard'>
                         <CardBody>
                             <div className='restaurantInfo'>
-                                <img src={restaurant.imageURL} className="restaurantImg"/>
+                                <img src={restaurant.imageURL} className="wishlistRestaurantImg"/>
                                 <br />
                                 cost: {restaurant.price} <br/>
                                 Address: {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
