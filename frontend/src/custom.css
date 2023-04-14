@@ -63,6 +63,7 @@
 .restaurantInfo
 {
     position: relative;
+    text-align: left;
 }
   
 .restaurantImg {
@@ -99,6 +100,10 @@
 {
     width:100px;
 }
+.cardText{
+    text-align: left;
+}
+
 #Greeting
 {
     font-size: 7vw;
@@ -150,4 +155,8 @@
 }
 #foodType{
     border-radius: 8px;
+}
+#wishlist-button{
+    padding-top: 20px;
+    text-align: center;
 }

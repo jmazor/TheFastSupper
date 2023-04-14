@@ -21,7 +21,7 @@ const GetReviews = ({ restaurant }) => {
 
   return (
     <>
-      <Button className='getReviewsBtn' color="primary" onClick={() => {
+      <Button className='getReviewsBtn' color="link" onClick={() => {
         fetchReviews();
         toggle();
       }}>

@@ -5,6 +5,7 @@ import config from '../config';
 import { useNavigate } from "react-router-dom";
 import CollapseComponent from './CollaspeComponent';
 import AddReview from './AddReview';
+import GetReviews from './GetReviews';
 import
   {
     Button,
@@ -133,10 +134,10 @@ const Wishlist = ({props, ...args}) =>
                             <div className='restaurantInfo'>
                                 <img src={restaurant.imageURL} className="wishlistRestaurantImg"/>
                                 <br />
-                                cost: {restaurant.price} <br/>
-                                Address: {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
-                                Rating: {restaurant.rating} Stars<br />
-                                phone : {restaurant.phone} <br /> 
+                                <b>cost:</b> {restaurant.price} <br/>
+                                <b>Address:</b> {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
+                                <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
+                                <b>phone :</b> {restaurant.phone} <br /> 
                                 <AddReview restaurantID={restaurant.key} />
                                 <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
                             </div>
