@@ -27,6 +27,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 const Wishlist = ({props, ...args}) => 
 {
+    const navigate = useNavigate()
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState([])
     const [userReviewModal, setUserReviewModal] = useState(false);
@@ -94,6 +95,9 @@ const Wishlist = ({props, ...args}) =>
         catch (error)
         {
             console.error('Error:', error);
+            if(error.response.status == 401){
+                navigate('/login')
+              }
         }
     }
     const removeFromWishlist = async(key) =>{
@@ -112,6 +116,9 @@ const Wishlist = ({props, ...args}) =>
             setIsOpenList(new Array(restaurantsList.length).fill(false));
         }catch(error){
             console.log(error)
+            if(error.response.status == 401){
+                navigate('/login')
+              }
         }
     }
     }
@@ -133,6 +140,9 @@ const Wishlist = ({props, ...args}) =>
         }catch(error)
         {
             console.log(error)
+            if(error.response.status == 401){
+                navigate('/login')
+              }
         }
 
     }

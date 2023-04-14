@@ -4,7 +4,7 @@ import '../custom.css';
 import config from '../config';
 import RestaurantCollaspe from './RestaurantCollaspe';
 import Wishlist from './Wishlist';
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import
   {
     Button,
@@ -24,6 +24,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 const FindRestaurants = (args) =>{
+    const navigate = useNavigate()
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState([])
 
@@ -52,7 +53,6 @@ const FindRestaurants = (args) =>{
     const findFood = async () => {
         
         let food = document.getElementById("foodType").value
-        console.log("Lets find some food that is like " + food)
         const data = {
           token : localStorage.getItem("token"),
           category : food
@@ -82,6 +82,9 @@ const FindRestaurants = (args) =>{
         } catch (error)
         {
           console.error('Error:', error);
+          if(error.response.status == 401){
+            navigate('/login')
+          }
         }
       }
 
@@ -125,9 +128,9 @@ const FindRestaurants = (args) =>{
         <div id='FindRestaurants'>
             <label>Enter restaurant type here</label>
             <input type='text' id='foodType'></input>
-            <button id="findFoodBtn" onClick={findFood}>
+            <Button id="findFoodBtn" color='primary' onClick={findFood}>
                 Find Food
-            </button>
+            </Button>
             {/* <button id="wishlist" onClick={getWishlist}>Get Wishlist</button> */}
             </div>
             <div id='foodDiv'>

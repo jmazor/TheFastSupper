@@ -24,6 +24,7 @@ import axios from 'axios';
 import GetReviews from './GetReviews';
 
 const CollapseComponent = (props) =>{
+    const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
     const[wishlist, setWishlist] = useState('')
@@ -46,12 +47,16 @@ const CollapseComponent = (props) =>{
         }catch(error)
         {
             console.log(error)
+            if(error.response.status == 401){
+                navigate('/login')
+              }
+
         }
     }
 
     return (
         <div>
-            <img src={restaurants.imageURL} className="restaurantImg"/>
+            <img src={restaurants.imageURL} id="restaurantCardImg"/>
             
             {/* <Button className='showMoreButton' color="primary" onClick={toggle} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
                 {isOpen ? 'Hide' : 'Show More'} {change button text based on state}
@@ -65,7 +70,7 @@ const CollapseComponent = (props) =>{
                     Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
                     Rating: {restaurants.rating} Stars<br />
                     phone : {restaurants.phone} <br />
-                    <button className='wishlistBtn' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</button>
+                    <Button className='wishlistBtn' color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</Button>
                     <GetReviews restaurant={restaurants}/>
                     <Alert color='info' isOpen={visible} toggle={onDismiss}>Item added to wishlist</Alert>
                     </div>
