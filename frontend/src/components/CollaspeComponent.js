@@ -22,6 +22,7 @@ import
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import GetReviews from './GetReviews';
+import AddReview from './AddReview';
 
 const CollapseComponent = (props) =>{
     const navigate = useNavigate()
@@ -70,6 +71,7 @@ const CollapseComponent = (props) =>{
                     Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
                     Rating: {restaurants.rating} Stars<br />
                     phone : {restaurants.phone} <br />
+                    <AddReview restaurantID={restaurants.key} /> <br/>
                     <Button className='wishlistBtn' color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</Button>
                     <GetReviews restaurant={restaurants}/>
                     <Alert color='info' isOpen={visible} toggle={onDismiss}>Item added to wishlist</Alert>
