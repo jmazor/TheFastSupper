@@ -24,12 +24,12 @@ const LoginPage = () =>
   const navigate = useNavigate();
   const [SignUpModal, setSignUpModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
-  const toggleSignUp = () => setSignUpModal(!SignUpModal);
-  const toggleLogin = () => setLoginModal(!loginModal);
+  const toggleSignUp = () => setSignUpModal(!SignUpModal, setSignupResult(''));
+  const toggleLogin = () => setLoginModal(!loginModal, setLoginResult(''));
   const [ForgotModal, setForgotModal] = useState(false);
-  const toggleForgot = () => setForgotModal(!ForgotModal);
+  const toggleForgot = () => setForgotModal(!ForgotModal, setForgotPasswordResult(''));
   const [changePasswordModal, setChangePasswordModal] = useState(false);
-  const toggleChangePassword = () => setChangePasswordModal(!changePasswordModal);
+  const toggleChangePassword = () => setChangePasswordModal(!changePasswordModal, setChangePasswordResult(''));
 
   const[changePasswordResult, setChangePasswordResult] = useState('')
   const[loginResult, setLoginResult] = useState('')
