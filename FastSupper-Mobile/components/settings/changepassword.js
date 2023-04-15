@@ -22,6 +22,8 @@ export default function ChangePassword({route,navigation}){
     const[oldPass, setOldPass] = useState("");
     const[newPass, setNewPass] = useState("");
     const[isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const[error, setError] = useState("");
+
 
 
     const handleChangePassword = () => {
@@ -36,6 +38,7 @@ export default function ChangePassword({route,navigation}){
     })
     .catch(function (error) {
       console.log(error);
+      setError(error.response.data);
     });
   }
 
@@ -73,7 +76,9 @@ export default function ChangePassword({route,navigation}){
           <Text  style={styles.toggleButton}> {isPasswordVisible ? 'Hide' : 'Show'}</Text>
         </TouchableOpacity>
       </View> 
-      
+
+      <Text style={styles.error}>{error}</Text>
+            
      
       <TouchableOpacity style={styles.loginBtn} onPress={handleChangePassword}>
         <Text style={styles.loginText}>Change Password</Text> 
@@ -124,5 +129,8 @@ const styles = StyleSheet.create({
   toggleButton:{
     color: '#007AFF',
     marginLeft: 10,
+  },
+  error :{
+    color: '#FF0000',
   }
 });

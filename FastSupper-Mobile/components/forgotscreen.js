@@ -16,6 +16,8 @@ import axios from 'axios';
 export default function ForgotScreen({ navigation }) 
 {
   const [email, setEmail] = useState("");
+  const[error, setError] = useState("");
+
   
 
   const handleForgot = () => {
@@ -30,6 +32,7 @@ export default function ForgotScreen({ navigation })
   })
   .catch(function (error) {
     console.log(error);
+    setError(error.response.data);
   });
   
 }
@@ -52,6 +55,8 @@ export default function ForgotScreen({ navigation })
           onChangeText={(email) => setEmail(email)}
         /> 
       </View>
+
+      <Text style={styles.error}>{error}</Text>
 
       
       <TouchableOpacity>
@@ -101,6 +106,9 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "#408E91",
   },
+  error :{
+    color: '#FF0000',
+  }
 });
 
 

@@ -19,6 +19,8 @@ export default function SignupScreen()
     const [password, setPassword] = useState('');
     const [first, setFirst] = useState('');
     const [last, setLast] = useState('');
+    const[error, setError] = useState("");
+
     const navigation = useNavigation();
   
     const handleSignUp = () => {
@@ -30,11 +32,13 @@ export default function SignupScreen()
       })
       .then(function (response) {
         console.log(response);
+        navigation.navigate("Login");
       })
       .catch(function (error) {
         console.log(error);
+        setError(error.response.data);
       });
-     navigation.goBack();
+     
     }
   
   return (
@@ -78,6 +82,8 @@ export default function SignupScreen()
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>  
+
+      <Text style={styles.error}>{error}</Text>
       <TouchableOpacity style={styles.loginBtn} onPress={handleSignUp} >
         <Text style={styles.loginText}>SIGN UP</Text> 
       </TouchableOpacity > 
@@ -97,6 +103,9 @@ const styles = StyleSheet.create({
     height: 170,
     width: 170,
 
+  },
+  error :{
+    color: '#FF0000',
   },
   inputView: {
     backgroundColor: "#F0EEED",
