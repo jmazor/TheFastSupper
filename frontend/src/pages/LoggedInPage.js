@@ -35,19 +35,21 @@ const LoggedInPage = () =>
   }
 
   return (
-    <div className="App">
-        <div className="App-header">
-        {/* <h2 id="Title">The Fast Supper</h2> */}
-        <Logo fullscreen={false}/>
-        <h1 id='Greeting'>{greet}</h1>
+    <div>
+        <div className="App-header-2">
+          {/* <h2 id="Title">The Fast Supper</h2> */}
+          <Logo fullscreen={false}/>
+          <h1 id='Greeting' className='Title-centered'>{greet}</h1>
         </div>
+
         <div className="App-body">
           {/* Logout Button*/}
-          <Button className="custom-button" color="primary" onClick={Logout}>
+          <Button className="logout-button" color="primary" onClick={Logout}>
             Log out
           </Button>
         </div>
-        <FindRestaurants />
+        
+        <FindRestaurants/>
     </div>
 );
 };

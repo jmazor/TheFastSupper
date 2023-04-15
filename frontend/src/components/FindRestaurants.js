@@ -125,7 +125,7 @@ const FindRestaurants = (args) =>{
 
     return (
         <>
-        <div id='FindRestaurants'>
+        <div id='FindRestaurants' className="centered">
             <label>Enter restaurant type here</label>
             <input type='text' id='foodType'></input>
             <Button id="findFoodBtn" color='primary' onClick={findFood}>

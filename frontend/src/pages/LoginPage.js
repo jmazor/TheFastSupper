@@ -143,10 +143,11 @@ const LoginPage = () =>
   }
 
   return (
-    <div className="App">
+    <div>
       <div className="App-header">
-        <h2 id="Title">The Fast Supper</h2>
+        <h2 className="Title">The Fast Supper</h2>
       </div>
+
       <div id='loginResultDiv'>
         <h1 id='loginResult'></h1>
       </div>
@@ -155,11 +156,11 @@ const LoginPage = () =>
 
       <div className="App-body">
         {/*Sign up Button*/}
-        <Button className="custom-button signup-button" color="primary" onClick={toggleSignUp}>
+        <Button className="signup-button" color="primary" onClick={toggleSignUp}>
           Sign Up
         </Button>
         {/* Login in Button*/}
-        <Button className="custom-button login-button" color="primary" onClick={toggleLogin}>
+        <Button className="login-button" color="primary" onClick={toggleLogin}>
           Log In
         </Button>
 
