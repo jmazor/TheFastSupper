@@ -11,6 +11,9 @@ import HomeScreen from "./components/homescreen";
 import ForgotScreen from "./components/forgotscreen";
 import Settings from "./components/settings/settings";
 import ChangePassword from "./components/settings/changepassword";
+import HistoryScreen from "./components/historyscreen";
+import SavedScreen from "./components/savedscreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +27,9 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        <Stack.Screen name="History" component={HistoryScreen} />
+        <Stack.Screen name="Saved" component={SavedScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,5 +1,5 @@
 // loginscreen.js
-import React, { Component, useCallback, useState } from "react";
+import React, { Component, useCallback, useState, useEffect, useDebugValue } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -9,9 +9,12 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+
 
 
 export default function LoginScreen({ navigation }) 
@@ -19,7 +22,10 @@ export default function LoginScreen({ navigation })
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const[isPasswordVisible, setIsPasswordVisible] = useState(false);
-  
+  const[error, setError] = useState("");
+  const[refresh,setRefresh] = useState(false);
+
+
   const handleLogin = () => {
       axios.post('https://fastsupper.herokuapp.com/api/login', {
       email: email,
@@ -33,20 +39,39 @@ export default function LoginScreen({ navigation })
     })
     .catch(function (error) {
       console.log(error);
+      setError(error.response.data);
     });
 
-    
-
   };
-
   const togglePasswordVisibility = () =>{
     setIsPasswordVisible(!isPasswordVisible);
     };
 
-  
+  // const fresh = React.useCallback(() =>{
+  //   setRefresh(true);
+  //   setError("");
+  //   setEmail("");
+  //   setPassword("");
+
+  //   setTimeout(()=>{
+  //     setRefresh(false);
+  //   }, 2000);
+  // },[]);
+    
 
   return (
+
+    
     <View style={styles.container}>
+
+      {/* <ScrollView contentContainerStyle={styles.scrollView}
+       refreshControl={
+        <RefreshControl>
+          refreshing={false}
+          onRefresh={() => fresh()}
+        </RefreshControl>
+      }>   </ScrollView>*/}
+
       <Image style={styles.image} source={require('../assets/fastSupperLogo.png')}/>
       <StatusBar style="auto" />
       <View style={styles.inputView}>
@@ -69,6 +94,9 @@ export default function LoginScreen({ navigation })
           <Text  style={styles.toggleButton}> {isPasswordVisible ? 'Hide' : 'Show'}</Text>
         </TouchableOpacity>
       </View> 
+
+      <Text style={styles.error}>{error}</Text>
+      
       
       <TouchableOpacity>
         <Text style={styles.footerText}>Don't have an account? <Text onPress={() => navigation.navigate("SignUp")} style={styles.footerLink}>Sign up</Text></Text>
@@ -79,9 +107,12 @@ export default function LoginScreen({ navigation })
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
+     
     </View> 
   );
-}
+};
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -121,6 +152,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 40,
     backgroundColor: "#408E91",
+  },
+  error :{
+    color: '#FF0000',
   },
   toggleButton:{
     color: '#007AFF',
