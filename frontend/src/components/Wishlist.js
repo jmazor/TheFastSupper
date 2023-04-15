@@ -125,8 +125,11 @@ const Wishlist = ({props, ...args}) =>
         <div className='wishlist'>
             <h1 id='wishTitle'>Liked Restaurants</h1>
             {restaurantData.map((restaurant, index) => (
-                <div key={restaurant.key}>
+                <div key={restaurant.key} className='wishlistNameDiv'>
                 <h1 id='name'>{restaurant.name}</h1>
+                <Button className='showMoreButton' color="primary" onClick={() => toggle(index)} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
+                    {isOpenList[index] ? 'Hide' : 'Show More'} {/*change button text based on state*/}
+                </Button>
                 
                 <Collapse isOpen={isOpenList[index]} >
                     <Card id='wishCard'>
@@ -144,9 +147,6 @@ const Wishlist = ({props, ...args}) =>
                         </CardBody>
                     </Card>
                 </Collapse>
-                <Button className='showMoreButton' color="primary" onClick={() => toggle(index)} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
-                    {isOpenList[index] ? 'Hide' : 'Show More'} {/*change button text based on state*/}
-                </Button>
         </div>
 
     ))}
