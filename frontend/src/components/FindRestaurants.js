@@ -124,20 +124,21 @@ const FindRestaurants = (args) =>{
     
 
     return (
-        <>
-        <div id='FindRestaurants'>
+      <div>
+        <div className="restaurantDiv">
+          <div className="findFood">
             <label>Enter restaurant type here</label>
             <input type='text' id='foodType'></input>
             <Button id="findFoodBtn" color='primary' onClick={findFood}>
                 Find Food
             </Button>
             {/* <button id="wishlist" onClick={getWishlist}>Get Wishlist</button> */}
-            </div>
-            <div id='foodDiv'>
-            <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
-            <Wishlist/>
+          </div>
+          <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
         </div>
-        </>
+
+        <Wishlist/>
+      </div>
     )
 }
 export default FindRestaurants;
