@@ -26,7 +26,10 @@ export default function HistoryScreen({route,navigation}) {
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
+    finally {
+      setLoading(false);
+    }
+
   };
 
   const renderRestaurant = ({ item }) => (
@@ -55,7 +58,7 @@ export default function HistoryScreen({route,navigation}) {
         renderItem={renderRestaurant}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContainer}
-        //onEndReached={handleLoadMore}
+        onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />

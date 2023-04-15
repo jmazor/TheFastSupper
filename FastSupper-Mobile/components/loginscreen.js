@@ -47,31 +47,11 @@ export default function LoginScreen({ navigation })
     setIsPasswordVisible(!isPasswordVisible);
     };
 
-  // const fresh = React.useCallback(() =>{
-  //   setRefresh(true);
-  //   setError("");
-  //   setEmail("");
-  //   setPassword("");
-
-  //   setTimeout(()=>{
-  //     setRefresh(false);
-  //   }, 2000);
-  // },[]);
+ 
     
 
   return (
-
-    
     <View style={styles.container}>
-
-      {/* <ScrollView contentContainerStyle={styles.scrollView}
-       refreshControl={
-        <RefreshControl>
-          refreshing={false}
-          onRefresh={() => fresh()}
-        </RefreshControl>
-      }>   </ScrollView>*/}
-
       <Image style={styles.image} source={require('../assets/fastSupperLogo.png')}/>
       <StatusBar style="auto" />
       <View style={styles.inputView}>

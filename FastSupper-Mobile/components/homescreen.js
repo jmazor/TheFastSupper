@@ -1,54 +1,137 @@
-// homescreen
-import React, { Component, useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from "react-native";
-import {useNavigation} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 
+export default function HomeScreen({route,navigation}) {
+  const [restaurants, setRestaurants] = useState([]);
+  const [page, setPage] = useState(1);
+  const{email, token} = route.params;
+  const[currentIndex,setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
 
-export default function HomeScreen({route,navigation}){
-    const{email, token} = route.params;
-  
+  const fetchRestaurants = async () => {
+    try {
+      const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`,{
+        token:token,
+      })
+      console.log("hehehehe");
+      const data = response.data;
+      setCurrentIndex(0);
+      setRestaurants(data.randomRestaurants);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  const renderRestaurant = () => {
+    const item = restaurants[currentIndex];
     return (
-      
-      <View style={styles.container}>
-        <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
-        <Button title="Log Out" onPress={()=> navigation.navigate("Login")}></Button>
-        <Button title="Saved Page" onPress={()=> navigation.navigate("Saved",{email:email,token:token})}></Button>
-        <Button title="History Page" onPress={()=> navigation.navigate("History",{email:email,token:token})}></Button>
-
-      <View style={styles.firstrow}></View>
-      <View style={styles.secondrow}></View>
-      <View style={styles.thirdrow}></View>
+      <View style={styles.details}>
+        <TouchableOpacity style={styles.restaurant}>
+          <Image source={{ uri: item.image_url }} style={styles.image} />
+          <View style={styles.details}>
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.description}>{item.categories[0].title}</Text>
+            <TouchableOpacity style={styles.button} onPress={handleNext}>
+              <Text style={styles.buttonText}>Next Restaurant</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
       </View>
-    );  
-}
+    );
+  };
 
-const styles = StyleSheet.create({
-  container: {
-  flex: 1,
-  backgroundColor: '#1f2041',
-  },
-  firstrow: {
-  flex: 1,
-  backgroundColor: "#ffc857"
-  },
-  secondrow: {
-  flex: 1,
-  backgroundColor: "#4b3f72"
-  },
-  thirdrow: {
-  flex: 1,
-  backgroundColor: "#119da4"
-  }
-  });
+  const handleNext = () => {
+    if (currentIndex === restaurants.length - 1)
+    {
+        fetchRestaurants();
+    }
+    else{
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+
+      {restaurants.length > 0 ? renderRestaurant() : <Text>Loading...</Text>}
+    </View>
+  );
+};
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        backgroundColor: '#f8f8f8',
+        padding: 20,
+      },
+      listContainer: {
+        flexGrow: 1,
+      },
+      restaurant: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginBottom: 20,
+        overflow: 'hidden',
+      },
+      image: {
+        width: 100,
+        height: 100,
+        resizeMode: 'cover',
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+      },
+      details: {
+        flex: 1,
+        padding: 10,
+      },
+      name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+      },
+      description: {
+        fontSize: 16,
+        lineHeight: 24,
+        marginBottom: 10,
+      },
+      button: {
+        backgroundColor: '#f55d22',
+        borderRadius: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+      },
+      buttonText: {
+        color: '#fff',
+        fontSize: 18,
+      },
+      loading: {
+        textAlign: 'center',
+        color: '#ccc',
+        marginTop: 10,
+        marginBottom: 20,
+      },
+    });
+    
+// const styles = StyleSheet.create({
+//   container: {
+//   flex: 1,
+//   backgroundColor: '#1f2041',
+//   },
+//   firstrow: {
+//   flex: 1,
+//   backgroundColor: "#ffc857"
+//   },
+//   secondrow: {
+//   flex: 1,
+//   backgroundColor: "#4b3f72"
+//   },
+//   thirdrow: {
+//   flex: 1,
+//   backgroundColor: "#119da4"
+//   }
+//   });
