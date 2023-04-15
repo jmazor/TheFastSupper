@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 
-export default function historyScreen() {
+export default function HistoryScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const{email, token} = route.params;
+
 
   useEffect(() => {
     fetchRestaurants();
@@ -14,9 +16,13 @@ export default function historyScreen() {
   const fetchRestaurants = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`, data);
+      const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`,{
+        token:token,
+      })
+      console.log(response.data);
       const data = response.data;
-      setRestaurants(prevRestaurants => [...prevRestaurants, ...data]);
+      setRestaurants(prevRestaurants => [...prevRestaurants, ...data.randomRestaurants]);
+      
     } catch (error) {
       console.error(error);
     }
@@ -25,10 +31,10 @@ export default function historyScreen() {
 
   const renderRestaurant = ({ item }) => (
     <TouchableOpacity style={styles.restaurant}>
-      <Image source={{ uri: item.image }} style={styles.image} />
+      <Image source={{ uri: item.image_url }} style={styles.image} />
       <View style={styles.details}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.description}>{item.categories[0].title}</Text>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Visit Restaurant</Text>
         </TouchableOpacity>
@@ -49,7 +55,7 @@ export default function historyScreen() {
         renderItem={renderRestaurant}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContainer}
-        onEndReached={handleLoadMore}
+        //onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
