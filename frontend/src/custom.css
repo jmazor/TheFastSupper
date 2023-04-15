@@ -63,6 +63,7 @@
 .restaurantInfo
 {
     position: relative;
+    text-align: left;
 }
   
 .restaurantImg {
@@ -82,16 +83,18 @@
 .restaurant
 {
     position: absolute;
+    padding-top: 10px;
+    padding-bottom: 10px;
     top: 25%;
-    right:20%;
-    width: 50%;
-    margin-left: 40%;
-    height: 70%;
+    right:5%;
+    width: 70%;
+    margin-left: 35%;
+    height: 73%;
     background-color: #22223B;
 }
 #resCard
 {
-    width: 400px;
+    width: 500px;
     height: 300px;
     margin: 0 auto;
 }
@@ -99,6 +102,10 @@
 {
     width:100px;
 }
+.cardText{
+    text-align: left;
+}
+
 #Greeting
 {
     font-size: 7vw;
@@ -145,9 +152,17 @@
 }
 #restaurantCardImg{
     position: relative;
-    width: 450px;
+    width: 475px;
     height: 250px;
+    margin-bottom: 10px;
 }
 #foodType{
     border-radius: 8px;
+}
+#wishlist-button{
+    padding-top: 20px;
+    text-align: center;
+}
+.wishlistNameDiv{
+    text-align: left;
 }

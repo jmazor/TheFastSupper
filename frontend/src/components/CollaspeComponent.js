@@ -22,6 +22,7 @@ import
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import GetReviews from './GetReviews';
+import AddReview from './AddReview';
 
 const CollapseComponent = (props) =>{
     const navigate = useNavigate()
@@ -55,7 +56,7 @@ const CollapseComponent = (props) =>{
     }
 
     return (
-        <div>
+        <>
             <img src={restaurants.imageURL} id="restaurantCardImg"/>
             
             {/* <Button className='showMoreButton' color="primary" onClick={toggle} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
@@ -66,18 +67,19 @@ const CollapseComponent = (props) =>{
                 <CardBody>
                     <h1 id='name'>{restaurants.name}</h1>
                     <div className='restaurantInfo'>
-                    cost: {restaurants.price} <br/>
-                    Address: {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
-                    Rating: {restaurants.rating} Stars<br />
-                    phone : {restaurants.phone} <br />
-                    <Button className='wishlistBtn' color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</Button>
-                    <GetReviews restaurant={restaurants}/>
+                    <b>cost:</b> {restaurants.price} <br/>
+                    <b>Address:</b> {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
+                    <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <AddReview restaurantID={restaurants.key} /> <br/>
+                    <b>phone:</b> {restaurants.phone} <br />
+                    <div id='wishlist-button'>
+                    <Button color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Liked Restaurants</Button>
+                    </div>
                     <Alert color='info' isOpen={visible} toggle={onDismiss}>Item added to wishlist</Alert>
                     </div>
                 </CardBody>
             </Card>
             {/* </Collapse> */}
-        </div >
+        </>
     )
 
 }
