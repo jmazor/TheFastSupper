@@ -47,10 +47,10 @@ const Wishlist = ({props, ...args}) =>
             await getWishlist(); // await the function call
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
-            setIsOpenList(new Array(restaurantsList.length).fill(false));
+            // setIsOpenList(new Array(restaurantsList.length).fill(false));
         }
         fetchData();
-      }, []);
+      }, [restaurantData]);
       // useEffect(() => {
       //   const fetchData = async () => {
       //       //update wishlist when item is deleted

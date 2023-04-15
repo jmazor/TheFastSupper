@@ -86,11 +86,10 @@
     padding-top: 10px;
     padding-bottom: 10px;
     top: 25%;
-    right:5%;
     width: 70%;
-    margin-left: 35%;
-    height: 73%;
-    background-color: #22223B;
+    right: 0;
+    height: 80%;
+    
 }
 #resCard
 {
@@ -125,6 +124,7 @@
 #wishCard
 {
     width: 80%;
+    height:50%;
     margin: 0 auto
 }
 

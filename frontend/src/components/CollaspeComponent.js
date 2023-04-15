@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import '../App.css';
-import '../custom.css';
+// import '../App.css';
+// import '../custom.css';
+import '../loggedin.css';
 import config from '../config';
 import { useNavigate } from "react-router-dom";
 import
@@ -15,6 +16,7 @@ import
     Label,
     Input,
     Collapse,
+    CardImg,
     CardBody,
     Alert,
     Card
@@ -56,31 +58,28 @@ const CollapseComponent = (props) =>{
     }
 
     return (
-        <>
-            <img src={restaurants.imageURL} id="restaurantCardImg"/>
-            
-            {/* <Button className='showMoreButton' color="primary" onClick={toggle} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
-                {isOpen ? 'Hide' : 'Show More'} {change button text based on state}
-            </Button> */}
-            {/* <Collapse isOpen={isOpen} > */}
-            <Card id='resCard'>
-                <CardBody>
-                    <h1 id='name'>{restaurants.name}</h1>
-                    <div className='restaurantInfo'>
-                    <b>cost:</b> {restaurants.price} <br/>
-                    <b>Address:</b> {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
-                    <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <AddReview restaurantID={restaurants.key} /> <br/>
-                    <b>phone:</b> {restaurants.phone} <br />
-                    <div id='wishlist-button'>
-                    <Button color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Liked Restaurants</Button>
-                    </div>
-                    <Alert color='info' isOpen={visible} toggle={onDismiss}>Item added to wishlist</Alert>
-                    </div>
-                </CardBody>
-            </Card>
-            {/* </Collapse> */}
-        </>
-    )
-
-}
+  
+  <div className="row">
+    <div className="col-lg-8">
+      <div className="card">
+        <img src={restaurants.imageURL} className="card-img-top" alt="Restaurant Image" />
+        <div className="card-body">
+          <h1 className="card-title">{restaurants.name}</h1>
+          <p className="card-text">
+            <b>Address:</b> {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
+            <b>Phone:</b> {restaurants.phone} <br />
+            <b>Cost:</b> {restaurants.price} <br/>
+            <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <AddReview restaurantID={restaurants.key} /> <br/>
+          </p>
+          <div className="d-flex justify-content-between align-items-end">
+            {/* <button type="button" className="btn btn-secondary btn-lg mr-auto">Dislike</button>
+            <button type="button" className="btn btn-primary btn-lg ml-auto" onClick={() => addToWishlist(restaurants.key)}>Like</button> */}
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+      );
+    }   
 export default CollapseComponent;
