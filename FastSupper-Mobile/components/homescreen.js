@@ -22,8 +22,11 @@ export default function HomeScreen({route,navigation}){
     return (
       
       <View style={styles.container}>
-              <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
-              <Button title="Log Out" onPress={()=> navigation.navigate("Login")}></Button>
+        <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
+        <Button title="Log Out" onPress={()=> navigation.navigate("Login")}></Button>
+        <Button title="Saved Page" onPress={()=> navigation.navigate("Saved")}></Button>
+        <Button title="History Page" onPress={()=> navigation.navigate("History")}></Button>
+
       <View style={styles.firstrow}></View>
       <View style={styles.secondrow}></View>
       <View style={styles.thirdrow}></View>
