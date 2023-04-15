@@ -72,7 +72,7 @@ const CollapseComponent = (props) =>{
                     <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <AddReview restaurantID={restaurants.key} /> <br/>
                     <b>phone:</b> {restaurants.phone} <br />
                     <div id='wishlist-button'>
-                    <Button color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Wish List</Button>
+                    <Button color='primary' onClick={() => addToWishlist(restaurants.key)}>Add to Liked Restaurants</Button>
                     </div>
                     <Alert color='info' isOpen={visible} toggle={onDismiss}>Item added to wishlist</Alert>
                     </div>
