@@ -121,37 +121,35 @@ const Wishlist = ({props, ...args}) =>
     }
 
     return (
-        <>
         <div className='wishlist'>
             <h1 id='wishTitle'>Liked Restaurants</h1>
             {restaurantData.map((restaurant, index) => (
                 <div key={restaurant.key} className='wishlistNameDiv'>
-                <h1 id='name'>{restaurant.name}</h1>
-                <Button className='showMoreButton' color="primary" onClick={() => toggle(index)} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
-                    {isOpenList[index] ? 'Hide' : 'Show More'} {/*change button text based on state*/}
-                </Button>
-                
-                <Collapse isOpen={isOpenList[index]} >
-                    <Card id='wishCard'>
-                        <CardBody>
-                            <div className='restaurantInfo'>
-                                <img src={restaurant.imageURL} className="wishlistRestaurantImg"/>
-                                <br />
-                                <b>cost:</b> {restaurant.price} <br/>
-                                <b>Address:</b> {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
-                                <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
-                                <b>phone :</b> {restaurant.phone} <br /> 
-                                <AddReview restaurantID={restaurant.key} />
-                                <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
-                            </div>
-                        </CardBody>
-                    </Card>
-                </Collapse>
-        </div>
+                    <h1 id='name'>{restaurant.name}</h1>
+                    <Button className='showMoreButton' color="primary" onClick={() => toggle(index)} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
+                        {isOpenList[index] ? 'Hide' : 'Show More'} {/*change button text based on state*/}
+                    </Button>
+                    
+                    <Collapse isOpen={isOpenList[index]} >
+                        <Card id='wishCard'>
+                            <CardBody>
+                                <div className='restaurantInfo'>
+                                    <img src={restaurant.imageURL} className="wishlistRestaurantImg"/>
+                                    <br />
+                                    <b>cost:</b> {restaurant.price} <br/>
+                                    <b>Address:</b> {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
+                                    <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
+                                    <b>phone :</b> {restaurant.phone} <br /> 
+                                    <AddReview restaurantID={restaurant.key} />
+                                    <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Collapse>
+                </div>
 
     ))}
-  </div>
-  </>
+        </div>
     )
 }
 

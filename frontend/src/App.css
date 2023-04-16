@@ -38,14 +38,3 @@ body {
   background-image: radial-gradient(at left bottom, rgb(209, 252, 250),  rgb(181, 253, 246), rgb(142, 234, 243), rgb(114, 246, 248));
   /* background-image: radial-gradient(at left bottom, rgb(251, 254, 254),  rgb(225, 225, 222), rgb(186, 186, 186), rgb(168, 167, 167)); */
 }
-
-.restaurantInfo{
-  text-align: center;
-  display: inline-block;
-}
-.restaurantImg{
-  width : 200px;
-  height : 200px;
-  display: inline-block;
-  vertical-align: middle;
-}

@@ -63,10 +63,52 @@
     top: 0.5vw;
 }
 
+.findFood
+{
+    background-color: lightgray; /*temp*/
+    width: 70%;
+    margin: auto;
+}
+
+.restaurantDiv
+{
+    display: block;
+    width: 75vw;
+    margin-left: 25vw;
+    color: black;
+
+    position: absolute;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    top: 25%;
+    right: 0%;
+    background-color: #22223B;
+}
+
+.restaurant
+{
+    padding: 5vw;
+}
+
 .restaurantInfo
 {
     position: relative;
     text-align: left;
+}
+
+/*
+There was a second resutarntInfo in app.css that I moved here...?????
+.restaurantInfo{
+    text-align: center;
+    display: inline-block;
+}
+*/
+
+.restaurantImg{
+    width : 200px;
+    height : 200px;
+    display: inline-block;
+    vertical-align: middle;
 }
   
 .restaurantImg {
@@ -83,17 +125,7 @@
     top: 15vw;
         
 }
-.restaurant
-{
-    position: absolute;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    top: 25%;
-    width: 70%;
-    right: 0;
-    height: 80%;
-    
-}
+
 #resCard
 {
     width: 500px;
@@ -110,12 +142,12 @@
 
 .wishlist
 {
-    position:absolute;
+    position: absolute;
     height: 25vw;
     width: 25vw;
     overflow-y: auto;
     height: 75%;
-    width: 25%
+    width: 25%;
 
 }
 #wishCard
@@ -130,12 +162,6 @@
     position: inherit;
     width: auto;
     height: auto;
-    
-}
-#FindRestaurants
-{
-    position: relative;
-    right:0;
     
 }
 #name
@@ -162,4 +188,11 @@
 }
 .wishlistNameDiv{
     text-align: left;
+    border: solid;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color:#8ccfee;
 }
