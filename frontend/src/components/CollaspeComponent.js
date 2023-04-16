@@ -58,17 +58,20 @@ const CollapseComponent = (props) =>{
     }
 
     return (
-  
-  <div className="row">
-    <div className="col-lg-8">
+  <div className="">
+    {/*    I'm not sure what these classes are supposed to be doing, but they were getting in my way.
+          <div className="row">
+            <div className="col-lg-8">*/}
+    <div className=""> 
       <div className="card">
         <img src={restaurants.imageURL} className="card-img-top" alt="Restaurant Image" />
         <div className="card-body">
           <h1 className="card-title">{restaurants.name}</h1>
           <p className="card-text">
             <b>Address:</b> {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
-            <b>Phone:</b> {restaurants.phone} <br />
+            <b>Phone:</b> {restaurants.phone} <br/>
             <b>Cost:</b> {restaurants.price} <br/>
+            <b>Tag:</b> {restaurants.tag} <br/> {/* Note, only pulls one tag... there could be more*/}
             <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <AddReview restaurantID={restaurants.key} /> <br/>
           </p>
           <div className="d-flex justify-content-between align-items-end">

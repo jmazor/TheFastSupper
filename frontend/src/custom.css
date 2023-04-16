@@ -65,9 +65,11 @@
 
 .findFood
 {
-    background-color: lightgray; /*temp*/
+    background-color: lightgray; /*slightly different color NEED TO CHANGE*/
     width: 70%;
     margin: auto;
+    border-style: solid;
+    border-radius: 4px;
 }
 
 .restaurantDiv
@@ -80,9 +82,9 @@
     position: absolute;
     padding-top: 10px;
     padding-bottom: 10px;
-    top: 25%;
+    top: 5vw;
     right: 0%;
-    background-color: #22223B;
+    background-color: #8ccfee; /*slightly different color NEED TO CHANGE*/
 }
 
 .restaurant
@@ -111,11 +113,6 @@ There was a second resutarntInfo in app.css that I moved here...?????
     vertical-align: middle;
 }
   
-.restaurantImg {
-    position: relative;
-    width: 350px;
-    height: 200px;
-}
 .wishlistRestaurantImg{
     width: 250px;
     height: 150px
@@ -140,14 +137,21 @@ There was a second resutarntInfo in app.css that I moved here...?????
     text-align: left;
 }
 
-.wishlist
+.wishlist-box
 {
-    position: absolute;
-    height: 25vw;
+    position:sticky;
+    height: 100%;
     width: 25vw;
     overflow-y: auto;
-    height: 75%;
-    width: 25%;
+
+}
+
+.wishlist /*MAKE WISHLIST SMALLER, MORE COMPACT, SIMPLE*/
+{
+    position:absolute;
+    height: 100%;
+    width: 25vw;
+    overflow-y: auto;
 
 }
 #wishCard

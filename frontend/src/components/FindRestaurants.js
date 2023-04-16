@@ -75,7 +75,8 @@ const FindRestaurants = (args) =>{
             price : response.data.randomRestaurants[i].price,
             imageURL : response.data.randomRestaurants[i].image_url,
             restURL : response.data.randomRestaurants[i].url,
-            phone : response.data.randomRestaurants[i].phone
+            phone : response.data.randomRestaurants[i].phone,
+            tag: response.data.randomRestaurants[i].categories[0].title,
             })
           }
           setRestaurantData(restaurantsList)
@@ -137,7 +138,10 @@ const FindRestaurants = (args) =>{
           <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
         </div>
 
-        <Wishlist/>
+        <div className=''>
+           <Wishlist/>
+        </div>
+       
       </div>
     )
 }
