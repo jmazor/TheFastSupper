@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 
 export default function HomeScreen({route,navigation}) {
@@ -7,6 +7,7 @@ export default function HomeScreen({route,navigation}) {
   const [page, setPage] = useState(1);
   const{email, token} = route.params;
   const[currentIndex,setCurrentIndex] = useState(0);
+  const[restaurantID,setRestaurantID] = useState("");
 
   useEffect(() => {
     fetchRestaurants();
@@ -26,23 +27,45 @@ export default function HomeScreen({route,navigation}) {
     }
   };
 
+  const handleLiked = () => {
+    const item = restaurants[currentIndex];
+    axios.post('https://fastsupper.herokuapp.com/api/history-new', {
+    token:token,
+    restaurantID: item._id,
+    liked:true
+  })
+  .then(function (response) {
+    handleNext();    
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+};
+
   const renderRestaurant = () => {
     const item = restaurants[currentIndex];
     return (
-      <View style={styles.details}>
+      <View style={styles.container}>
         <TouchableOpacity style={styles.restaurant}>
           <Image source={{ uri: item.image_url }} style={styles.image} />
           <View style={styles.details}>
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.description}>{item.categories[0].title}</Text>
+            <Text style={styles.description}>{item.location.display_address}</Text>
             <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <Text style={styles.buttonText}>Next Restaurant</Text>
+              <Text style={styles.buttonText}>Dislike</Text>
             </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleLiked}>
+            <Text style={styles.buttonText}>Like</Text>
+          </TouchableOpacity>
           </View>
         </TouchableOpacity>
       </View>
     );
   };
+
+  
 
   const handleNext = () => {
     if (currentIndex === restaurants.length - 1)
@@ -56,17 +79,31 @@ export default function HomeScreen({route,navigation}) {
 
   return (
     <View style={styles.container}>
-
       {restaurants.length > 0 ? renderRestaurant() : <Text>Loading...</Text>}
+
+      <View style={styles.bottom}>
+        <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
+        <Button title="Log Out" onPress={()=> navigation.navigate("Login")}></Button>
+        <Button title="Saved Page" onPress={()=> navigation.navigate("Saved", {email:email,token:token})}></Button>
+        <Button title="History Page" onPress={()=> navigation.navigate("History", {email:email,token:token})}></Button>
+      </View>
     </View>
+    
   );
 };
     const styles = StyleSheet.create({
       container: {
         flex: 1,
+        width: 300,
+        height: 500,
         backgroundColor: '#f8f8f8',
         padding: 20,
       },
+      bottom:{
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 36
+      }, 
       listContainer: {
         flexGrow: 1,
       },

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
 import axios from 'axios';
 
 export default function HistoryScreen({route,navigation}) {
@@ -7,37 +7,57 @@ export default function HistoryScreen({route,navigation}) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const{email, token} = route.params;
+  const [searchQuery, setSearchQuery] = useState('');
+
 
 
   useEffect(() => {
-    fetchRestaurants();
-  }, [page]);
+      wishlist();
+  }, []);
+  //[page]
 
-  const fetchRestaurants = async () => {
-    setLoading(true);
+  const wishlist = async () => {
+    //setLoading(true);
     try {
-      const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`,{
-        token:token,
+      const response = await axios.post('https://fastsupper.herokuapp.com/api/wishlist',{
+      token:token
       })
-      console.log(response.data);
       const data = response.data;
-      setRestaurants(prevRestaurants => [...prevRestaurants, ...data.randomRestaurants]);
-      
+      console.log(data);
+      setRestaurants(prevRestaurants => [...prevRestaurants, ...data.wishlist]);
     } catch (error) {
       console.error(error);
     }
-    finally {
-      setLoading(false);
-    }
-
+    //setLoading(false);
   };
+
+  const handleSearch = text =>{
+    setSearchQuery(text); 
+  }
+
+  const filteredRestaurants = restaurants.filter(
+    restaurant =>
+      restaurant.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const RenderHeader = () => {
+    return(
+    <View style={styles.header}>
+      <TextInput autoCapitalize='none'
+       onChangeText={handleSearch}
+       value={searchQuery}
+       status='info'
+       placeholder='Search'
+       ></TextInput>
+    </View>
+  )}
 
   const renderRestaurant = ({ item }) => (
     <TouchableOpacity style={styles.restaurant}>
       <Image source={{ uri: item.image_url }} style={styles.image} />
       <View style={styles.details}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.description}>{item.categories[0].title}</Text>
+        <Text style={styles.description}>{item.description}</Text>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Visit Restaurant</Text>
         </TouchableOpacity>
@@ -45,20 +65,22 @@ export default function HistoryScreen({route,navigation}) {
     </TouchableOpacity>
   );
 
-  const handleLoadMore = () => {
-    if (!loading) {
-      setPage(prevPage => prevPage + 1);
-    }
-  };
+  // const handleLoadMore = () => {
+  //   if (!loading) {
+  //     setPage(prevPage => prevPage + 1);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={restaurants}
+        data={filteredRestaurants}
+        //data={restaurants}
         renderItem={renderRestaurant}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContainer}
-        onEndReached={handleLoadMore}
+        ListHeaderComponent={RenderHeader}
+        //onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
@@ -74,6 +96,17 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flexGrow: 1,
+  },
+  header: {
+    backgroundColor: '#fff',
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    borderRadius: 25,
+    borderColor: '#333',
+    backgroundColor: '#fff'
   },
   restaurant: {
     flexDirection: 'row',
