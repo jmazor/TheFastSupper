@@ -154,4 +154,43 @@ router.post('/api/wishlist', async (req, res) => {
     }
 });
 
+router.post('/api/visited', async (req, res) => {
+    const { token } = req.body;
+    try {
+        
+        //JWT verification
+        let userID = returnUser(token);
+        if (userID == null)
+        {
+            return res.status(401).send('Token unverified or expired');
+        }
+
+        const wishlist = await History.find({ userID : userID, isVisited : true});
+
+        let restArray = [];
+        for (const i in wishlist)
+        {
+            const actualRestaurant = await Restaurant.findOne({ _id : wishlist[i].restaurantID});
+            if (actualRestaurant)
+            {
+                restArray.push(actualRestaurant);
+            }
+            else
+            {
+                //Delete history maybe...?
+                console.log("Error, cannot find the resturant");
+            }
+        }  
+
+        let newToken = refresh(token);
+
+        //return wishlist
+        res.json({ token : newToken, wishlist : restArray });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal server error');
+    }
+});
+
 module.exports = router;
