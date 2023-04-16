@@ -27,7 +27,7 @@ import
   } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-const Wishlist = ({props, ...args}) => 
+const Visitlist = ({props, ...args}) => 
 {
     const navigate = useNavigate()
     let restaurantsList = []
@@ -44,7 +44,7 @@ const Wishlist = ({props, ...args}) =>
 
     useEffect(() => {
         const fetchData = async () => {
-            await getWishlist(); // await the function call
+            await getVisitlist(); // await the function call
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
             // setIsOpenList(new Array(restaurantsList.length).fill(false));
@@ -58,7 +58,7 @@ const Wishlist = ({props, ...args}) =>
       //   }
       //   fetchData();
       // }, [restaurantData]);
-    const getWishlist = async() =>
+    const getVisitlist = async() =>
     {
         const data = {
             token : localStorage.getItem("token")
@@ -66,7 +66,7 @@ const Wishlist = ({props, ...args}) =>
 
         try
         {
-            const response = await axios.post(`${config.url}/api/wishlist`, data)
+            const response = await axios.post(`${config.url}/api/visited`, data)
 
             for(let i in response.data.wishlist)
             {
@@ -97,7 +97,7 @@ const Wishlist = ({props, ...args}) =>
               }
         }
     }
-    const removeFromWishlist = async(key) =>{
+    const removeFromVisitlist = async(key) =>{
         const data = {
             token : localStorage.getItem("token"),
             restaurantID : key
@@ -106,8 +106,8 @@ const Wishlist = ({props, ...args}) =>
         if(check){
         try{
             const response = await axios.post(`${config.url}/api/history-delete`, data)
-            console.log("Restaurant successfully deleted from wishlist")
-            await getWishlist(); // await the function call
+            console.log("Restaurant successfully deleted from visited");
+            await getVisitlist(); // await the function call
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
             setIsOpenList(new Array(restaurantsList.length).fill(false));
@@ -140,7 +140,7 @@ const Wishlist = ({props, ...args}) =>
                                     <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
                                     <b>phone :</b> {restaurant.phone} <br /> 
                                     <AddReview restaurantID={restaurant.key} />
-                                    <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
+                                    <Button color='danger' size='sm' onClick={() =>removeFromVisitlist(restaurant.key)}>Remove from visited</Button>
                                 </div>
                             </CardBody>
                         </Card>
@@ -152,4 +152,4 @@ const Wishlist = ({props, ...args}) =>
     )
 }
 
-export default Wishlist;
+export default Visitlist;

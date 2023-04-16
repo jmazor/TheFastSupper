@@ -4,6 +4,7 @@ import '../custom.css';
 import config from '../config';
 import RestaurantCollaspe from './RestaurantCollaspe';
 import Wishlist from './Wishlist';
+import Visitlist from './Visitlist';
 import { Navigate, useNavigate } from "react-router-dom";
 import
   {
@@ -25,8 +26,8 @@ import axios from 'axios';
 
 const FindRestaurants = (args) =>{
     const navigate = useNavigate()
-    let restaurantsList = []
-    const [restaurantData, setRestaurantData] = useState([])
+    let restaurantsList = [];
+    const [restaurantData, setRestaurantData] = useState([]);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -138,10 +139,12 @@ const FindRestaurants = (args) =>{
           <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
         </div>
 
-        <div className=''>
-           <Wishlist/>
+
+        <div className='wishlist'>
+          <h1 id='wishTitle'>Wishlist Restaurants</h1>
+          <Wishlist/>
         </div>
-       
+
       </div>
     )
 }
