@@ -125,7 +125,7 @@ const Wishlist = (props) =>
 
     return (
         <div className='wishlist'>
-            <h1 id='wishTitle'>Wishlist Restaurants</h1>
+            <h1 id='wishTitle'>Liked Restaurants</h1>
             {restaurantData.map((restaurant, index) => (
                 <div key={restaurant.key} className='wishlistNameDiv'>
                     <h1 id='name'>{restaurant.name}</h1>

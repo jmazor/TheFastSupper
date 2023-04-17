@@ -127,7 +127,7 @@ const FindRestaurants = (args) =>{
           <header id="findResult" style={{visibility:resultState}}></header>
         </div>
         <div className='wishTab'>
-          <Button color={(listState=="wish") ? "primary" : "secondary"} onClick={() => {setListState("wish")}}>Wishlist</Button>
+          <Button color={(listState=="wish") ? "primary" : "secondary"} onClick={() => {setListState("wish")}}>Liked</Button>
           <Button color={(listState=="visit") ? "primary" : "secondary"} onClick={() => {setListState("visit")}}>Visited</Button>
         </div>
         {listState === "visit" ? <Visitlist state={visitState} setVisitState={setVisitState}/> : <Wishlist setWishState={setWishState} state={wishState} setVisitState={setVisitState} visitState={visitState}/>}
