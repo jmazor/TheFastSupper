@@ -89,7 +89,7 @@
     position: absolute;
     padding-bottom: 10px;
     right: 0%;
-    background-color: #b1ddf1; /*slightly different color NEED TO CHANGE #8ccfee*/
+    background-image: radial-gradient(at left bottom, rgb(209, 252, 250),  rgb(181, 253, 246), rgb(142, 234, 243), rgb(114, 246, 248));/*slightly different color NEED TO CHANGE #8ccfee*/
 }
 
 .restaurant
@@ -166,7 +166,7 @@ There was a second resutarntInfo in app.css that I moved here...?????
     width: 20vw;
     overflow-y: auto;
     padding-top: 10px;
-    background-color: #8ccfee;
+    background-color: #22223B;
 
 }
 #wishCard
@@ -191,6 +191,7 @@ There was a second resutarntInfo in app.css that I moved here...?????
 #wishTitle
 {
     font-size: 3vw;
+    color: white;
 }
 #restaurantCardImg{
     position: relative;
