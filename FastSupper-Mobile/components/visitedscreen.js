@@ -3,14 +3,12 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput} f
 import axios from 'axios';
 import Navbar from './navbar'
 
-
 export default function VistedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const{email, token} = route.params;
   const [searchQuery, setSearchQuery] = useState('');
-
 
 
   useEffect(() => {
@@ -60,7 +58,7 @@ export default function VistedScreen({route,navigation}) {
       <View style={styles.details}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("Review", {email:email,token:token,item:item})}>
           <Text style={styles.buttonText}>Review</Text>
         </TouchableOpacity>
       </View>
@@ -68,7 +66,7 @@ export default function VistedScreen({route,navigation}) {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <FlatList
         data={filteredRestaurants}
         //data={restaurants}
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    padding: 20,
+    paddingBottom: 70,
   },
   listContainer: {
     flexGrow: 1,

@@ -14,7 +14,7 @@ import ChangePassword from "./components/settings/changepassword";
 import VisitedScreen from "./components/visitedscreen";
 import LikedScreen from "./components/likedscreen";
 import ShowScreen from './components/showRes';
-
+import ReviewScreen from './components/writeReview';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,15 +25,15 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignupScreen} />
         <Stack.Screen name="Forgot" component={ForgotScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
-        <Stack.Screen name="Visited" component={VisitedScreen} />
-        <Stack.Screen name="Liked" component={LikedScreen} />
-        <Stack.Screen name="Show" component={ShowScreen} />
-
-
+        <Stack.Screen name="Visited" component={VisitedScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="Liked" component={LikedScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="Show" component={ShowScreen} options={{headerShown:false}} />
+        <Stack.Screen name="Review" component={ReviewScreen} options={{headerShown:false}} />
       </Stack.Navigator>
+  
     </NavigationContainer>
   );
 }
