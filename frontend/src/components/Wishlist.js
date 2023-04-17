@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CollapseComponent from './CollaspeComponent';
 import AddReview from './AddReview';
 import GetReviews from './GetReviews';
+import AddtoVisited from './AddtoVisited';
 import
   {
     Button,
@@ -139,7 +140,7 @@ const Wishlist = ({props, ...args}) =>
                                     <b>Address:</b> {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
                                     <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
                                     <b>phone :</b> {restaurant.phone} <br /> 
-                                    <AddReview restaurantID={restaurant.key} />
+                                    <AddtoVisited RestaurantID={restaurant.key} />
                                     <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
                                 </div>
                             </CardBody>
