@@ -1,0 +1,16 @@
+.welcome-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #000;
+  }
+  
+  .welcome-header-title {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #4109ec, 0 0 60px #4109ec, 0 0 70px #4109ec, 0 0 80px #4109ec, 0 0 90px #4109ec;
+    font-size: 5rem;
+    font-weight: bold;
+  }
+  

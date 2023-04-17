@@ -57,6 +57,9 @@ const FindRestaurants = (args) =>{
     const findFood = async () => {
         
         let food = document.getElementById("foodType").value
+        if (food === "The Fast Supper")
+          navigate("/scrambled");
+
         const data = {
           token : localStorage.getItem("token"),
           category : food
@@ -64,7 +67,11 @@ const FindRestaurants = (args) =>{
     
         try
         {
-          const response = await axios.post(`${config.url}/api/restaurants`, data);
+          let response = await axios.post(`${config.url}/api/restaurants`, data);
+          if (response.data.randomRestaurants.length == 1)
+          {
+            response = await axios.post(`${config.url}/api/restaurants`, {token : localStorage.getItem("token"), category : ""});
+          }
           for(let i in response.data.randomRestaurants){
             restaurantsList.push(
             {
