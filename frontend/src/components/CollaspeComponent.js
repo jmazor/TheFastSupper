@@ -72,7 +72,7 @@ const CollapseComponent = (props) =>{
             <b>Phone:</b> {restaurants.phone} <br/>
             <b>Cost:</b> {restaurants.price} <br/>
             <b>Tag:</b> {restaurants.tag} <br/> {/* Note, only pulls one tag... there could be more*/}
-            <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <AddReview restaurantID={restaurants.key} /> <br/>
+            <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <br/>
           </p>
           <div className="d-flex justify-content-between align-items-end">
             {/* <button type="button" className="btn btn-secondary btn-lg mr-auto">Dislike</button>
