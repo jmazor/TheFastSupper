@@ -81,7 +81,9 @@
 {
     display: block;
     width: 80vw;
-    height: 850px;
+    height: calc(100vh - 5vw);
+    overflow-y: scroll;
+
     margin-left: 25vw;
     color: black;
 
@@ -161,7 +163,7 @@ There was a second resutarntInfo in app.css that I moved here...?????
 .wishlist /*MAKE WISHLIST SMALLER, MORE COMPACT, SIMPLE*/
 {
     position: relative;
-    height: 800px;
+    height: calc(100vh - 5vw - 50px);
     width: 20vw;
     overflow-y: auto;
     padding-top: 10px;
