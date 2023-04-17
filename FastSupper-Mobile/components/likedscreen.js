@@ -1,35 +1,68 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Modal, Pressable} from 'react-native';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
+import Navbar from './navbar'
 
-export default function HistoryScreen({route,navigation}) {
+
+
+export default function LikedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const{email, token} = route.params;
   const [searchQuery, setSearchQuery] = useState('');
+  const[modalVisible, setModalVisible] = useState(true);
 
 
 
   useEffect(() => {
       wishlist();
-  }, []);
+  },[]);
   //[page]
 
   const wishlist = async () => {
     //setLoading(true);
     try {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/visited',{
+      const response = await axios.post('https://fastsupper.herokuapp.com/api/wishlist',{
       token:token
       })
       const data = response.data;
-      console.log(data);
+      //const ids = data.wishlist.map(item => item.id);
+      //console.log(ids);
+      //console.log(data.id);
       setRestaurants(prevRestaurants => [...prevRestaurants, ...data.wishlist]);
+      //console.log(restaurants);
     } catch (error) {
       console.error(error);
     }
     //setLoading(false);
   };
+
+  const deleteRes = async (item) => {
+    //console.log(token);
+    //console.log(item._id);
+    axios.post('https://fastsupper.herokuapp.com/api/history-delete', {
+    token:token,
+    restaurantID: item._id
+  })
+  .then(function (response) {
+    console.log(response);
+    deleteItemByID(item.id);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+
+
+  deleteItemByID = (id) =>{
+    let arr = restaurants.filter(function(item) {
+      return item.id !== id
+    })
+    setRestaurants(arr);
+  }
 
   const handleSearch = text =>{
     setSearchQuery(text); 
@@ -57,9 +90,13 @@ export default function HistoryScreen({route,navigation}) {
       <Image source={{ uri: item.image_url }} style={styles.image} />
       <View style={styles.details}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Visit Restaurant</Text>
+        <Text style={styles.description}>{item.categories[0].title}</Text>
+        <Text style={styles.description}>{item.location.display_address}</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Show", {item:item,email:email,token:token})}>
+          <Text style={styles.buttonText}>Information</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>deleteRes(item)} style={styles.button}>
+          <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -84,6 +121,7 @@ export default function HistoryScreen({route,navigation}) {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
+      <Navbar email={email} token={token} navigation={navigation} />
     </View>
   );
 };

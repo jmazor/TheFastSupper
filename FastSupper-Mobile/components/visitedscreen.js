@@ -1,81 +1,37 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Modal, Pressable} from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
 import axios from 'axios';
+import Navbar from './navbar'
 
-export default function HistoryScreen({route,navigation}) {
+
+export default function VistedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const{email, token} = route.params;
   const [searchQuery, setSearchQuery] = useState('');
-  const[modalVisible, setModalVisible] = useState(true);
 
 
 
   useEffect(() => {
-      wishlist();
-  },[]);
+      visited();
+  }, []);
   //[page]
 
-  const wishlist = async () => {
+  const visited = async () => {
     //setLoading(true);
     try {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/wishlist',{
+      const response = await axios.post('https://fastsupper.herokuapp.com/api/visited',{
       token:token
       })
       const data = response.data;
-      //const ids = data.wishlist.map(item => item.id);
-      //console.log(ids);
-      //console.log(data.id);
+      console.log(data);
       setRestaurants(prevRestaurants => [...prevRestaurants, ...data.wishlist]);
-      //console.log(restaurants);
     } catch (error) {
       console.error(error);
     }
     //setLoading(false);
   };
-
-  const deleteRes = async (item) => {
-    //console.log(token);
-    //console.log(item._id);
-    axios.post('https://fastsupper.herokuapp.com/api/history-delete', {
-    token:token,
-    restaurantID: item._id
-  })
-  .then(function (response) {
-    console.log(response);
-    deleteItemByID(item.id);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
-
-const showRes = (item) => {
-  //setModalVisible(true);
-  return(
-    <View>
-    <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <View style={styles.container}>
-            <View style={styles.restaurant}>
-            <Image source={{ uri: item.image_url }} style={styles.image} />
-              <Text style={styles.name}>{item.name}</Text>
-
-              <Pressable style={styles.button} onPress={() =>setModalVisible(!modalVisible)}>
-                <Text>Hide</Text>
-              </Pressable>
-            </View>
-          </View>
-    </Modal>
-    </View>
-  )}
-
-  deleteItemByID = (id) =>{
-    let arr = restaurants.filter(function(item) {
-      return item.id !== id
-    })
-    setRestaurants(arr);
-  }
 
   const handleSearch = text =>{
     setSearchQuery(text); 
@@ -103,23 +59,13 @@ const showRes = (item) => {
       <Image source={{ uri: item.image_url }} style={styles.image} />
       <View style={styles.details}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.description}>{item.categories[0].title}</Text>
-        <Text style={styles.description}>{item.location.display_address}</Text>
-        <TouchableOpacity style={styles.button} onPress={()=>showRes(item)}>
-          <Text style={styles.buttonText}>Visit Restaurant</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>deleteRes(item)} style={styles.button}>
-          <Text style={styles.buttonText}>Delete</Text>
+        <Text style={styles.description}>{item.description}</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Review</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
-
-  // const handleLoadMore = () => {
-  //   if (!loading) {
-  //     setPage(prevPage => prevPage + 1);
-  //   }
-  // };
 
   return (
     <View style={styles.container}>
@@ -134,6 +80,8 @@ const showRes = (item) => {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
+        <Navbar email={email} token={token} navigation={navigation} />
+
     </View>
   );
 };
