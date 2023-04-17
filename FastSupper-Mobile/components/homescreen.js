@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {Dimensions, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
+import Navbar from './navbar'
 
 export default function HomeScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
@@ -42,27 +43,30 @@ export default function HomeScreen({route,navigation}) {
   });
 };
 
-  const renderRestaurant = () => {
-    const item = restaurants[currentIndex];
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.restaurant}>
-          <Image source={{ uri: item.image_url }} style={styles.image} />
-          <View style={styles.details}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.description}>{item.categories[0].title}</Text>
-            <Text style={styles.description}>{item.location.display_address}</Text>
-            <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <Text style={styles.buttonText}>Next</Text>
-            </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleLiked}>
-            <Text style={styles.buttonText}>Like</Text>
-          </TouchableOpacity>
-          </View>
+const renderRestaurant = () => {
+  const item = restaurants[currentIndex];
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.restaurant}>
+        <Image source={{ uri: item.image_url }} style={styles.image} />
+        <View style={styles.details}>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.description}>{item.categories[0].title}</Text>
+          <Text style={styles.description}>{item.location.display_address}</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleLiked}>
+          <Text style={styles.buttonText}>Like</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={handleNext}>
+          <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
-    );
-  };
+    </View>
+  );
+};
 
   
 
@@ -79,95 +83,78 @@ export default function HomeScreen({route,navigation}) {
   return (
     <View style={styles.container}>
       {restaurants.length > 0 ? renderRestaurant() : <Text>Loading...</Text>}
-
-      <View style={styles.bottom}>
-        <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
-        <Button title="Log Out" onPress={()=> navigation.navigate("Login")}></Button>
-        <Button title="Liked" onPress={()=> navigation.navigate("Liked", {email:email,token:token})}></Button>
-        <Button title="Places You've Visited" onPress={()=> navigation.navigate("Visited", {email:email,token:token})}></Button>
-      </View>
+      <Navbar email={email} token={token} navigation={navigation} />
     </View>
+    
     
   );
 };
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        width: 300,
-        height: 500,
-        backgroundColor: '#f8f8f8',
-        padding: 20,
-      },
-      bottom:{
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 36
-      }, 
-      listContainer: {
-        flexGrow: 1,
-      },
-      restaurant: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        marginBottom: 20,
-        overflow: 'hidden',
-      },
-      image: {
-        width: 100,
-        height: 100,
-        resizeMode: 'cover',
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-      },
-      details: {
-        flex: 1,
-        padding: 10,
-      },
-      name: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 10,
-      },
-      description: {
-        fontSize: 16,
-        lineHeight: 24,
-        marginBottom: 10,
-      },
-      button: {
-        backgroundColor: '#f55d22',
-        borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-      },
-      buttonText: {
-        color: '#fff',
-        fontSize: 18,
-      },
-      loading: {
-        textAlign: 'center',
-        color: '#ccc',
-        marginTop: 10,
-        marginBottom: 20,
-      },
-    });
-    
-// const styles = StyleSheet.create({
-//   container: {
-//   flex: 1,
-//   backgroundColor: '#1f2041',
-//   },
-//   firstrow: {
-//   flex: 1,
-//   backgroundColor: "#ffc857"
-//   },
-//   secondrow: {
-//   flex: 1,
-//   backgroundColor: "#4b3f72"
-//   },
-//   thirdrow: {
-//   flex: 1,
-//   backgroundColor: "#119da4"
-//   }
-//   });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f8f8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 36
+  },
+  listContainer: {
+    flex: 1,
+  },
+  restaurant: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    marginBottom: 20,
+    overflow: 'hidden',
+  },
+  image: {
+    width: Dimensions.get('window').width / 2,
+    height: 100,
+    resizeMode: 'cover',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  
+  details: {
+    flex: 1,
+    padding: 10,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 10,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  button: {
+    backgroundColor: '#2f95dc',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  loading: {
+    textAlign: 'center',
+    color: '#ccc',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+});

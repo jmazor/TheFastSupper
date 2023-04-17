@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
 import axios from 'axios';
+import Navbar from './navbar'
+
 
 export default function VistedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
@@ -78,6 +80,8 @@ export default function VistedScreen({route,navigation}) {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
+        <Navbar email={email} token={token} navigation={navigation} />
+
     </View>
   );
 };

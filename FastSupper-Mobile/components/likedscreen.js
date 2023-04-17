@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Modal, Pressable} from 'react-native';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import Navbar from './navbar'
+
 
 
 export default function LikedScreen({route,navigation}) {
@@ -119,6 +121,7 @@ export default function LikedScreen({route,navigation}) {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
+      <Navbar email={email} token={token} navigation={navigation} />
     </View>
   );
 };

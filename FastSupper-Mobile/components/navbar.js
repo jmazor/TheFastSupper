@@ -1,71 +1,73 @@
-import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import react from 'react';
-//tell React that we will implement a navigator
-import { NavigationContainer } from "@react-navigation/native";
-//create a stack navigator
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./components/loginscreen";
-import SignupScreen from "./components/signupscreen";
-import HomeScreen from "./components/homescreen";
-import ForgotScreen from "./components/forgotscreen";
-import HistoryScreen from "./components/historyscreen";
-import SavedScreen from "./components/savedscreen";
+import React from 'react';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-
-const homeName = "Home";
-const savedName = "Saved";
-const historyName = "History";
-const settingsName = "Settings";
-
-const Tab = createBottomTabNavigator();
-
-function navbar() {
+export default function Navbar({ email, token, navigation }) {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName={homeName}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            let rn = route.name;
-
-            if (rn === homeName) {
-              iconName = focused ? 'home' : 'home-outline';
-              
-            } else if (rn === savedName) {
-                iconName = focused ? 'saved' : 'saved-outline;'
-
-            } else if (rn === historyName) {
-              iconName = focused ? 'history' : 'history-outline';
-
-            } else if (rn === settingsName) {
-              iconName = focused ? 'settings' : 'settings-outline';
-
-            } 
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'grey',
-          labelStyle: { paddingBottom: 10, fontSize: 10 },
-          style: { padding: 10, height: 70}
-        }}>
-
-        <Tab.Screen name={homeName} component={HomeScreen} />
-        <Tab.Screen name={savedName} component={SavedScreen} />
-        <Tab.Screen name={historyName} component={HistoryScreen} />
-        <Tab.Screen name={settingsName} component={SettingsScreen} />
-
-      </Tab.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('Settings', { email: email, token: token })
+        }
+      >
+        <Text style={styles.buttonText}>Settings</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('Liked', { email: email, token: token })
+        }
+      >
+        <Text style={styles.buttonText}>Liked</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('Visited', { email: email, token: token })
+        }
+      >
+        <Text style={styles.buttonText}>Visited</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Login')}
+      >
+        <Text style={styles.buttonText}>Log Out</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
-export default navbar;
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 80,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    paddingHorizontal: 32,
+  },
+  iconContainer: {
+    alignItems: 'center',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  label: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginTop: 4,
+  },
+  activeLabel: {
+    color: '#f55d22',
+  },
+});
