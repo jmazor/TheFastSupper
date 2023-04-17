@@ -107,13 +107,11 @@ const FindRestaurants = (args) =>{
           </div>
           <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex} setWishState={setWishState} wishState={wishState}/>
         </div>
-
         <div className='wishTab'>
           <Button color={(listState=="wish") ? "primary" : "secondary"} onClick={() => {setListState("wish")}}>Wishlist</Button>
           <Button color={(listState=="visit") ? "primary" : "secondary"} onClick={() => {setListState("visit")}}>Visited</Button>
         </div>
-        
-        {listState === "visit" ? <Visitlist/> : <Wishlist/>}
+        {listState === "visit" ? <Visitlist state={visitState} setVisitState={setVisitState}/> : <Wishlist setWishState={setWishState} state={wishState} setVisitState={setVisitState} visitState={visitState}/>}
 
       </div>
     )
