@@ -192,6 +192,9 @@ There was a second resutarntInfo in app.css that I moved here...?????
 {
     font-size: 3vw;
     color: white;
+    position: relative;
+    left:4%;
+    
 }
 #restaurantCardImg{
     position: relative;

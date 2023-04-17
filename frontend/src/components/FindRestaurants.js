@@ -28,6 +28,7 @@ const FindRestaurants = (args) =>{
     const [listState, setListState] = useState("wish");
     const [wishState, setWishState] = useState(true);
     const [visitState, setVisitState] = useState(true);
+    const [resultState, setResultState] = useState("hidden");
     const navigate = useNavigate()
     let restaurantsList = [];
     const [restaurantData, setRestaurantData] = useState([]);
@@ -72,6 +73,15 @@ const FindRestaurants = (args) =>{
           {
             response = await axios.post(`${config.url}/api/restaurants`, {token : localStorage.getItem("token"), category : ""});
           }
+          else if (response.data.randomRestaurants.length == 0)
+          {
+            setResultState("visible");
+            document.getElementById("findResult").innerHTML = `No results found for category "${food}"`;
+          }
+          else
+          {
+            setResultState("hidden");
+          }
           for(let i in response.data.randomRestaurants){
             restaurantsList.push(
             {
@@ -113,6 +123,7 @@ const FindRestaurants = (args) =>{
             </Button>
           </div>
           <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex} setWishState={setWishState} wishState={wishState}/>
+          <header id="findResult" style={{visibility:resultState}}></header>
         </div>
         <div className='wishTab'>
           <Button color={(listState=="wish") ? "primary" : "secondary"} onClick={() => {setListState("wish")}}>Wishlist</Button>

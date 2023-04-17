@@ -46,7 +46,13 @@
   {
     position: absolute;
   }
-  
+  #findResult
+  {
+    position: relative;
+    margin-left: 15%;
+    font-size: 30px;
+    font-weight: bold;
+  }
   /* @media only screen and (min-width: 768px) {
     .card-img-top {
       height: 400px;
