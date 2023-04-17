@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-
+import Navbar from '../navbar'
 
 
 export default function ChangePassword({route,navigation}){

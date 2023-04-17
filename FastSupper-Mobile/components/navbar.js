@@ -4,14 +4,16 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 export default function Navbar({ email, token, navigation }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+
+    <TouchableOpacity
         style={styles.button}
         onPress={() =>
-          navigation.navigate('Settings', { email: email, token: token })
+          navigation.navigate('Home', { email: email, token: token })
         }
       >
-        <Text style={styles.buttonText}>Settings</Text>
+        <Text style={styles.buttonText}>Home</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
@@ -28,12 +30,17 @@ export default function Navbar({ email, token, navigation }) {
       >
         <Text style={styles.buttonText}>Visited</Text>
       </TouchableOpacity>
+
+      
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Login')}
+        onPress={() =>
+          navigation.navigate('Settings', { email: email, token: token })
+        }
       >
-        <Text style={styles.buttonText}>Log Out</Text>
+        <Text style={styles.buttonText}>Settings</Text>
       </TouchableOpacity>
+
     </View>
   );
 }

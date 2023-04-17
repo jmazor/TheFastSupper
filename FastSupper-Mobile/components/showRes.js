@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {FlatList,Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios from 'axios';
 
 export default function ShowScreen({route,navigation}) {
   const{item,email,token} = route.params;
+  const[review,setReview] = useState([]);
+
+  console.log(token);
+  console.log(item._id);
+
+  useEffect(() => {
+    reviews(item);
+  }, []);
 
   const visitedRes = async (item) => {
     //console.log(token);
@@ -21,10 +29,30 @@ export default function ShowScreen({route,navigation}) {
   });
 };
 
+const reviews = async (item) => {
+  try {
+    const response = await axios.get(`https://fastsupper.herokuapp.com/api/review/${item._id}`);
+    const data = response.data;
+    setReview(prevReview => [...prevReview, ...data]);
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const renderReview = ({ item }) => (
+  <TouchableOpacity style={styles.restaurant}>
+    <View style={styles.details}>
+      <Text style={styles.name}>Rating: {item.rating}</Text>
+      <Text style={styles.description}>Comment: {item.comment}</Text>
+    </View>
+  </TouchableOpacity>
+);
+
   return (
     <View style={styles.container}>
         <TouchableOpacity style={styles.restaurant}>
-          <Image source={{ uri: item.image_url }} style={styles.image} />
+        <Image source={{ uri: item.image_url }} style={styles.image} />
           <View style={styles.details}>
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.description}>{item.categories[0].title}</Text>
@@ -34,6 +62,17 @@ export default function ShowScreen({route,navigation}) {
           </View>
         </TouchableOpacity>
 
+
+        <FlatList
+        data={review}
+        renderItem={renderReview}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContainer}
+        //onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
+      />
+
+  
       <View style={styles.bottom}>
         <Button title="Visited" onPress={() => visitedRes(item)}></Button>
         <Button title="Go Back" onPress={() =>navigation.goBack()}></Button>
@@ -104,4 +143,3 @@ export default function ShowScreen({route,navigation}) {
         marginBottom: 20,
       },
     });
-    

@@ -65,34 +65,36 @@
 
 .findFood
 {
-    background-color: lightgray; /*slightly different color NEED TO CHANGE*/
     width: 70%;
     /*margin: auto; to cetner*/
     margin-left: 5vw;
     margin-top: 2%;
-    border-style: solid;
-    border-radius: 4px;
     text-align: center;
+    padding: 10px;
+}
+
+#foodType
+{
+    width: 45vw;
 }
 
 .restaurantDiv
 {
     display: block;
     width: 80vw;
+    height: 850px;
     margin-left: 25vw;
     color: black;
 
     position: absolute;
-    padding-top: 10px;
     padding-bottom: 10px;
-    top: 5vw;
     right: 0%;
     background-color: #b1ddf1; /*slightly different color NEED TO CHANGE #8ccfee*/
 }
 
 .restaurant
 {
-    padding: 5vw;
+    padding-left: 5vw;
 }
 
 .restaurantInfo
@@ -145,22 +147,26 @@ There was a second resutarntInfo in app.css that I moved here...?????
 .wishTab
 {
     position: relative;
-    width: 19vw;
+    height: 50px;
+    width: 20vw;
 }
 
 .wishTab Button
 {
     width: 50%;
+    height: 50px;
     font-size: 1.4rem;
+    border-radius: 0px;
 }
 
 .wishlist /*MAKE WISHLIST SMALLER, MORE COMPACT, SIMPLE*/
 {
     position: relative;
     height: 800px;
-    width: 19vw;
+    width: 20vw;
     overflow-y: auto;
     padding-top: 10px;
+    background-color: #8ccfee;
 
 }
 #wishCard

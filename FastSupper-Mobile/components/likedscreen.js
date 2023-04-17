@@ -121,8 +121,11 @@ export default function LikedScreen({route,navigation}) {
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
       />
+      
       <Navbar email={email} token={token} navigation={navigation} />
+      
     </View>
+    
   );
 };
 
@@ -130,7 +133,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    padding: 20,
+    paddingBottom: 70,
+  },
+  navbar: {
+    flex: 1,
+    backgroundColor: '#f8f8f8',
+    
   },
   listContainer: {
     flexGrow: 1,

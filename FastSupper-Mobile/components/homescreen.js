@@ -68,7 +68,9 @@ const renderRestaurant = () => {
   );
 };
 
-  
+HomeScreen.navigationOptions = {
+  headerLeft: null,
+};
 
   const handleNext = () => {
     if (currentIndex === restaurants.length - 1)
