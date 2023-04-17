@@ -104,7 +104,7 @@ const Wishlist = (props) =>
             token : localStorage.getItem("token"),
             restaurantID : key
         }
-        let check = confirm('Delete restaurant from wishlist?');
+        let check = confirm('Are you sure?');
         if(check){
         try{
             const response = await axios.post(`${config.url}/api/history-delete`, data)
