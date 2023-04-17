@@ -140,10 +140,7 @@ const FindRestaurants = (args) =>{
         </div>
 
 
-        <div className='wishlist'>
-          <h1 id='wishTitle'>Wishlist Restaurants</h1>
-          <Wishlist/>
-        </div>
+        <Visitlist/>
 
       </div>
     )
