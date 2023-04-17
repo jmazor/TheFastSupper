@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {Dimensions, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 import axios from 'axios';
 import Navbar from './navbar'
 
@@ -9,17 +10,23 @@ export default function HomeScreen({route,navigation}) {
   const{email, token} = route.params;
   const[currentIndex,setCurrentIndex] = useState(0);
   const[restaurantID,setRestaurantID] = useState("");
+  const[tag,setTag] = useState("");
+
+
 
   useEffect(() => {
+    setRestaurants([]);
     fetchRestaurants();
-  }, []);
+  }, [tag]);
 
   const fetchRestaurants = async () => {
     try {
       const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`,{
         token:token,
+        category: tag
       })
       const data = response.data;
+      console.log(data.randomRestaurants);
       setCurrentIndex(0);
       setRestaurants(data.randomRestaurants);
     } catch (error) {
@@ -41,6 +48,70 @@ export default function HomeScreen({route,navigation}) {
   .catch(function (error) {
     console.log(error);
   });
+};
+
+
+const DropdownComponent = () => {
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const types = [
+    { label: 'Fast Food', value: 'Fast Food' },
+    { label: 'Korean', value: 'Korean' },
+    { label: 'Chinese', value: 'Chinese' },
+    { label: 'Asian Fusion', value: 'Asian Fusion' },
+    { label: 'Italian', value: 'Italian' },
+    { label: 'Pizza', value: 'Pizza' },
+    { label: 'Chicken Wings', value: 'Chicken Wings' },
+    { label: 'Mexican', value: 'Mexican' },
+    { label: 'Tacos', value: 'Tacos' },
+    { label: 'Sushi', value: 'Sushi' },
+    { label: 'Indian', value: 'Indian' },
+    { label: 'Burgers', value: 'Burgers' },
+    { label: 'Ice Cream', value: 'Ice Cream' },
+    { label: 'Dessert', value: 'Dessert' },
+    { label: 'Coffee & Tea', value: 'Coffee & Tea' },
+    { label: 'Bubble Tea', value: 'Bubble Tea' },
+    { label: 'Bakeries', value: 'Bakeries' },
+    { label: 'Sandwiches', value: 'Sandwiches' },
+];
+
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: 'blue' }]}>
+        </Text>
+      );
+    }
+    return null;
+  };
+  return (
+    <View style={styles.container}> 
+      {renderLabel()}
+        <Dropdown
+          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={types}
+          search
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Select item' : '...'}
+          searchPlaceholder="Search..."
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setTag(item.value.toLowerCase());
+            setIsFocus(false);
+          }}
+        />
+      </View>
+  );
 };
 
 const renderRestaurant = () => {
@@ -68,10 +139,6 @@ const renderRestaurant = () => {
   );
 };
 
-HomeScreen.navigationOptions = {
-  headerLeft: null,
-};
-
   const handleNext = () => {
     if (currentIndex === restaurants.length - 1)
     {
@@ -84,6 +151,9 @@ HomeScreen.navigationOptions = {
 
   return (
     <View style={styles.container}>
+      
+      <DropdownComponent/>
+      <Text>{tag}</Text>
       {restaurants.length > 0 ? renderRestaurant() : <Text>Loading...</Text>}
       <Navbar email={email} token={token} navigation={navigation} />
     </View>
@@ -97,6 +167,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  dropdownContainer: {
+    backgroundColor: 'white',
+    padding: 16,
   },
   bottom: {
     flex: 1,
@@ -114,6 +188,29 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     overflow: 'hidden',
   },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
   image: {
     width: Dimensions.get('window').width / 2,
     height: 100,
@@ -121,7 +218,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
   },
-  
+  dropdown: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 25.,
+    borderRadius: 50,
+    paddingHorizontal: 40,
+  },
   details: {
     flex: 1,
     padding: 10,
