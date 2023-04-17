@@ -53,7 +53,7 @@ const AddtoVisited = (props) =>{
     
     return(
        <>
-       <Button color='primary' onClick={addtoVisitedList}>Add to Visited List</Button>
+       <Button className='insideWishlistButton' color='primary' onClick={addtoVisitedList}>Add to Visited List</Button>
        </>
     )
 

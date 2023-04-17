@@ -64,7 +64,7 @@ const AddReview = ({restaurantID, ...args}) =>{
 
     return(
         <>
-        <Button color='primary' size='sm' onClick={() =>toggleUserReview(restaurantID)}>Rate/Review</Button>
+        <Button className='insideWishlistButton' color='primary' size='sm' onClick={() =>toggleUserReview(restaurantID)}>Rate/Review</Button>
         <Modal isOpen={userReviewModal} toggle={toggleUserReview}>
           <Form onSubmit={submitReview}>
             <ModalHeader toggle={toggleUserReview}>Leave a Review</ModalHeader>

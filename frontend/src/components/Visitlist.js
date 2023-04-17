@@ -129,7 +129,7 @@ const Visitlist = (props) =>
                 <div key={restaurant.key} className='wishlistNameDiv'>
                     <h1 id='name'>{restaurant.name}</h1>
                     <Button className='showMoreButton' color="secondary" onClick={() => toggle(index)} style={{ marginBottom: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
-                        {isOpenList[index] ? 'Hide' : 'Show More'} {/*change button text based on state*/}
+                        {isOpenList[index] ? 'Hide' : 'Show'} {/*change button text based on state*/}
                     </Button>
                     
                     <Collapse isOpen={isOpenList[index]} >
@@ -143,7 +143,7 @@ const Visitlist = (props) =>
                                     <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
                                     <b>phone :</b> {restaurant.phone} <br /> 
                                     <AddReview restaurantID={restaurant.key} />
-                                    <Button color='danger' size='sm' onClick={() =>removeFromVisitlist(restaurant.key)}>Remove from visited</Button>
+                                    <Button className='insideWishlistButton' color='danger' size='sm' onClick={() =>removeFromVisitlist(restaurant.key)}>Remove From Visited</Button>
                                 </div>
                             </CardBody>
                         </Card>

@@ -1,7 +1,9 @@
-.card {
+
+  .card {
     width: 80%;
     height:700px
   }
+
 
   .container {
     max-height: calc(50vh - 50px);

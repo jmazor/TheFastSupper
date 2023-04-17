@@ -120,8 +120,8 @@ There was a second resutarntInfo in app.css that I moved here...?????
 }
   
 .wishlistRestaurantImg{
-    width: 11vw;
-    height: 100px;
+    width: 100%;
+    height: 15vh;
     object-fit: cover;
 }
 .showMoreButton {
@@ -171,22 +171,39 @@ There was a second resutarntInfo in app.css that I moved here...?????
 }
 #wishCard
 {
-    width: 80%;
     height:50%;
+    width: 90%;
     margin: 0 auto
 }
 
 .showMoreButton
 {
     position: inherit;
-    width: auto;
+    width: 90%;
     height: auto;
     
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    
 }
+
+.insideWishlistButton
+{
+    position: relative;
+    width: 100%;
+    height: auto;
+    
+    margin-bottom: 0.5rem;
+    
+}
+
+/*Great NAME for a css class!!! So descriptive!!!*/
 #name
 {
     position: inherit;
     font-size: 1.5vw;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 #wishTitle
 {
