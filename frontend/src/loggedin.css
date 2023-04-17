@@ -29,7 +29,7 @@
   }
   #likeButton
   {
-    background-color: green;
+    background-color: rgb(5, 198, 5);
     position: absolute;
     bottom: 20px;
     left: 42vw;
