@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
 import axios from 'axios';
 
-export default function HistoryScreen({route,navigation}) {
+export default function VistedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -12,11 +12,11 @@ export default function HistoryScreen({route,navigation}) {
 
 
   useEffect(() => {
-      wishlist();
+      visited();
   }, []);
   //[page]
 
-  const wishlist = async () => {
+  const visited = async () => {
     //setLoading(true);
     try {
       const response = await axios.post('https://fastsupper.herokuapp.com/api/visited',{
@@ -59,17 +59,11 @@ export default function HistoryScreen({route,navigation}) {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.description}</Text>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Visit Restaurant</Text>
+          <Text style={styles.buttonText}>Review</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
-
-  // const handleLoadMore = () => {
-  //   if (!loading) {
-  //     setPage(prevPage => prevPage + 1);
-  //   }
-  // };
 
   return (
     <View style={styles.container}>

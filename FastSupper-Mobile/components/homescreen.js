@@ -42,27 +42,6 @@ export default function HomeScreen({route,navigation}) {
   });
 };
 
-  const handleVisted = () => {
-    const item = restaurants[currentIndex];
-    axios.post('https://fastsupper.herokuapp.com/api/history-new', {
-      token:token,
-      restaurantID: item._id,
-      liked:true
-    })
-    const response = axios.post('https://fastsupper.herokuapp.com/api/history-visited', {
-    token:token,
-    restaurantID: item._id,
-  })
-  .then(function (response) {
-    console.log(response);  
-    handleNext();  
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-};
-
-
   const renderRestaurant = () => {
     const item = restaurants[currentIndex];
     return (
@@ -78,9 +57,6 @@ export default function HomeScreen({route,navigation}) {
             </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleLiked}>
             <Text style={styles.buttonText}>Like</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleVisted}>
-            <Text style={styles.buttonText}>Visited</Text>
           </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -107,8 +83,8 @@ export default function HomeScreen({route,navigation}) {
       <View style={styles.bottom}>
         <Button title="Settings" onPress={() =>navigation.navigate("Settings",{email:email,token:token})}></Button>
         <Button title="Log Out" onPress={()=> navigation.navigate("Login")}></Button>
-        <Button title="Saved Page" onPress={()=> navigation.navigate("Saved", {email:email,token:token})}></Button>
-        <Button title="History Page" onPress={()=> navigation.navigate("History", {email:email,token:token})}></Button>
+        <Button title="Liked" onPress={()=> navigation.navigate("Liked", {email:email,token:token})}></Button>
+        <Button title="Places You've Visited" onPress={()=> navigation.navigate("Visited", {email:email,token:token})}></Button>
       </View>
     </View>
     

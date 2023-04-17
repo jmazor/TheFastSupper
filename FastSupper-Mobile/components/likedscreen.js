@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Modal, Pressable} from 'react-native';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
-export default function HistoryScreen({route,navigation}) {
+
+export default function LikedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -51,24 +53,7 @@ export default function HistoryScreen({route,navigation}) {
   });
 };
 
-const showRes = (item) => {
-  //setModalVisible(true);
-  return(
-    <View>
-    <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <View style={styles.container}>
-            <View style={styles.restaurant}>
-            <Image source={{ uri: item.image_url }} style={styles.image} />
-              <Text style={styles.name}>{item.name}</Text>
 
-              <Pressable style={styles.button} onPress={() =>setModalVisible(!modalVisible)}>
-                <Text>Hide</Text>
-              </Pressable>
-            </View>
-          </View>
-    </Modal>
-    </View>
-  )}
 
   deleteItemByID = (id) =>{
     let arr = restaurants.filter(function(item) {
@@ -105,8 +90,8 @@ const showRes = (item) => {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.categories[0].title}</Text>
         <Text style={styles.description}>{item.location.display_address}</Text>
-        <TouchableOpacity style={styles.button} onPress={()=>showRes(item)}>
-          <Text style={styles.buttonText}>Visit Restaurant</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Show", {item:item,email:email,token:token})}>
+          <Text style={styles.buttonText}>Information</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>deleteRes(item)} style={styles.button}>
           <Text style={styles.buttonText}>Delete</Text>
