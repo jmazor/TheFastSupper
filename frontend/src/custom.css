@@ -69,12 +69,13 @@
     /*margin: auto; to cetner*/
     margin: auto;
     text-align: center;
-    padding: 0;
+    padding: 10px;
 }
 
 #foodType
 {
     width: 35vw;
+    margin-right: 10px;
 }
 
 .restaurantDiv
@@ -82,7 +83,7 @@
     display: block;
     width: 80vw;
     height: calc(100vh - 5vw);
-    overflow-y: scroll;
+    overflow-y: auto;
 
     margin-left: 25vw;
     color: black;
@@ -165,7 +166,7 @@ There was a second resutarntInfo in app.css that I moved here...?????
     position: relative;
     height: calc(100vh - 5vw - 50px);
     width: 20vw;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding-top: 10px;
     background-color: #22223B;
 
@@ -174,7 +175,7 @@ There was a second resutarntInfo in app.css that I moved here...?????
 {
     height:50%;
     width: 90%;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .showMoreButton
@@ -211,7 +212,7 @@ There was a second resutarntInfo in app.css that I moved here...?????
     font-size: 3vw;
     color: white;
     position: relative;
-    left:4%;
+    left:0%;
     
 }
 #restaurantCardImg{
