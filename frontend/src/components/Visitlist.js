@@ -29,7 +29,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 const Visitlist = (props) => 
 {
-    const { state } = props;
+    const { setVisitState, state } = props;
     const navigate = useNavigate()
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState([])
@@ -112,7 +112,7 @@ const Visitlist = (props) =>
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
             setIsOpenList(new Array(restaurantsList.length).fill(false));
-            setRenderVisitList(true);
+            setVisitState(!state);
         }catch(error){
             console.log(error)
             if(error.response.status == 401){
