@@ -142,11 +142,23 @@ There was a second resutarntInfo in app.css that I moved here...?????
     text-align: left;
 }
 
+.wishTab
+{
+    position: relative;
+    width: 19vw;
+}
+
+.wishTab Button
+{
+    width: 50%;
+    font-size: 1.4rem;
+}
+
 .wishlist /*MAKE WISHLIST SMALLER, MORE COMPACT, SIMPLE*/
 {
     position: relative;
     height: 800px;
-    width: 20vw;
+    width: 19vw;
     overflow-y: auto;
     padding-top: 10px;
 

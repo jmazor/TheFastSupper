@@ -138,9 +138,11 @@ const FindRestaurants = (args) =>{
           </div>
           <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
         </div>
-        <Button id="wishButton" onClick={() => {setListState("wish")}}>Liked Restaurants</Button>
-        <Button id="visitButton" onClick={() => {setListState("visit")}}>Visited Restaurants</Button>
 
+        <div className='wishTab'>
+          <Button color={(listState=="wish") ? "primary" : "secondary"} onClick={() => {setListState("wish")}}>Wishlist</Button>
+          <Button color={(listState=="visit") ? "primary" : "secondary"} onClick={() => {setListState("visit")}}>Visited</Button>
+        </div>
         {listState === "visit" ? <Visitlist/> : <Wishlist/>}
 
       </div>
