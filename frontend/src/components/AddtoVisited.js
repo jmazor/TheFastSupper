@@ -26,8 +26,9 @@ import
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
-const AddtoVisited = ({RestaurantID}) =>{
+const AddtoVisited = (props) =>{
     const navigate = useNavigate()
+    const { wishState, setWishState, visitState, setVisitState, RestaurantID } = props;
 
     const addtoVisitedList = async () =>{
         let data = {
@@ -39,7 +40,8 @@ const AddtoVisited = ({RestaurantID}) =>{
         try{
             const response = await axios.post(`${config.url}/api/history-visited`, data)
             console.log("added to visited")
-
+            setVisitState(!visitState);
+            setWishState(!wishState);
         }catch(error)
         {
             console.log(error)

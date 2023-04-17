@@ -28,8 +28,10 @@ import
   } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-const Wishlist = ({props, ...args}) => 
+import { set } from 'mongoose';
+const Wishlist = (props) => 
 {
+    const { state, setVisitState, setWishState, visitState } = props
     const navigate = useNavigate()
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState([])
@@ -48,10 +50,9 @@ const Wishlist = ({props, ...args}) =>
             await getWishlist(); // await the function call
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
-            // setIsOpenList(new Array(restaurantsList.length).fill(false));
         }
         fetchData();
-      }, [restaurantData]);
+      }, [state]);
       // useEffect(() => {
       //   const fetchData = async () => {
       //       //update wishlist when item is deleted
@@ -112,6 +113,7 @@ const Wishlist = ({props, ...args}) =>
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
             setIsOpenList(new Array(restaurantsList.length).fill(false));
+            setWishState(true);
         }catch(error){
             console.log(error)
             if(error.response.status == 401){
@@ -141,7 +143,7 @@ const Wishlist = ({props, ...args}) =>
                                     <b>Address:</b> {restaurant.address}, {restaurant.city}, {restaurant.state} {restaurant.zipCode}<br />
                                     <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
                                     <b>phone :</b> {restaurant.phone} <br /> 
-                                    <AddtoVisited RestaurantID={restaurant.key} />
+                                    <AddtoVisited wishState={state} setWishState={setWishState} setVisitState={setVisitState} RestaurantID={restaurant.key} visitState={visitState}/>
                                     <Button color='danger' size='sm' onClick={() =>removeFromWishlist(restaurant.key)}>Remove from wishlist</Button>
                                 </div>
                             </CardBody>

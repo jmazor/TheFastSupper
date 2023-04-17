@@ -26,6 +26,8 @@ import axios from 'axios';
 
 const FindRestaurants = (args) =>{
     const [listState, setListState] = useState("wish");
+    const [wishState, setWishState] = useState(true);
+    const [visitState, setVisitState] = useState(true);
     const navigate = useNavigate()
     let restaurantsList = [];
     const [restaurantData, setRestaurantData] = useState([]);
@@ -91,39 +93,6 @@ const FindRestaurants = (args) =>{
         }
       }
 
-    const getWishlist = async() =>{
-
-        const data = {
-            token : localStorage.getItem("token")
-          }
-
-        try{
-            const response = await axios.post(`${config.url}/api/wishlist`, data)
-
-            for(let i in response.data.wishlist){
-                console.log(response.data.wishlist[i].name)
-                restaurantsList.push(
-                {
-                key : response.data.wishlist[i].id,
-                name : response.data.wishlist[i].name,
-                rating : response.data.wishlist[i].rating,
-                city : response.data.wishlist[i].location.city,
-                state : response.data.wishlist[i].location.state,
-                zipCode : response.data.wishlist[i].location.zip_code,
-                country : response.data.wishlist[i].location.country,
-                address : response.data.wishlist[i].location.address1,
-                price : response.data.wishlist[i].price,
-                imageURL : response.data.wishlist[i].image_url,
-                restURL : response.data.wishlist[i].url,
-                phone : response.data.wishlist[i].phone
-                })
-              }
-              setRestaurantData(restaurantsList)
-            } catch (error)
-            {
-              console.error('Error:', error);
-            }
-        }
     
 
     return (
@@ -136,12 +105,12 @@ const FindRestaurants = (args) =>{
                 Find Food
             </Button>
           </div>
-          <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
+          <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex} setWishState={setWishState} wishState={wishState}/>
         </div>
         <Button id="wishButton" onClick={() => {setListState("wish")}}>Liked Restaurants</Button>
         <Button id="visitButton" onClick={() => {setListState("visit")}}>Visited Restaurants</Button>
 
-        {listState === "visit" ? <Visitlist/> : <Wishlist/>}
+        {listState === "visit" ? <Visitlist state={visitState}/> : <Wishlist setWishState={setWishState} state={wishState} setVisitState={setVisitState} visitState={visitState}/>}
 
       </div>
     )

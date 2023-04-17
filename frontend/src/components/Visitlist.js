@@ -27,8 +27,9 @@ import
   } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-const Visitlist = ({props, ...args}) => 
+const Visitlist = (props) => 
 {
+    const { state } = props;
     const navigate = useNavigate()
     let restaurantsList = []
     const [restaurantData, setRestaurantData] = useState([])
@@ -50,7 +51,7 @@ const Visitlist = ({props, ...args}) =>
             // setIsOpenList(new Array(restaurantsList.length).fill(false));
         }
         fetchData();
-      }, [restaurantData]);
+      }, [state]);
       // useEffect(() => {
       //   const fetchData = async () => {
       //       //update wishlist when item is deleted
@@ -111,6 +112,7 @@ const Visitlist = ({props, ...args}) =>
             // set restaurantData to the fetched data
             setRestaurantData(restaurantsList);
             setIsOpenList(new Array(restaurantsList.length).fill(false));
+            setRenderVisitList(true);
         }catch(error){
             console.log(error)
             if(error.response.status == 401){

@@ -26,7 +26,7 @@ import { useSpring, animated } from 'react-spring';
 
 function RestaurantCollaspe(props) {
     const [selectedRestaurantIndex, setSelectedRestaurantIndex] = useState(0);
-    const { restaurants, onIndexChange } = props;
+    const { restaurants, onIndexChange, setWishState, wishState } = props;
     const[wishlist, setWishlist] = useState('')
     const[visible, setVisible] = useState(false)
     const [swipeDirection, setSwipeDirection] = useState(null);
@@ -62,6 +62,7 @@ function RestaurantCollaspe(props) {
              console.log("item successfully added to wishlist")
              setWishlist("Item added to wishlist")
              setVisible(true)
+             setWishState(!wishState);
          }catch(error)
          {
              console.log(error)
