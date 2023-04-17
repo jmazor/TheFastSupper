@@ -58,7 +58,8 @@ const FindRestaurants = (args) =>{
     const findFood = async () => {
         
         let food = document.getElementById("foodType").value
-        if (food === "The Fast Supper")
+        food = food.toLowerCase()
+        if (food === "the fast supper")
           navigate("/scrambled");
 
         const data = {
