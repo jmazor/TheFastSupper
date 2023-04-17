@@ -58,11 +58,6 @@ const CollapseComponent = (props) =>{
     }
 
     return (
-  <div className="">
-    {/*    I'm not sure what these classes are supposed to be doing, but they were getting in my way.
-          <div className="row">
-            <div className="col-lg-8">*/}
-    <div className=""> 
       <div className="card">
         <img src={restaurants.imageURL} className="card-img-top" alt="Restaurant Image" />
         <div className="card-body">
@@ -74,15 +69,8 @@ const CollapseComponent = (props) =>{
             <b>Tag:</b> {restaurants.tag} <br/> {/* Note, only pulls one tag... there could be more*/}
             <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <br/>
           </p>
-          <div className="d-flex justify-content-between align-items-end">
-            {/* <button type="button" className="btn btn-secondary btn-lg mr-auto">Dislike</button>
-            <button type="button" className="btn btn-primary btn-lg ml-auto" onClick={() => addToWishlist(restaurants.key)}>Like</button> */}
-          </div>
-        
+        </div>
       </div>
-    </div>
-  </div>
-</div>
       );
     }   
 export default CollapseComponent;

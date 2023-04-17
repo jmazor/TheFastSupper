@@ -143,7 +143,7 @@ const Visitlist = (props) =>
                                     <b>Rating:</b> {restaurant.rating} Stars <GetReviews restaurant={restaurant} /><br />
                                     <b>phone :</b> {restaurant.phone} <br /> 
                                     <AddReview restaurantID={restaurant.key} />
-                                    <Button className='insideWishlistButton' color='danger' size='sm' onClick={() =>removeFromVisitlist(restaurant.key)}>Remove From Visited</Button>
+                                    <Button className='insideWishlistButton' color='danger' size='sm' onClick={() =>removeFromVisitlist(restaurant.key)}>Remove</Button>
                                 </div>
                             </CardBody>
                         </Card>

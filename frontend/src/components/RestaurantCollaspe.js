@@ -79,10 +79,10 @@ function RestaurantCollaspe(props) {
                 <div>
                     {/* <h1>Lets find your favorite restaurants</h1> */}
                     <animated.div style={swipeProps}>
-                    <CollapseComponent className='swipe' restaurants={restaurants[selectedRestaurantIndex]} />
+                        <CollapseComponent className='swipe' restaurants={restaurants[selectedRestaurantIndex]} />
                     </animated.div>
                     {restaurants.length > 1 && (
-                        <div id="ldButtons">
+                        <div>
                         <Button color="red" type="primary" id="dislikeButton" className="btn btn-primary btn-lg mr-auto" onClick={() => {
                             if (selectedRestaurantIndex < restaurants.length - 1) 
                             {

@@ -65,17 +65,16 @@
 
 .findFood
 {
-    width: 70%;
+    width: 65%;
     /*margin: auto; to cetner*/
-    margin-left: 5vw;
-    margin-top: 2%;
+    margin: auto;
     text-align: center;
-    padding: 10px;
+    padding: 0;
 }
 
 #foodType
 {
-    width: 45vw;
+    width: 35vw;
 }
 
 .restaurantDiv
@@ -94,7 +93,7 @@
 
 .restaurant
 {
-    padding-left: 5vw;
+    padding-left: 0;
 }
 
 .restaurantInfo
