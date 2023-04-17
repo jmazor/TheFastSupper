@@ -25,6 +25,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 const FindRestaurants = (args) =>{
+    const [listState, setListState] = useState("wish");
     const navigate = useNavigate()
     let restaurantsList = [];
     const [restaurantData, setRestaurantData] = useState([]);
@@ -134,13 +135,13 @@ const FindRestaurants = (args) =>{
             <Button id="findFoodBtn" color='primary' onClick={findFood}>
                 Find Food
             </Button>
-            {/* <button id="wishlist" onClick={getWishlist}>Get Wishlist</button> */}
           </div>
           <RestaurantCollaspe restaurants={checkIndex()} onIndexChange={updateSelectedRestaurantIndex}/>
         </div>
+        <Button id="wishButton" onClick={() => {setListState("wish")}}>Liked Restaurants</Button>
+        <Button id="visitButton" onClick={() => {setListState("visit")}}>Visited Restaurants</Button>
 
-
-        <Visitlist/>
+        {listState === "visit" ? <Visitlist/> : <Wishlist/>}
 
       </div>
     )
