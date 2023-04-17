@@ -17,14 +17,14 @@ import axios from 'axios';
 
 
 
-export default function LoginScreen({ navigation }) 
+export default function LoginScreen({ navigation , route }) 
 {
   const [email, setEmail] = useState("");
+  const[oldPassword, setOldPassword] = ("");
   const [password, setPassword] = useState("");
   const[isPasswordVisible, setIsPasswordVisible] = useState(false);
   const[error, setError] = useState("");
   const[refresh,setRefresh] = useState(false);
-
 
   const handleLogin = () => {
       axios.post('https://fastsupper.herokuapp.com/api/login', {
@@ -34,13 +34,23 @@ export default function LoginScreen({ navigation })
     .then(function (response) {
       let email = response.data.email;
       let token = response.data.token;
-      //console.log(email + token);
-      navigation.navigate("Home",{email:email,token:token,});      
+      if(response.data.changePassword)
+      {
+        
+        navigation.navigate("ChangePassword",{email:email,token:token,oldPassword:JSON.parse(response.config.data).password});
+      }
+      else{
+      
+      console.log(response);
+      navigation.navigate("Home",{email:email,token:token,});   
+      }    
     })
     .catch(function (error) {
       console.log(error);
       setError(error.response.data);
     });
+      //setEmail("");
+      //setPassword("");
 
   };
   const togglePasswordVisibility = () =>{
@@ -58,6 +68,7 @@ export default function LoginScreen({ navigation })
         <TextInput
           style={styles.TextInput}
           placeholder="Email:"
+          value={email}
           placeholderTextColor="#000000"
           onChangeText={(email) => setEmail(email)}
         /> 
@@ -67,6 +78,7 @@ export default function LoginScreen({ navigation })
           style={styles.TextInput}
           placeholder="Password:"
           placeholderTextColor="#000000"
+          value={password}
           secureTextEntry={!isPasswordVisible}
           onChangeText={(password) => setPassword(password)}
         /> 

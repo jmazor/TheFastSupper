@@ -19,7 +19,7 @@ export default function HistoryScreen({route,navigation}) {
   const wishlist = async () => {
     //setLoading(true);
     try {
-      const response = await axios.post('https://fastsupper.herokuapp.com/api/wishlist',{
+      const response = await axios.post('https://fastsupper.herokuapp.com/api/visited',{
       token:token
       })
       const data = response.data;

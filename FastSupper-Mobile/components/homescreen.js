@@ -18,7 +18,6 @@ export default function HomeScreen({route,navigation}) {
       const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`,{
         token:token,
       })
-      console.log("hehehehe");
       const data = response.data;
       setCurrentIndex(0);
       setRestaurants(data.randomRestaurants);
@@ -35,13 +34,34 @@ export default function HomeScreen({route,navigation}) {
     liked:true
   })
   .then(function (response) {
+    console.log(response);
     handleNext();    
   })
   .catch(function (error) {
     console.log(error);
   });
-
 };
+
+  const handleVisted = () => {
+    const item = restaurants[currentIndex];
+    axios.post('https://fastsupper.herokuapp.com/api/history-new', {
+      token:token,
+      restaurantID: item._id,
+      liked:true
+    })
+    const response = axios.post('https://fastsupper.herokuapp.com/api/history-visited', {
+    token:token,
+    restaurantID: item._id,
+  })
+  .then(function (response) {
+    console.log(response);  
+    handleNext();  
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
 
   const renderRestaurant = () => {
     const item = restaurants[currentIndex];
@@ -54,10 +74,13 @@ export default function HomeScreen({route,navigation}) {
             <Text style={styles.description}>{item.categories[0].title}</Text>
             <Text style={styles.description}>{item.location.display_address}</Text>
             <TouchableOpacity style={styles.button} onPress={handleNext}>
-              <Text style={styles.buttonText}>Dislike</Text>
+              <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleLiked}>
             <Text style={styles.buttonText}>Like</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleVisted}>
+            <Text style={styles.buttonText}>Visited</Text>
           </TouchableOpacity>
           </View>
         </TouchableOpacity>

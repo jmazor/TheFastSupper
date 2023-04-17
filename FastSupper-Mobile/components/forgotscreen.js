@@ -21,10 +21,8 @@ export default function ForgotScreen({ navigation })
   
 
   const handleForgot = () => {
-
     axios.post('https://fastsupper.herokuapp.com/api/forgotpassword', {
     email: email,
-    
   })
   .then(function (response) {
     console.log(response);

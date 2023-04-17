@@ -14,16 +14,14 @@ import axios from 'axios';
 
 
 
-
-
-
 export default function ChangePassword({route,navigation}){
-    const{email, token} = route.params;
-    const[oldPass, setOldPass] = useState("");
+    const{email, token, oldPassword} = route.params;
+    console.log(oldPassword);
+    const[oldPass, setOldPass] = useState(oldPassword);
     const[newPass, setNewPass] = useState("");
     const[isPasswordVisible, setIsPasswordVisible] = useState(false);
     const[error, setError] = useState("");
-
+    
 
 
     const handleChangePassword = () => {
@@ -34,7 +32,7 @@ export default function ChangePassword({route,navigation}){
     })
     .then(function (response) {
       console.log(response);
-      navigation.navigate("Home",{email:email,token:token,});        
+      navigation.navigate("Home",{email:email,token:token});        
     })
     .catch(function (error) {
       console.log(error);
@@ -56,9 +54,9 @@ export default function ChangePassword({route,navigation}){
         <TextInput
           style={styles.TextInput}
           placeholder="Old Password:"
+          value={oldPass}
           placeholderTextColor="#000000"
           secureTextEntry={!isPasswordVisible}
-          onChangeText={(oldPass) => setOldPass(oldPass)}
         /> 
         <TouchableOpacity onPress={togglePasswordVisibility}>
           <Text  style={styles.toggleButton}> {isPasswordVisible ? 'Hide' : 'Show'}</Text>

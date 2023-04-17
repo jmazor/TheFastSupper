@@ -1,33 +1,102 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Modal, Pressable} from 'react-native';
 import axios from 'axios';
 
-export default function SavedScreen({route,navigation}) {
+export default function HistoryScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const{email, token} = route.params;
+  const [searchQuery, setSearchQuery] = useState('');
+  const[modalVisible, setModalVisible] = useState(true);
+
 
 
   useEffect(() => {
-    fetchRestaurants();
-  }, [page]);
+      wishlist();
+  },[]);
+  //[page]
 
-  const fetchRestaurants = async () => {
-    setLoading(true);
+  const wishlist = async () => {
+    //setLoading(true);
     try {
-      const response = await axios.post(`https://fastsupper.herokuapp.com/api/restaurants`,{
-        token:token,
+      const response = await axios.post('https://fastsupper.herokuapp.com/api/wishlist',{
+      token:token
       })
-      console.log(response.data);
       const data = response.data;
-      setRestaurants(prevRestaurants => [...prevRestaurants, ...data.randomRestaurants]);
-      
+      //const ids = data.wishlist.map(item => item.id);
+      //console.log(ids);
+      //console.log(data.id);
+      setRestaurants(prevRestaurants => [...prevRestaurants, ...data.wishlist]);
+      //console.log(restaurants);
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
+    //setLoading(false);
   };
+
+  const deleteRes = async (item) => {
+    //console.log(token);
+    //console.log(item._id);
+    axios.post('https://fastsupper.herokuapp.com/api/history-delete', {
+    token:token,
+    restaurantID: item._id
+  })
+  .then(function (response) {
+    console.log(response);
+    deleteItemByID(item.id);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+const showRes = (item) => {
+  //setModalVisible(true);
+  return(
+    <View>
+    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.container}>
+            <View style={styles.restaurant}>
+            <Image source={{ uri: item.image_url }} style={styles.image} />
+              <Text style={styles.name}>{item.name}</Text>
+
+              <Pressable style={styles.button} onPress={() =>setModalVisible(!modalVisible)}>
+                <Text>Hide</Text>
+              </Pressable>
+            </View>
+          </View>
+    </Modal>
+    </View>
+  )}
+
+  deleteItemByID = (id) =>{
+    let arr = restaurants.filter(function(item) {
+      return item.id !== id
+    })
+    setRestaurants(arr);
+  }
+
+  const handleSearch = text =>{
+    setSearchQuery(text); 
+  }
+
+  const filteredRestaurants = restaurants.filter(
+    restaurant =>
+      restaurant.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const RenderHeader = () => {
+    return(
+    <View style={styles.header}>
+      <TextInput autoCapitalize='none'
+       onChangeText={handleSearch}
+       value={searchQuery}
+       status='info'
+       placeholder='Search'
+       ></TextInput>
+    </View>
+  )}
 
   const renderRestaurant = ({ item }) => (
     <TouchableOpacity style={styles.restaurant}>
@@ -35,26 +104,32 @@ export default function SavedScreen({route,navigation}) {
       <View style={styles.details}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.categories[0].title}</Text>
-        <TouchableOpacity style={styles.button}>
+        <Text style={styles.description}>{item.location.display_address}</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>showRes(item)}>
           <Text style={styles.buttonText}>Visit Restaurant</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>deleteRes(item)} style={styles.button}>
+          <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
 
-  const handleLoadMore = () => {
-    if (!loading) {
-      setPage(prevPage => prevPage + 1);
-    }
-  };
+  // const handleLoadMore = () => {
+  //   if (!loading) {
+  //     setPage(prevPage => prevPage + 1);
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={restaurants}
+        data={filteredRestaurants}
+        //data={restaurants}
         renderItem={renderRestaurant}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContainer}
+        ListHeaderComponent={RenderHeader}
         //onEndReached={handleLoadMore}
         onEndReachedThreshold={0.1}
         ListFooterComponent={loading && <Text style={styles.loading}>Loading more restaurants...</Text>}
@@ -71,6 +146,17 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flexGrow: 1,
+  },
+  header: {
+    backgroundColor: '#fff',
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchInput: {
+    borderRadius: 25,
+    borderColor: '#333',
+    backgroundColor: '#fff'
   },
   restaurant: {
     flexDirection: 'row',
