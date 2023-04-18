@@ -66,7 +66,7 @@ const CollapseComponent = (props) =>{
             <b>Address:</b> {restaurants.address}, {restaurants.city}, {restaurants.state} {restaurants.zipCode}<br />
             <b>Phone:</b> {restaurants.phone} <br/>
             <b>Cost:</b> {restaurants.price} <br/>
-            <b>Tag:</b> {restaurants.tag} <br/> {/* Note, only pulls one tag... there could be more*/}
+            <b>Tag:</b> {restaurants.tag} <br/> 
             <b>Rating:</b> {restaurants.rating} Stars <GetReviews restaurant={restaurants}/> <br/>
           </p>
         </div>

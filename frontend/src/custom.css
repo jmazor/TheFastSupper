@@ -177,6 +177,10 @@ There was a second resutarntInfo in app.css that I moved here...?????
     width: 90%;
     margin: 0 auto;
 }
+.fixReviewCard
+{
+    width: 100% !important;
+}
 
 .showMoreButton
 {

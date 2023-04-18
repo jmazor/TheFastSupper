@@ -12,8 +12,6 @@ export default function HomeScreen({route,navigation}) {
   const[restaurantID,setRestaurantID] = useState("");
   const[tag,setTag] = useState("");
 
-
-
   useEffect(() => {
     setRestaurants([]);
     fetchRestaurants();

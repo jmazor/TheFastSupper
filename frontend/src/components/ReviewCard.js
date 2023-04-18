@@ -3,7 +3,7 @@ import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 
 const ReviewCard = ({ review }) => {
   return (
-    <Card className="my-3">
+    <Card className="my-3 fixReviewCard">
       <CardBody>
         <CardTitle tag="h5">{`Rating: ${review.rating}`}</CardTitle>
         <CardText>{review.comment}</CardText>
