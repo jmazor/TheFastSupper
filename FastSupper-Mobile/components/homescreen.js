@@ -13,7 +13,7 @@ export default function HomeScreen({route,navigation}) {
   const[tag,setTag] = useState("");
 
   useEffect(() => {
-    setRestaurants([]);
+    //setRestaurants([]);
     fetchRestaurants();
   }, [tag]);
 
@@ -54,22 +54,14 @@ const DropdownComponent = () => {
   const [isFocus, setIsFocus] = useState(false);
 
   const types = [
-    { label: 'Fast Food', value: 'Fast Food' },
     { label: 'Korean', value: 'Korean' },
     { label: 'Chinese', value: 'Chinese' },
-    { label: 'Asian Fusion', value: 'Asian Fusion' },
     { label: 'Italian', value: 'Italian' },
     { label: 'Pizza', value: 'Pizza' },
-    { label: 'Chicken Wings', value: 'Chicken Wings' },
     { label: 'Mexican', value: 'Mexican' },
     { label: 'Tacos', value: 'Tacos' },
     { label: 'Sushi', value: 'Sushi' },
-    { label: 'Indian', value: 'Indian' },
     { label: 'Burgers', value: 'Burgers' },
-    { label: 'Ice Cream', value: 'Ice Cream' },
-    { label: 'Dessert', value: 'Dessert' },
-    { label: 'Coffee & Tea', value: 'Coffee & Tea' },
-    { label: 'Bubble Tea', value: 'Bubble Tea' },
     { label: 'Bakeries', value: 'Bakeries' },
     { label: 'Sandwiches', value: 'Sandwiches' },
 ];

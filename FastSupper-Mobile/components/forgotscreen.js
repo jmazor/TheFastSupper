@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+  justifyContent: "flex-start",
+  paddingTop: 50,
   },
   image: {
     marginBottom: 40,
