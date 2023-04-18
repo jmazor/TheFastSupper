@@ -59,18 +59,21 @@ const styles = StyleSheet.create({
     buttonInfo: {
       backgroundColor: '#00ABB3',
       borderRadius: 5,
-      padding: 10,
-      marginRight: 100,
+      padding: 15,
+      marginRight: 20,
     },
     buttonDel: {
       backgroundColor: '#FF4C29',
       borderRadius: 5,
-      padding: 10,
-      marginRight: 5,
+      padding: 15,
+      marginLeft: 20,
+
+
     },
     buttonText: {
       color: 'white',
       fontWeight: 'bold',
+      fontSize: 20,
     }, 
     loading: {
         textAlign: 'center',

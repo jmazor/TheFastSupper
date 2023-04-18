@@ -79,7 +79,7 @@ const DropdownComponent = () => {
     <View style={styles.container}> 
       {renderLabel()}
         <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          style={[styles.dropContainer, isFocus && { borderColor: 'white' }]}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
@@ -89,7 +89,7 @@ const DropdownComponent = () => {
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
+          placeholder={!isFocus ? 'Restaurant Categories' : '...'}
           searchPlaceholder="Search..."
           value={value}
           onFocus={() => setIsFocus(true)}
@@ -154,17 +154,30 @@ const renderRestaurant = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#B2B2B2',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 200,
   },
+  dropContainer: {
+    marginHorizontal: 20,
+    alignItems: 'center',
+    height: 40,
+    paddingTop: 10,
+    marginTop: 30,
+    paddingHorizontal: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    borderColor: '#B2B2B2',
+  },  
   dropdown: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'white',
     elevation: 5,
+    paddingTop: 100,
   },
   dropdownItem: {
     padding: 10,
@@ -182,10 +195,13 @@ const styles = StyleSheet.create({
   restaurant: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: '#3C4048',
     borderRadius: 10,
     marginBottom: 20,
     overflow: 'hidden',
+    padding: 10,
+    marginHorizontal: 20,
+    height: 400,
   },
   label: {
     position: 'absolute',
@@ -203,19 +219,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   iconStyle: {
+    marginLeft: 100,
     width: 20,
     height: 20,
   },
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
-  },
-  image: {
-    width: Dimensions.get('window').width / 2,
-    height: 100,
-    resizeMode: 'cover',
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
   },
   dropdown: {
     height: 40,
@@ -224,23 +234,40 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     paddingHorizontal: 40,
   },
+  image: {
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
   details: {
     flex: 1,
     padding: 10,
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
+    fontSize: 36,
+    fontWeight: '400',
+
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 10,
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '400',
+
   },
   buttonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 10,
   },

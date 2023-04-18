@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: 'white',
-    fontFamily: 'OpenSans-Regular',
     fontSize: 16,
     fontWeight: '400',
   },
@@ -194,7 +193,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     color: 'white',
-    fontFamily: 'OpenSans-Regular',
     fontSize: 36,
     fontWeight: '400',
 
@@ -204,7 +202,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 10,
     color: 'white',
-    fontFamily: 'OpenSans-Regular',
     fontSize: 16,
     fontWeight: '400',
 
