@@ -84,6 +84,15 @@ const FindRestaurants = (args) =>{
             setResultState("hidden");
           }
           for(let i in response.data.randomRestaurants){
+            let tags = "";
+            for (let j in response.data.randomRestaurants[i].categories)
+            {
+              if (j == 0)
+                tags = response.data.randomRestaurants[i].categories[j].title;
+              else
+                tags += ", " + response.data.randomRestaurants[i].categories[j].title;
+            }
+
             restaurantsList.push(
             {
             key : response.data.randomRestaurants[i]._id,
@@ -98,7 +107,7 @@ const FindRestaurants = (args) =>{
             imageURL : response.data.randomRestaurants[i].image_url,
             restURL : response.data.randomRestaurants[i].url,
             phone : response.data.randomRestaurants[i].phone,
-            tag: response.data.randomRestaurants[i].categories[0].title,
+            tag: tags,
             })
           }
           setRestaurantData(restaurantsList)
