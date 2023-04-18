@@ -106,8 +106,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flexGrow: 1,
-
-
   },
   header: {
     borderRadius: 25,
@@ -129,7 +127,6 @@ const styles = StyleSheet.create({
   restaurant: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#2C394B',
     backgroundColor: '#3C4048',
 
     borderRadius: 10,
@@ -150,12 +147,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
   },
   name: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 10,
+    paddingLeft: 30,
     color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontWeight: '400',
 
   },
   description: {
@@ -163,6 +166,9 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 10,
     color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
 
   },
   button: {

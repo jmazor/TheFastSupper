@@ -6,6 +6,7 @@ import Navbar from './navbar'
 
 
 
+
 export default function LikedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
@@ -166,7 +167,6 @@ const styles = StyleSheet.create({
   restaurant: {
     flexDirection: 'row',
     alignItems: 'center',
-    // backgroundColor: '#2C394B',
     backgroundColor: '#3C4048',
     borderRadius: 10,
     marginBottom: 20,
@@ -185,12 +185,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
     color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 36,
+    fontWeight: '400',
 
   },
   description: {
@@ -198,6 +204,9 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 10,
     color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
 
   },
   buttonContainer: {
