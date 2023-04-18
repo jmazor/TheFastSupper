@@ -60,7 +60,7 @@ const LoginPage = () =>
     }
 
     // Close the modal after submitting the form
-    toggle();
+    toggleSignUp();
   };
 
   const handleLogin = async (e) =>
