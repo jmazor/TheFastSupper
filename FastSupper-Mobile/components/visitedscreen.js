@@ -9,6 +9,15 @@ export default function VistedScreen({route,navigation}) {
   const [loading, setLoading] = useState(false);
   const{email, token} = route.params;
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
 
   useEffect(() => {
@@ -44,10 +53,13 @@ export default function VistedScreen({route,navigation}) {
     return(
     <View style={styles.header}>
       <TextInput autoCapitalize='none'
-       onChangeText={handleSearch}
-       value={searchQuery}
-       status='info'
-       placeholder='Search'
+        onChangeText={handleSearch}
+        value={searchQuery}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        autoFocus={isFocused}
+        status='info'
+        placeholder='Search'
        ></TextInput>
     </View>
   )}
@@ -87,30 +99,45 @@ export default function VistedScreen({route,navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    // backgroundColor: '#082032',
+    backgroundColor: '#B2B2B2',
+
     paddingBottom: 70,
   },
   listContainer: {
     flexGrow: 1,
+
+
   },
   header: {
+    borderRadius: 25,
     backgroundColor: '#fff',
     padding: 10,
+    margin: 10,
+    marginTop: 60,
     alignItems: 'center',
     justifyContent: 'center',
   },
   searchInput: {
     borderRadius: 25,
     borderColor: '#333',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    width: '100%',
   },
   restaurant: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    // backgroundColor: '#2C394B',
+    backgroundColor: '#3C4048',
+
     borderRadius: 10,
     marginBottom: 20,
     overflow: 'hidden',
+    padding: 10,
+    marginHorizontal: 20,
+
   },
   image: {
     width: 100,
@@ -122,27 +149,35 @@ const styles = StyleSheet.create({
   details: {
     flex: 1,
     padding: 10,
+    color: 'white',
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
+
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 10,
+    color: 'white',
+
   },
   button: {
-    backgroundColor: '#f55d22',
+    backgroundColor: '#00ABB3',//F0A500
     borderRadius: 5,
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
+    alignSelf: 'flex-end',
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
-  },
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },  
   loading: {
     textAlign: 'center',
     color: '#ccc',

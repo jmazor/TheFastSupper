@@ -168,9 +168,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  dropdownContainer: {
-    backgroundColor: 'white',
-    padding: 16,
+  dropdown: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#ffffff',
+    elevation: 5,
+  },
+  dropdownItem: {
+    padding: 10,
+    fontSize: 18,
+    fontWeight: '400',
   },
   bottom: {
     flex: 1,
