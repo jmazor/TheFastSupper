@@ -13,10 +13,12 @@
     "@react-navigation/native-stack": "^6.9.12",
     "axios": "^1.2.0-alpha.1",
     "expo": "~48.0.6",
+    "expo-font": "^11.1.1",
     "expo-secure-store": "~12.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-element-dropdown": "^2.9.0",
     "react-native-encrypted-storage": "^4.0.3",
     "react-navigation-stack": "^2.10.4",
     "yarn": "^1.22.19"

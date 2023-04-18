@@ -14,93 +14,68 @@ import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Navbar from '../navbar'
 
+export default function Settings({route,navigation}) {
+    const {email, token} = route.params;
 
-
-
-export default function Settings({route,navigation}){
-    const{email, token} = route.params;
-    
-    return(
-
+    return (
         <View style={styles.container}>
-                <Button title="Change Password" onPress={() => navigation.navigate("ChangePassword",{email:email,token:token})}></Button>
-                <Button title="Logout" onPress={() => navigation.navigate("Login")}></Button>
-                <Navbar email={email} token={token} navigation={navigation} />
+            <View style={styles.buttonContainer}>
 
+                <TouchableOpacity style={styles.buttonInfo} onPress={()=>navigation.navigate("ChangePassword",{email:email,token:token})}>
+                  <Text style={styles.buttonText}>Information</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.buttonDel} onPress={()=>navigation.navigate("Login")}>
+                 <Text style={styles.buttonText}>Logout</Text>
+                </TouchableOpacity>
+
+            </View>
+            <Navbar email={email} token={token} navigation={navigation} />
         </View>
-
-
     );
-
-
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#B2B2B2',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36
-  },
-  listContainer: {
-    flex: 1,
-  },
-  restaurant: {
+    justifyContent: 'flex-start',
     flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    marginBottom: 20,
-    overflow: 'hidden',
-  },
-  image: {
-    width: Dimensions.get('window').width / 2,
-    height: 100,
-    resizeMode: 'cover',
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-  },
-  
-  details: {
-    flex: 1,
-    padding: 10,
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  description: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 10,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  button: {
-    backgroundColor: '#2f95dc',
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginHorizontal: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  loading: {
-    textAlign: 'center',
-    color: '#ccc',
-    marginTop: 10,
-    marginBottom: 20,
-  },
+    },
+    // buttonContainer: {
+    //   flexDirection: 'row',
+    //   justifyContent: 'space-between',
+    //   width: '100%',
+    //   paddingHorizontal: 60,
+    //   marginBottom: 700,
+    // },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingHorizontal: 60,
+      marginBottom: 700,
+    },
+    buttonInfo: {
+      backgroundColor: '#00ABB3',
+      borderRadius: 5,
+      padding: 10,
+      marginRight: 100,
+    },
+    buttonDel: {
+      backgroundColor: '#FF4C29',
+      borderRadius: 5,
+      padding: 10,
+      marginRight: 5,
+    },
+    buttonText: {
+      color: 'white',
+      fontWeight: 'bold',
+    }, 
+    loading: {
+        textAlign: 'center',
+        color: '#ccc',
+        marginTop: 10,
+        marginBottom: 20,
+    },
 });

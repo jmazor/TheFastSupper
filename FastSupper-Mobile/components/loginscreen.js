@@ -49,8 +49,8 @@ export default function LoginScreen({ navigation , route })
       console.log(error);
       setError(error.response.data);
     });
-      //setEmail("");
-      //setPassword("");
+      setEmail("");
+      setPassword("");
 
   };
   const togglePasswordVisibility = () =>{
@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+  justifyContent: "flex-start",
+  paddingTop: 50,
   },
   image: {
     marginBottom: 40,

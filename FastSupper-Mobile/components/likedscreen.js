@@ -6,6 +6,7 @@ import Navbar from './navbar'
 
 
 
+
 export default function LikedScreen({route,navigation}) {
   const [restaurants, setRestaurants] = useState([]);
   const [page, setPage] = useState(1);
@@ -13,6 +14,15 @@ export default function LikedScreen({route,navigation}) {
   const{email, token} = route.params;
   const [searchQuery, setSearchQuery] = useState('');
   const[modalVisible, setModalVisible] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
 
 
@@ -28,20 +38,14 @@ export default function LikedScreen({route,navigation}) {
       token:token
       })
       const data = response.data;
-      //const ids = data.wishlist.map(item => item.id);
-      //console.log(ids);
-      //console.log(data.id);
       setRestaurants(prevRestaurants => [...prevRestaurants, ...data.wishlist]);
-      //console.log(restaurants);
     } catch (error) {
       console.error(error);
     }
-    //setLoading(false);
   };
 
   const deleteRes = async (item) => {
-    //console.log(token);
-    //console.log(item._id);
+
     axios.post('https://fastsupper.herokuapp.com/api/history-delete', {
     token:token,
     restaurantID: item._id
@@ -77,10 +81,13 @@ export default function LikedScreen({route,navigation}) {
     return(
     <View style={styles.header}>
       <TextInput autoCapitalize='none'
-       onChangeText={handleSearch}
-       value={searchQuery}
-       status='info'
-       placeholder='Search'
+        onChangeText={handleSearch}
+        value={searchQuery}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        autoFocus={isFocused}
+        status='info'
+        placeholder='Search'
        ></TextInput>
     </View>
   )}
@@ -92,25 +99,22 @@ export default function LikedScreen({route,navigation}) {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.description}>{item.categories[0].title}</Text>
         <Text style={styles.description}>{item.location.display_address}</Text>
-        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Show", {item:item,email:email,token:token})}>
-          <Text style={styles.buttonText}>Information</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>deleteRes(item)} style={styles.button}>
-          <Text style={styles.buttonText}>Delete</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.buttonInfo} onPress={()=>navigation.navigate("Show", {item:item,email:email,token:token})}>
+            <Text style={styles.buttonText}>Information</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>deleteRes(item)} style={styles.buttonDel}>
+            <Text style={styles.buttonText}>Delete</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableOpacity>
   );
-
-  // const handleLoadMore = () => {
-  //   if (!loading) {
-  //     setPage(prevPage => prevPage + 1);
-  //   }
-  // };
+  
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <FlatList style={styles.listContainer}
         data={filteredRestaurants}
         //data={restaurants}
         renderItem={renderRestaurant}
@@ -132,35 +136,43 @@ export default function LikedScreen({route,navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#B2B2B2',
     paddingBottom: 70,
   },
   navbar: {
     flex: 1,
     backgroundColor: '#f8f8f8',
-    
   },
   listContainer: {
     flexGrow: 1,
   },
   header: {
+    borderRadius: 25,
     backgroundColor: '#fff',
     padding: 10,
+    margin: 20,
+    marginTop: 80, // add margin to the top of the header
     alignItems: 'center',
     justifyContent: 'center',
   },
   searchInput: {
     borderRadius: 25,
     borderColor: '#333',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    width: '100%',
+
   },
   restaurant: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#3C4048',
     borderRadius: 10,
     marginBottom: 20,
     overflow: 'hidden',
+    padding: 10,
+    marginHorizontal: 20,
   },
   image: {
     width: 100,
@@ -172,27 +184,52 @@ const styles = StyleSheet.create({
   details: {
     flex: 1,
     padding: 10,
+    color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 36,
+    fontWeight: '400',
+
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 10,
+    color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
+
   },
-  button: {
-    backgroundColor: '#f55d22',
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  buttonInfo: {
+    backgroundColor: '#00ABB3',
     borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    padding: 10,
+    marginRight: 5,
+  },
+  buttonDel: {
+    backgroundColor: '#FF4C29',
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 5,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
+    color: 'white',
+    fontWeight: 'bold',
+  }, 
   loading: {
     textAlign: 'center',
     color: '#ccc',

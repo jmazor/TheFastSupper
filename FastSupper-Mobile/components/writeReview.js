@@ -46,9 +46,6 @@ export default function ReviewScreen({route,navigation}) {
   });
 };
 
-
-  
-
 const renderReview = ({ item }) => (
     <TouchableOpacity style={styles.restaurant}>
       <View style={styles.details}>
@@ -68,7 +65,7 @@ const handleRatingSelect = (value) => {
 
       <View>
 
-      <FlatList
+      <FlatList style={styles.listComp}
         data={review}
         renderItem={renderReview}
         keyExtractor={item => item.id}
@@ -124,11 +121,9 @@ const handleRatingSelect = (value) => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8f8f8',
-    alignItems: 'center',
-    justifyContent: 'center',
+
+  listComp: {
+    paddingTop: 90,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -160,9 +155,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    width: 300,
-    height: 500,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#B2B2B2',
     padding: 20,
   },
   bottom:{
@@ -176,9 +169,9 @@ const styles = StyleSheet.create({
   restaurant: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#3C4048',
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 100,
     overflow: 'hidden',
   },
   image: {
@@ -191,16 +184,30 @@ const styles = StyleSheet.create({
   details: {
     flex: 1,
     padding: 10,
+    color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
   },
   name: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 10,
+    paddingLeft: 30,
+    color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontWeight: '400',
+
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 10,
+    color: 'white',
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
+
   },
   button: {
     backgroundColor: '#f55d22',
